@@ -31,12 +31,14 @@ services:
     command: npm start
 
     environment:
-      - PORT=3001
-      - JWT_SECRET=secret_jwt
-      - DB_USER=root
-      - DB_PASS=main4
-      - DB_HOST=db
-      - DB_PORT=3306
+    - NODE_ENV=development
+    - API_PORT=3001
+    - HOSTNAME=db
+    - MYSQL_PORT=3306
+    - MYSQL_USER=root
+    - MYSQL_PASSWORD=main4
+    - MYSQL_DB_NAME=delivery-app
+    - EVAL_ALWAYS_RESTORE_DEV_DB=true
 
     ports: 
       - "3001:3001"
@@ -54,6 +56,7 @@ services:
 
     environment:
       - MYSQL_ROOT_PASSWORD=main4
+      - MYSQL_DB_NAME=delivery-app
 
     ports:
       - 3306:3306
