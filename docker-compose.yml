@@ -1,0 +1,61 @@
+version: '3.9'
+services:
+  frontend:
+    image: node:16.14-alpine
+
+    working_dir: /front-app
+    restart: on-failure
+
+    stdin_open: true
+    tty: true
+
+    command: npm start
+
+    ports:
+      - 3000:3000
+    depends_on:
+      - backend
+
+    volumes:
+      - ./front-end:/front-app
+     
+  backend:
+    image: node:16.14-alpine
+
+    working_dir: /back-app
+    restart: on-failure  
+
+    stdin_open: true
+    tty: true
+
+    command: npm start
+
+    environment:
+      - PORT=3001
+      - JWT_SECRET=secret_jwt
+      - DB_USER=root
+      - DB_PASS=main4
+      - DB_HOST=db
+      - DB_PORT=3306
+
+    ports: 
+      - "3001:3001"
+
+    depends_on:
+      - db  
+
+    volumes:
+      - ./back-end:/back-app
+
+  db:
+    image: mysql:8.0.21
+
+    restart: on-failure
+
+    environment:
+      - MYSQL_ROOT_PASSWORD=main4
+
+    ports:
+      - 3306:3306
+
+    
