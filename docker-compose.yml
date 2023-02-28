@@ -28,7 +28,7 @@ services:
     stdin_open: true
     tty: true
 
-    # command: npm start
+    command: npm start
 
     environment:
     - NODE_ENV=development
