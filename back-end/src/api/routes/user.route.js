@@ -7,7 +7,7 @@ const userRouter = Router();
 
 // userRouter.post('/', validateBodyUser, userController.insert);
 userRouter.get('/', UserController.getAll);
-userRouter.get('/login', UserController.login);
+userRouter.post('/login', UserController.login);
 // userRouter.get('/:id', validateJWT, userController.getById);
 
 module.exports = userRouter;
