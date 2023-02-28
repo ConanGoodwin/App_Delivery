@@ -8,7 +8,7 @@ const userRouter = Router();
 
 // userRouter.post('/', validateBodyUser, userController.insert);
 userRouter.get('/', UserController.getAll);
-userRouter.post('/', UserController.create);
+userRouter.post('/', validadeBody, UserController.create);
 userRouter.post('/login', validadeBody, UserController.login);
 // userRouter.get('/:id', validateJWT, userController.getById);
 
