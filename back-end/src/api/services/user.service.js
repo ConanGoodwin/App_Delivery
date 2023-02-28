@@ -1,15 +1,28 @@
+const md5 = require('md5');
 const { User } = require("../../database/models");
 
 const getAll = async () => {
-  const users = await User.findAll();
+  const message = await User.findAll();
 
-  if (users) return { type: null, message: users }
+  if (message) return { type: null, message }
 
   return { type: 'NOT_FOUND', message: 'Users not found' };
 };
 
+const getByEmailPassword = async (email, noEcriptPassword) => {
+  try {
+    const password = md5(noEcriptPassword);
+    const message = await User.findOne({ where: { email, password } });
+
+    return returnServiceIfNull(message, 'USER_NOT_FOUND', 'Invalid fields');
+  } catch (error) {
+    throwError(error);
+  }
+};
+
 module.exports = {
   getAll,
+  getByEmailPassword,
 };
 
 // const teste = async () => {
