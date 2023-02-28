@@ -39,6 +39,7 @@ services:
     - MYSQL_PASSWORD=main4
     - MYSQL_DB_NAME=delivery-app
     - EVAL_ALWAYS_RESTORE_DEV_DB=true
+    - JWT_SECRET='seusecretdetoken'
 
     ports: 
       - "3001:3001"

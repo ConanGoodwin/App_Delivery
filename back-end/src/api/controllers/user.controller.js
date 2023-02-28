@@ -9,8 +9,7 @@ const getAll = async (_req,res) => {
   const arrayPass = message.map(({password}) => password === md5('$#zebirita#$'));
   console.log(arrayPass);
 
-  return res.status(200).json(message);
-  // return res.status(200).json('ok');
+  returnController(res, type, message, 200);
 }
 
 const login = async (req, res) => {
