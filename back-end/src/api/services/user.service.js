@@ -10,14 +10,16 @@ const getAll = async () => {
 };
 
 const getByEmailPassword = async (email, noEcriptPassword) => {
-  try {
+  // try {
     const password = md5(noEcriptPassword);
     const message = await User.findOne({ where: { email, password } });
 
-    return returnServiceIfNull(message, 'USER_NOT_FOUND', 'Invalid fields');
-  } catch (error) {
-    throwError(error);
-  }
+    if (message) return { type: null, message };
+  
+    return { type: 'USER_NOT_FOUND', message: 'Invalid fields' };
+  // } catch (error) {
+  //   throwError(error);
+  // }
 };
 
 module.exports = {
