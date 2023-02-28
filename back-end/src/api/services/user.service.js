@@ -1,7 +1,7 @@
 const { User } = require("../../database/models");
 
 const getAll = async () => {
-  const [users] = await User.findAll();
+  const users = await User.findAll();
 
   if (users) return { type: null, message: users }
 
