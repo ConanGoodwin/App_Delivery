@@ -28,7 +28,7 @@ services:
     stdin_open: true
     tty: true
 
-    command: npm start
+    # command: npm start
 
     environment:
     - NODE_ENV=development
@@ -39,6 +39,7 @@ services:
     - MYSQL_PASSWORD=main4
     - MYSQL_DB_NAME=delivery-app
     - EVAL_ALWAYS_RESTORE_DEV_DB=true
+    - JWT_SECRET='seusecretdetoken'
 
     ports: 
       - "3001:3001"
@@ -59,6 +60,6 @@ services:
       - MYSQL_DB_NAME=delivery-app
 
     ports:
-      - 3306:3306
+      - 33006:3306
 
     
