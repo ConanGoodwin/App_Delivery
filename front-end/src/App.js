@@ -5,7 +5,9 @@ import LoginProvider from './context/LoginProvider';
 function App() {
   return (
     <BrowserRouter>
+      <LoginProvider>
         <Router />
+      </LoginProvider>
     </BrowserRouter>
   );
 }
