@@ -1,14 +1,6 @@
 const UserService = require('../services/user.service')
-const crypto = require('crypto');
+const { returnController, returnControllerToken } = require('../utils/returnServicesControllers');
 const md5 = require('md5');
-
-const algorithm = 'aes-256-ctr';
-const ENCRYPTION_KEY = "secret_key"; // or generate sample key Buffer.from('FoCKvdLslUuB4y3EZlKate7XGottHski1LmyqJHvUhs=', 'base64');
-// const IV_LENGTH = 16;
-
-const ENC= 'bf3c199c2470cb477d907b1e0917c17b';
-const IV = "5183666c72eec9e4";
-const ALGO = "aes-256-ctr"
 
 const getAll = async (_req,res) => {
   const { type, message } = await UserService.getAll();
