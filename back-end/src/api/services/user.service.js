@@ -30,7 +30,7 @@ const create = async ( name, email, noEcriptPassword, role) => {
     return { type: 'USER_ALREADY_EXIST', message: 'User already registered' };
   }
 
-  const message = await User.create({ name, email, password, image });
+  const message = await User.create({ name, email, password, role });
 
   if (message) return { type: null, message };
   
