@@ -1,10 +1,10 @@
 const md5 = require('md5');
-const { User } = require("../../database/models");
+const { User } = require('../../database/models');
 
 const getAll = async () => {
   const message = await User.findAll();
 
-  if (message) return { type: null, message }
+  if (message) return { type: null, message };
 
   return { type: 'NOT_FOUND', message: 'Users not found' };
 };
