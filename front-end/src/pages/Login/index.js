@@ -26,7 +26,6 @@ function Login() {
         Usuário:
         {' '}
         {user?.token}
-        {user?.message}
       </p>
       <button
         type="button"
