@@ -31,7 +31,7 @@ const create = async (req, res) => {
 
   const { type, message } = await UserService.create(name, email, password, role);
 
-  returnControllerToken(res, type, message, 201);
+  returnController(res, type, message, 201);
 };
 
 module.exports = {
