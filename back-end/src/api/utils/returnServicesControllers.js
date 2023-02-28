@@ -10,7 +10,7 @@ const returnServiceIfNull = (check, type, message) => {
 const returnControllerToken = (res, type, message, status) => {
   if (type) return res.status(typesError[type]).json({ message });
 
-  return res.status(status).json({ token: defineToken(message.id) });
+  return res.status(status).json({ token: defineToken(message.id), role: message.role });
 };
 
 const returnController = (res, type, message, status) => {

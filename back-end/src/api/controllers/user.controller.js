@@ -26,7 +26,16 @@ const login = async (req, res) => {
   returnControllerToken(res, type, message, 200);
 };
 
+const create = async (req, res) => {
+  const { name, email, password, role } = req.body;
+
+  const { type, message } = await UserService.create(name, email, password, role);
+
+  returnController(res, type, message, 201);
+};
+
 module.exports = {
   getAll,
   login,
+  create,
 };
