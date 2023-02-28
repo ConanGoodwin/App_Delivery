@@ -22,7 +22,7 @@ const getByEmailPassword = async (email, noEcriptPassword) => {
   // }
 };
 
-const create = async ( name, email, noEcriptPassword, role) => {
+const create = async (name, email, noEcriptPassword, role) => {
   const password = md5(noEcriptPassword);
   const ifExistEmail = await User.findOne({ where: { email } });
 
@@ -35,7 +35,7 @@ const create = async ( name, email, noEcriptPassword, role) => {
   if (message) return { type: null, message };
   
   return { type: 'USER_NOT_CREATE', message: 'Failed create user' };
-}
+};
 
 module.exports = {
   getAll,
