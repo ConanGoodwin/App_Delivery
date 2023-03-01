@@ -15,12 +15,6 @@ const getAll = async (_req, res) => {
 const login = async (req, res) => {
   const { email, password } = req.body; 
 
-  if (!email || !password) {
-    return res.status(400).json({
-      message: 'Some required fields are missing',
-    }); 
-  }
-
   const { type, message } = await UserService.getByEmailPassword(email, password);
 
   returnControllerToken(res, type, message, 200);
@@ -28,12 +22,6 @@ const login = async (req, res) => {
 
 const create = async (req, res) => {
   const { name, email, password, role } = req.body;
-
-  if (!email || !password || !name || !role) {
-    return res.status(400).json({
-      message: 'Some required fields are missing',
-    }); 
-  }
 
   const { type, message } = await UserService.create(name, email, password, role);
 
