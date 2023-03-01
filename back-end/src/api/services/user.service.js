@@ -25,8 +25,14 @@ const getByEmailPassword = async (email, noEcriptPassword) => {
 const create = async (name, email, noEcriptPassword, role) => {
   const password = md5(noEcriptPassword);
   const ifExistEmail = await User.findOne({ where: { email } });
+  const ifExistName = await User.findOne({ where: { name } });
+
 
   if (ifExistEmail) {
+    return { type: 'USER_ALREADY_EXIST', message: 'User already registered' };
+  }
+
+  if (ifExistName) {
     return { type: 'USER_ALREADY_EXIST', message: 'User already registered' };
   }
 
