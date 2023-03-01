@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 // import api from '../../services/api';
-import { Navigate } from 'react-router-dom';
+import { Navigate, unstable_HistoryRouter } from 'react-router-dom';
 import { requestLogin, setToken } from '../../services/api';
 import {
   COMMON_LOGIN_BTN_L,
@@ -21,15 +21,17 @@ function Login() {
 
     try {
       const { token, role } = await requestLogin('/user/login', { email, password });
-
+      console.log('oi')
       setToken(token);
 
-      localStorage.setItem('token', token);
+      localStorage.setItem('oi', token);
       localStorage.setItem('role', role);
-
+      const history = unstable_HistoryRouter();
+      if (token) return history.push('/register');
       // setIsLogged(true);
     } catch (error) {
       setFailedTryLogin(true);
+      console.log('erro')
       // setIsLogged(false);
     }
   };
