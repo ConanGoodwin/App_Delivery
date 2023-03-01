@@ -29,6 +29,12 @@ const login = async (req, res) => {
 const create = async (req, res) => {
   const { name, email, password, role } = req.body;
 
+  if (!email || !password || !name || !role) {
+    return res.status(400).json({
+      message: 'Some required fields are missing',
+    }); 
+  }
+
   const { type, message } = await UserService.create(name, email, password, role);
 
   returnController(res, type, message, 201);
