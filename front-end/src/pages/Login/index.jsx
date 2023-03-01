@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 // import api from '../../services/api';
 import { Navigate } from 'react-router-dom';
-import { requestData, requestLogin, setToken } from '../../services/api';
+import { requestLogin, setToken } from '../../services/api';
 import {
   COMMON_LOGIN_BTN_L,
   COMMON_LOGIN_BTN_R,
@@ -13,25 +13,24 @@ function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [register, setRegister] = useState(false);
+  // const [isLogged, setIsLogged] = useState(false);
   const [failedTryLogin, setFailedTryLogin] = useState(false);
 
   const login = async (event) => {
     event.preventDefault();
 
     try {
-      const { token } = await requestLogin('/user/login', { email, password });
+      const { token, role } = await requestLogin('/user/login', { email, password });
 
       setToken(token);
-
-      const { role } = await requestData('/login/validate', { email, password });
 
       localStorage.setItem('token', token);
       localStorage.setItem('role', role);
 
-      setIsLogged(true);
+      // setIsLogged(true);
     } catch (error) {
       setFailedTryLogin(true);
-      setIsLogged(false);
+      // setIsLogged(false);
     }
   };
 
