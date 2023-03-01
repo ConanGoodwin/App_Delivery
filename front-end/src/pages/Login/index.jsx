@@ -1,13 +1,49 @@
-import React, { useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 // import api from '../../services/api';
-import LoginContext from '../../context/LoginContext';
+import { Navigate } from 'react-router-dom';
+import { requestData, requestLogin, setToken } from '../../services/api';
+import {
+  COMMON_LOGIN_BTN_L,
+  COMMON_LOGIN_BTN_R,
+  COMMON_LOGIN_EMAIL,
+  COMMON_LOGIN_INVALID,
+  COMMON_LOGIN_PASSWORD } from '../../constant/register_dataTestId';
 
 function Login() {
-  const context = useContext(LoginContext);
-  console.log(context);
-  // const [user, setUser] = useState('');
-  // const [email, setEmail] = useState('');
-  // const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [register, setRegister] = useState(false);
+  const [failedTryLogin, setFailedTryLogin] = useState(false);
+
+  const login = async (event) => {
+    event.preventDefault();
+
+    try {
+      const { token } = await requestLogin('/user/login', { email, password });
+
+      setToken(token);
+
+      const { role } = await requestData('/login/validate', { email, password });
+
+      localStorage.setItem('token', token);
+      localStorage.setItem('role', role);
+
+      setIsLogged(true);
+    } catch (error) {
+      setFailedTryLogin(true);
+      setIsLogged(false);
+    }
+  };
+
+  useEffect(() => {
+    setFailedTryLogin(false);
+  }, [email, password]);
+
+  const handleRegisterBtn = () => {
+    setRegister(true);
+  };
+
+  if (register) return <Navigate to="/register" />;
 
   // const loginClick = async () => {
   //   // api.defaults.headers.authorization = 'teste';
@@ -32,29 +68,44 @@ function Login() {
           <input
             className="login__login_input"
             type="text"
-            // value={ email }
-            // onChange={ ({ target: { value } }) => setEmail(value) }
-            data-testid="login__login_input"
+            value={ email }
+            onChange={ ({ target: { value } }) => setEmail(value) }
+            data-testid={ COMMON_LOGIN_EMAIL }
             placeholder="Login"
           />
         </label>
         <label htmlFor="password-input">
           <input
             type="password"
-            // value={ password }
-            // onChange={ ({ target: { value } }) => setPassword(value) }
-            data-testid="login__password_input"
+            value={ password }
+            onChange={ ({ target: { value } }) => setPassword(value) }
+            data-testid={ COMMON_LOGIN_PASSWORD }
             placeholder="Senha"
           />
         </label>
+        {
+          (failedTryLogin)
+            ? (
+              <p data-testid={ COMMON_LOGIN_INVALID }>
+                {
+                  `O endereço de e-mail ou a senha não estão corretos.
+                    Por favor, tente novamente.`
+                }
+              </p>
+            )
+            : null
+        }
         <button
           type="submit"
+          data-testid={ COMMON_LOGIN_BTN_L }
+          onClick={ (event) => login(event) }
         >
           LOGIN
         </button>
         <button
           type="button"
-          // onClick = {() => <Navigate to="/register" /> }
+          data-testid={ COMMON_LOGIN_BTN_R }
+          onClick={ handleRegisterBtn }
 
         >
           Ainda não tenho conta
