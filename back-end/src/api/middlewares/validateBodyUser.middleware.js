@@ -11,7 +11,7 @@ const validateBodyRegister = async (req, res, next) => {
 };
 
 const validateBodyLogin = async (req, res, next) => {
-  const { name, email, password, role } = req.body;
+  const { email, password } = req.body;
 
     if (!email || !password) {
       return res.status(400).json({
