@@ -28,5 +28,19 @@ module.exports = (sequelize, DataTypes) => {
     underscored: true,
     tableName: 'users'
   });
+
+  User.associate = (models) => {
+    User.belongsTo(models.sales, {
+      as: 'sales',
+      foreignKey: 'userId',
+    })
+  }
+
+  User.associate = (models) => {
+    User.belongsTo(models.sales, {
+      as: 'sales',
+      foreignKey: 'sellerId',
+    });
+  }
   return User;
 };
