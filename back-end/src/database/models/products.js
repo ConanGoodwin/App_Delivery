@@ -9,7 +9,7 @@ const product = sequelize.define('products', {
   },
   name: { type: DataTypes.STRING },
   price: { type:DataTypes.DECIMAL },
-  ulr_image: { type: DataTypes.STRING }
+  url_image: { type: DataTypes.STRING }
   }, {
     timestamps: false,
     underscored: true,
