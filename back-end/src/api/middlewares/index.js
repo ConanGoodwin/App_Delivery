@@ -1,9 +1,10 @@
 const errorMiddleware = require('./error.middleware');
-const { validateBody, validateEmail, validateLength } = require('./validateBodyUser.middleware');
+const { validateBodyLogin, validateBodyRegister, validateEmail, validateLength } = require('./validateBodyUser.middleware');
 
 module.exports = {
   errorMiddleware,
-  validateBody,
+  validateBodyLogin,
+  validateBodyRegister,
   validateEmail,
   validateLength,
 };
