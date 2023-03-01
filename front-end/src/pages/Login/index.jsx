@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 // import api from '../../services/api';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { requestLogin, setToken } from '../../services/api';
 import {
   COMMON_LOGIN_BTN_L,
@@ -12,7 +12,6 @@ import {
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [register, setRegister] = useState(false);
   const navigate = useNavigate();
   // const [isLogged, setIsLogged] = useState(false);
   const [failedTryLogin, setFailedTryLogin] = useState(false);
@@ -40,8 +39,6 @@ function Login() {
   const handleRegisterBtn = () => {
     navigate('/register');
   };
-
-
   // const loginClick = async () => {
   //   // api.defaults.headers.authorization = 'teste';
   //   api
