@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 // import api from '../../services/api';
-import { Navigate, unstable_HistoryRouter } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { requestLogin, setToken } from '../../services/api';
 import {
   COMMON_LOGIN_BTN_L,
@@ -13,6 +13,7 @@ function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [register, setRegister] = useState(false);
+  const navigate = useNavigate();
   // const [isLogged, setIsLogged] = useState(false);
   const [failedTryLogin, setFailedTryLogin] = useState(false);
 
@@ -21,17 +22,13 @@ function Login() {
 
     try {
       const { token, role } = await requestLogin('/user/login', { email, password });
-      console.log('oi')
       setToken(token);
-
-      localStorage.setItem('oi', token);
+      localStorage.setItem('token', token);
       localStorage.setItem('role', role);
-      const history = unstable_HistoryRouter();
-      if (token) return history.push('/register');
+      navigate('/register'); // mudar para products
       // setIsLogged(true);
     } catch (error) {
       setFailedTryLogin(true);
-      console.log('erro')
       // setIsLogged(false);
     }
   };
@@ -41,10 +38,9 @@ function Login() {
   }, [email, password]);
 
   const handleRegisterBtn = () => {
-    setRegister(true);
+    navigate('/register');
   };
 
-  if (register) return <Navigate to="/register" />;
 
   // const loginClick = async () => {
   //   // api.defaults.headers.authorization = 'teste';
