@@ -49,6 +49,10 @@ function Login() {
   };
 
   useEffect(() => {
+    setUserLogin({ token: '', role: '', name: '' });
+  }, [setUserLogin]);
+
+  useEffect(() => {
     // if (!(/^[^ ^@]+@[^ ^@^.]+\.[c][o][m](\.[A-Za-z^.]{2})?$/i).test(email))
     // password.length < 6
     // melhor importar um função, porque estas mesmas validações terão de ser feitas da tela de Register
