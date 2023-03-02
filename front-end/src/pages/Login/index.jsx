@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from 'react';
-// import api from '../../services/api';
 import { useNavigate } from 'react-router-dom';
 import { requestPost, setToken } from '../../services/api';
 import LoginContext from '../../context/LoginContext';
@@ -9,6 +8,7 @@ import {
   COMMON_LOGIN_EMAIL,
   COMMON_LOGIN_INVALID,
   COMMON_LOGIN_PASSWORD } from '../../constant/register_dataTestId';
+// import RedirectLogin from '../../utils/redirectLogin';
 
 function Login() {
   const { setUserLogin } = useContext(LoginContext);
@@ -27,7 +27,6 @@ function Login() {
       localStorage.setItem('token', token);
       localStorage.setItem('role', role);
       setUserLogin({ token, role });
-      // console.log(role);
       switch (role) {
       case 'customer':
         navigate(`/${role}/products`);
@@ -41,6 +40,7 @@ function Login() {
       default:
         break;
       }
+      // RedirectLogin(email, password);
       // setIsLogged(true);
     } catch (error) {
       setFailedTryLogin(true);
