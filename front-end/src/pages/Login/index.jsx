@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 // import api from '../../services/api';
 import { useNavigate } from 'react-router-dom';
 import { requestLogin, setToken } from '../../services/api';
+import LoginContext from '../../context/LoginContext';
 import {
   COMMON_LOGIN_BTN_L,
   COMMON_LOGIN_BTN_R,
@@ -10,6 +11,7 @@ import {
   COMMON_LOGIN_PASSWORD } from '../../constant/register_dataTestId';
 
 function Login() {
+  const { setUserLogin } = useContext(LoginContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -24,6 +26,7 @@ function Login() {
       setToken(token);
       localStorage.setItem('token', token);
       localStorage.setItem('role', role);
+      setUserLogin({ token, role });
       switch (role) {
       case 'customer':
         navigate(`/${role}/products`);
