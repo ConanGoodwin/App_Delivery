@@ -17,7 +17,7 @@ function Login() {
   const navigate = useNavigate();
   // const [isLogged, setIsLogged] = useState(false);
   const [failedTryLogin, setFailedTryLogin] = useState(false);
-
+  // zebirita@email.com $#zebirita#$
   const login = async (event) => {
     event.preventDefault();
 
@@ -62,21 +62,6 @@ function Login() {
   const handleRegisterBtn = () => {
     navigate('/register');
   };
-  // const loginClick = async () => {
-  //   // api.defaults.headers.authorization = 'teste';
-  //   api
-  //     .post('/user/login', {
-  //       email: 'adm@deliveryapp.com',
-  //       password: '--adm2@21!!--',
-  //     })
-  //     .then((response) => setUser(response.data))
-  //     .catch((err) => {
-  //       setUser('');
-  //       console.error(`ops! ocorreu um erro${err}`);
-  //     });
-  //   console.log(user.token);
-  // };
-  // const loginTestId = 'common_login';
 
   return (
     <div>
