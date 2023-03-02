@@ -33,10 +33,16 @@ function LoginForm() {
 
       return result;
     };
-    return () => {
-      setIsDisabledButton(validateRegistration);
-    };
+    // return () => {
+    //   setIsDisabledButton(true);
+    //   setIsDisabledButton(validateRegistration);
+    // };
+    setIsDisabledButton(validateRegistration());
   }, [email, password, userName]);
+
+  // useEffect(() => {
+  //   console.log(isDisabledButton);
+  // }, [isDisabledButton]);
 
   const resetInput = () => {
     setIsDisabledButton(false);
