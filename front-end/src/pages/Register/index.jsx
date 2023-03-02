@@ -57,11 +57,11 @@ function LoginForm() {
     );
     console.log(id);
     if (id) {
-      const { token, role } = await requestPost('/user/login', { email, password });
+      const { token, role, name } = await requestPost('/user/login', { email, password });
       setToken(token);
       localStorage.setItem('token', token);
       localStorage.setItem('role', role);
-      setUserLogin({ token, role });
+      setUserLogin({ token, role, name });
       switch (role) {
       case 'customer':
         navigate(`/${role}/products`);
