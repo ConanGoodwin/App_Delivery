@@ -90,7 +90,7 @@ function Login() {
             : null
         }
         <button
-          type="submit"
+          type="button"
           data-testid={ COMMON_LOGIN_BTN_L }
           onClick={ (event) => login(event) }
         >
