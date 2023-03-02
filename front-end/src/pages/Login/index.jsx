@@ -20,7 +20,6 @@ function Login() {
   // const [isLogged, setIsLogged] = useState(false);
   const [failedTryLogin, setFailedTryLogin] = useState(false);
   const [isDisabledButton, setIsDisabledButton] = useState(false);
-  // zebirita@email.com $#zebirita#$
 
   useEffect(() => {
     const validateRegistration = () => {
