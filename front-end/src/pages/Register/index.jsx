@@ -21,7 +21,7 @@ function LoginForm() {
 
   useEffect(() => {
     const validateRegistration = () => {
-      const isValidName = userName.length <= MAX_NAME_LENGTH;
+      const isValidName = userName.length >= MAX_NAME_LENGTH;
 
       const isValidPassword = password.length >= MAX_PASSWORD_LENGTH;
 
@@ -48,7 +48,11 @@ function LoginForm() {
     resetInput();
 
     console.log(`Email: ${email}, Password: ${password}, Name: ${userName}`);
-    const { token, role } = await requestPost('/user/login', { email, password });
+    const { id } = await requestPost(
+      '/user/register',
+      { name: userName, email, password, role: 'customer' },
+    );
+    console.log(id);
   };
 
   return (
