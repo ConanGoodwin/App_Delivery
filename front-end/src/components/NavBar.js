@@ -24,21 +24,23 @@ function NavBar() {
 
   return (
     <div style={ { display: 'flex', width: '100%', border: BORDER } }>
-      <div style={ { border: BORDER } }>
+      <div style={ { border: BORDER, width: '20%' } }>
         {
-          (userLogin.role === 'customer') ? <p>PRODUTOS</p>
-            : (userLogin.role === 'seller') ? <p>PEDIDOS</p>
-              : (userLogin.role === 'administrator') ? <p>GRENCIAR USUÁRIOS</p> : null
+          (() => {
+            if (userLogin.role === 'customer') return <p>PRODUTOS</p>;
+            if (userLogin.role === 'seller') return <p>PEDIDOS</p>;
+            if (userLogin.role === 'administrator') return <p>GRENCIAR USUÁRIOS</p>;
+          })()
         }
       </div>
-      <div style={ { border: BORDER } }>
-        { userLogin.role }
+      <div style={ { border: BORDER, width: '50%' } }>
+        { (userLogin.role === 'customer') ? <p>MEUS PEDIDOS</p> : null }
       </div>
-      <div style={ { border: BORDER } }>
+      <div style={ { border: BORDER, width: '20%' } }>
         { userLogin.name }
       </div>
-      <div style={ { border: BORDER } }>
-        teste:
+      <div style={ { border: BORDER, width: '10%' } }>
+        <button type="button">Sair</button>
       </div>
     </div>
   );
