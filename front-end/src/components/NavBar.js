@@ -1,5 +1,6 @@
 // import React, { useState, useEffect, useContext } from 'react';
 import React, { useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import LoginContext from '../context/LoginContext';
 // import { useNavigate } from 'react-router-dom';
 // import { requestPost, setToken } from '../../services/api';
@@ -15,6 +16,7 @@ const BORDER = '1px solid black';
 
 function NavBar() {
   const { userLogin } = useContext(LoginContext);
+  const navigate = useNavigate();
   // useEffect(() => {
   //   // if (!(/^[^ ^@]+@[^ ^@^.]+\.[c][o][m](\.[A-Za-z^.]{2})?$/i).test(email))
   //   // password.length < 6
@@ -31,17 +33,41 @@ function NavBar() {
           border: BORDER,
           width: '15%' } }
       >
-        {
-          (() => {
+        <Link
+          to={
+            (() => {
+              if (userLogin.role === 'customer') return '/customer/products';
+              if (userLogin.role === 'seller') return '/teste';
+              if (userLogin.role === 'administrator') return '/teste';
+            })()
+          }
+          data-testid="customer_products__element-navbar-link-products"
+        >
+          {(() => {
             if (userLogin.role === 'customer') return <p>PRODUTOS</p>;
             if (userLogin.role === 'seller') return <p>PEDIDOS</p>;
             if (userLogin.role === 'administrator') return <p>GERENCIAR USUÁRIOS</p>;
-          })()
-        }
+          })()}
+        </Link>
       </div>
-      <div style={ { display: 'flex', border: BORDER, width: '60%' } }>
+      <div
+        style={ { display: 'flex',
+          border: BORDER,
+          width: '60%',
+          justifyContent: 'left',
+          alignItems: 'center' } }
+      >
         { (userLogin.role === 'customer')
-          ? <p style={ { marginLeft: '20px' } }>MEUS PEDIDOS</p>
+          ? (
+            <Link
+              to="/customer/orders"
+              style={ { marginLeft: '20px' } }
+              data-testid="customer_products__element-navbar-link-orders"
+            >
+              MEUS PEDIDOS
+
+            </Link>
+          )
           : null }
       </div>
       <div
@@ -51,10 +77,27 @@ function NavBar() {
           border: BORDER,
           width: '15%' } }
       >
-        <p>{ userLogin.name }</p>
+        <p
+          data-testid="customer_products__element-navbar-user-full-name"
+        >
+          { userLogin.name }
+
+        </p>
       </div>
-      <div style={ { display: 'flex', border: BORDER, width: '10%' } }>
-        <button type="button" style={ { width: '100%' } }>Sair</button>
+      <div
+        style={ { display: 'flex',
+          border: BORDER,
+          width: '10%',
+          justifyContent: 'center',
+          alignItems: 'center' } }
+      >
+        <Link
+          to="/login"
+          data-testid="customer_products__element-navbar-link-logout"
+        >
+          Sair
+
+        </Link>
       </div>
     </nav>
   );
