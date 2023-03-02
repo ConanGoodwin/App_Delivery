@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 // import api from '../../services/api';
 import { useNavigate } from 'react-router-dom';
-import { requestLogin, setToken } from '../../services/api';
+import { requestPost, setToken } from '../../services/api';
 import LoginContext from '../../context/LoginContext';
 import {
   COMMON_LOGIN_BTN_L,
@@ -22,7 +22,7 @@ function Login() {
     event.preventDefault();
 
     try {
-      const { token, role } = await requestLogin('/user/login', { email, password });
+      const { token, role } = await requestPost('/user/login', { email, password });
       setToken(token);
       localStorage.setItem('token', token);
       localStorage.setItem('role', role);

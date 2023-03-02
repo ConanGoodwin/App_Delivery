@@ -7,6 +7,7 @@ import {
   COMMON_REGISTER_NAME,
   COMMON_REGISTER_PASSWORD,
 } from '../../constant/register_dataTestId';
+import { requestPost } from '../../services/api';
 
 const MAX_NAME_LENGTH = 12;
 const MAX_PASSWORD_LENGTH = 6;
@@ -42,11 +43,12 @@ function LoginForm() {
     setPassword('');
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     resetInput();
 
     console.log(`Email: ${email}, Password: ${password}, Name: ${userName}`);
+    const { token, role } = await requestPost('/user/login', { email, password });
   };
 
   return (
