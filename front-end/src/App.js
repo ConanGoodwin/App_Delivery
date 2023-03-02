@@ -1,15 +1,16 @@
 import { BrowserRouter } from 'react-router-dom';
+import { useContext } from 'react';
 import Router from './Routes';
-import LoginProvider from './context/LoginProvider';
-// import RedirectLogin from './utils/redirectLogin';
+import NavBar from './components/NavBar';
+import LoginContext from './context/LoginContext';
 
 function App() {
+  const { userLogin } = useContext(LoginContext);
+
   return (
     <BrowserRouter>
-      <LoginProvider>
-        <Router />
-        {/* <RedirectLogin /> */}
-      </LoginProvider>
+      { (userLogin.role) ? <NavBar /> : null }
+      <Router />
     </BrowserRouter>
   );
 }
