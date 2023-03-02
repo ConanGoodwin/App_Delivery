@@ -23,26 +23,40 @@ function NavBar() {
   // }, [email, password]);
 
   return (
-    <div style={ { display: 'flex', width: '100%', border: BORDER } }>
-      <div style={ { border: BORDER, width: '20%' } }>
+    <nav style={ { display: 'flex', width: '100%', border: BORDER } }>
+      <div
+        style={ {
+          display: 'flex',
+          justifyContent: 'center',
+          border: BORDER,
+          width: '15%' } }
+      >
         {
           (() => {
             if (userLogin.role === 'customer') return <p>PRODUTOS</p>;
             if (userLogin.role === 'seller') return <p>PEDIDOS</p>;
-            if (userLogin.role === 'administrator') return <p>GRENCIAR USUÁRIOS</p>;
+            if (userLogin.role === 'administrator') return <p>GERENCIAR USUÁRIOS</p>;
           })()
         }
       </div>
-      <div style={ { border: BORDER, width: '50%' } }>
-        { (userLogin.role === 'customer') ? <p>MEUS PEDIDOS</p> : null }
+      <div style={ { display: 'flex', border: BORDER, width: '60%' } }>
+        { (userLogin.role === 'customer')
+          ? <p style={ { marginLeft: '20px' } }>MEUS PEDIDOS</p>
+          : null }
       </div>
-      <div style={ { border: BORDER, width: '20%' } }>
-        { userLogin.name }
+      <div
+        style={ {
+          display: 'flex',
+          justifyContent: 'center',
+          border: BORDER,
+          width: '15%' } }
+      >
+        <p>{ userLogin.name }</p>
       </div>
-      <div style={ { border: BORDER, width: '10%' } }>
-        <button type="button">Sair</button>
+      <div style={ { display: 'flex', border: BORDER, width: '10%' } }>
+        <button type="button" style={ { width: '100%' } }>Sair</button>
       </div>
-    </div>
+    </nav>
   );
 }
 
