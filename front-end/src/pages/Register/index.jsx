@@ -55,7 +55,7 @@ function LoginForm() {
       { name: userName, email, password, role: 'customer' },
     );
     console.log(id);
-    navigate('/customer/products');
+    navigate('/customer/products'); // substituir pelo metodo empregado na pagina login, no exito do login
   };
 
   return (
