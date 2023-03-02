@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import isValidEmail from '../../validations/validationEmail';
-// import RedirectLogin from '../../utils/redirectLogin';
 import {
   COMMON_REGISTER_BUTTON,
   COMMON_REGISTER_EMAIL,
@@ -22,13 +21,11 @@ function LoginForm() {
   const [password, setPassword] = useState('');
   const [userName, setUserName] = useState('');
   const [isDisabledButton, setIsDisabledButton] = useState(false);
-  const [failedTryLogin, setFailedTryLogin] = useState(false);
-
-  // console.log(isDisabledButton);
+  const [failedTryRegister, setfailedTryRegister] = useState(false);
 
   useEffect(() => {
     const validateRegistration = () => {
-      const isValidName = userName.length >= MAX_NAME_LENGTH;
+      const isValidName = userName.length <= MAX_NAME_LENGTH;
 
       const isValidPassword = password.length >= MAX_PASSWORD_LENGTH;
 
@@ -46,14 +43,12 @@ function LoginForm() {
     setUserName('');
     setPassword('');
     setIsDisabledButton(false);
-    setFailedTryLogin(false);
+    setfailedTryRegister(false);
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     resetInput();
-
-    console.log(`Email: ${email}, Password: ${password}, Name: ${userName}`);
     const { id } = await requestPost(
       '/user/register',
       { name: userName, email, password, role: 'customer' },
@@ -79,7 +74,7 @@ function LoginForm() {
         break;
       }
     }
-    return setFailedTryLogin(true);
+    return setfailedTryRegister(true);
 
   };
 
@@ -130,8 +125,7 @@ function LoginForm() {
 
       </button>
     </form>
-      <p>{
-        (failedTryLogin)
+        {(failedTryRegister)
           ? (
             <p data-testid={COMMON_REGISTER_INVALID}>
               {
@@ -140,7 +134,7 @@ function LoginForm() {
             </p>
           )
           : ''
-      }</p>
+      }
     </div>
   );
 }
