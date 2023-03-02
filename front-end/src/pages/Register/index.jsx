@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import isValidEmail from '../../validations/validationEmail';
 import {
   COMMON_REGISTER_BUTTON,
@@ -13,6 +14,7 @@ const MAX_NAME_LENGTH = 12;
 const MAX_PASSWORD_LENGTH = 6;
 
 function LoginForm() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [userName, setUserName] = useState('');
@@ -53,6 +55,7 @@ function LoginForm() {
       { name: userName, email, password, role: 'customer' },
     );
     console.log(id);
+    navigate('/customer/products');
   };
 
   return (
