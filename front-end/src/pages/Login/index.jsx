@@ -24,7 +24,7 @@ function Login() {
       setToken(token);
       localStorage.setItem('token', token);
       localStorage.setItem('role', role);
-      navigate('/register'); // mudar para products
+      navigate(`/${role}/products`);
       // setIsLogged(true);
     } catch (error) {
       setFailedTryLogin(true);
@@ -33,6 +33,9 @@ function Login() {
   };
 
   useEffect(() => {
+    // if (!(/^[^ ^@]+@[^ ^@^.]+\.[c][o][m](\.[A-Za-z^.]{2})?$/i).test(email))
+    // password.length < 6
+    // melhor importar um função, porque estas mesmas validações terão de ser feitas da tela de Register
     setFailedTryLogin(false);
   }, [email, password]);
 
@@ -93,6 +96,7 @@ function Login() {
           type="button"
           data-testid={ COMMON_LOGIN_BTN_L }
           onClick={ (event) => login(event) }
+          // disabled = { estado true } // tem de mudar para false quando o regex e o lenght no useEffect form false
         >
           LOGIN
         </button>
@@ -100,7 +104,6 @@ function Login() {
           type="button"
           data-testid={ COMMON_LOGIN_BTN_R }
           onClick={ handleRegisterBtn }
-
         >
           Ainda não tenho conta
         </button>
