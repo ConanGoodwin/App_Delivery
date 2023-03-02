@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 // import api from '../../services/api';
 import { useNavigate } from 'react-router-dom';
-import { requestLogin, setToken } from '../../services/api';
+import { requestPost, setToken } from '../../services/api';
+import LoginContext from '../../context/LoginContext';
 import {
   COMMON_LOGIN_BTN_L,
   COMMON_LOGIN_BTN_R,
@@ -10,6 +11,7 @@ import {
   COMMON_LOGIN_PASSWORD } from '../../constant/register_dataTestId';
 
 function Login() {
+  const { setUserLogin } = useContext(LoginContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -20,11 +22,25 @@ function Login() {
     event.preventDefault();
 
     try {
-      const { token, role } = await requestLogin('/user/login', { email, password });
+      const { token, role } = await requestPost('/user/login', { email, password });
       setToken(token);
       localStorage.setItem('token', token);
       localStorage.setItem('role', role);
-      navigate('/register'); // mudar para products
+      setUserLogin({ token, role });
+      // console.log(role);
+      switch (role) {
+      case 'customer':
+        navigate(`/${role}/products`);
+        break;
+      case 'seller':
+        navigate(`/${role}/orders`);
+        break;
+      case 'administrator':
+        navigate('/admin/manage');
+        break;
+      default:
+        break;
+      }
       // setIsLogged(true);
     } catch (error) {
       setFailedTryLogin(true);
@@ -33,6 +49,9 @@ function Login() {
   };
 
   useEffect(() => {
+    // if (!(/^[^ ^@]+@[^ ^@^.]+\.[c][o][m](\.[A-Za-z^.]{2})?$/i).test(email))
+    // password.length < 6
+    // melhor importar um função, porque estas mesmas validações terão de ser feitas da tela de Register
     setFailedTryLogin(false);
   }, [email, password]);
 
@@ -90,9 +109,10 @@ function Login() {
             : null
         }
         <button
-          type="submit"
+          type="button"
           data-testid={ COMMON_LOGIN_BTN_L }
           onClick={ (event) => login(event) }
+          // disabled = { estado true } // tem de mudar para false quando o regex e o lenght no useEffect form false
         >
           LOGIN
         </button>
@@ -100,7 +120,6 @@ function Login() {
           type="button"
           data-testid={ COMMON_LOGIN_BTN_R }
           onClick={ handleRegisterBtn }
-
         >
           Ainda não tenho conta
         </button>
