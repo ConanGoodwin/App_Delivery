@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { requestPost, setToken } from '../../services/api';
 import LoginContext from '../../context/LoginContext';
+import isValidEmail from '../../validations/validationEmail';
 import {
   COMMON_LOGIN_BTN_L,
   COMMON_LOGIN_BTN_R,
@@ -9,6 +10,7 @@ import {
   COMMON_LOGIN_INVALID,
   COMMON_LOGIN_PASSWORD } from '../../constant/register_dataTestId';
 // import RedirectLogin from '../../utils/redirectLogin';
+const MAX_PASSWORD_LENGTH = 6;
 
 function Login() {
   const { setUserLogin } = useContext(LoginContext);
@@ -17,6 +19,20 @@ function Login() {
   const navigate = useNavigate();
   // const [isLogged, setIsLogged] = useState(false);
   const [failedTryLogin, setFailedTryLogin] = useState(false);
+  const [isDisabledButton, setIsDisabledButton] = useState(false);
+
+  useEffect(() => {
+    const validateRegistration = () => {
+      const isValidPassword = password.length >= MAX_PASSWORD_LENGTH;
+
+      const isValidEmAil = isValidEmail(email);
+
+      const result = isValidPassword && isValidEmAil;
+
+      return result;
+    };
+    setIsDisabledButton(validateRegistration());
+  }, [email, password]);
 
   const login = async (event) => {
     event.preventDefault();
@@ -111,6 +127,7 @@ function Login() {
         <button
           type="button"
           data-testid={ COMMON_LOGIN_BTN_L }
+          disabled={ !isDisabledButton }
           onClick={ (event) => login(event) }
           // disabled = { estado true } // tem de mudar para false quando o regex e o lenght no useEffect form false
         >
