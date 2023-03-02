@@ -5,7 +5,7 @@ import isValidEmail from '../../validations/validationEmail';
 import {
   COMMON_REGISTER_BUTTON,
   COMMON_REGISTER_EMAIL,
-  // COMMON_REGISTER_INVALID,
+  COMMON_REGISTER_INVALID,
   COMMON_REGISTER_NAME,
   COMMON_REGISTER_PASSWORD,
 } from '../../constant/register_dataTestId';
@@ -22,6 +22,8 @@ function LoginForm() {
   const [password, setPassword] = useState('');
   const [userName, setUserName] = useState('');
   const [isDisabledButton, setIsDisabledButton] = useState(false);
+  const [failedTryLogin, setFailedTryLogin] = useState(false);
+
   // console.log(isDisabledButton);
 
   useEffect(() => {
@@ -40,10 +42,11 @@ function LoginForm() {
   }, [email, password, userName]);
 
   const resetInput = () => {
-    setIsDisabledButton(false);
     setEmail('');
     setUserName('');
     setPassword('');
+    setIsDisabledButton(false);
+    setFailedTryLogin(false);
   };
 
   const handleSubmit = async (event) => {
@@ -76,10 +79,12 @@ function LoginForm() {
         break;
       }
     }
-    // return deixar visivel a messagem de registro invalido.
+    return setFailedTryLogin(true);
+
   };
 
   return (
+    <div>
     <form onSubmit={ handleSubmit }>
       <h2>Cadastro</h2>
       <label htmlFor="name-input">
@@ -125,6 +130,18 @@ function LoginForm() {
 
       </button>
     </form>
+      <p>{
+        (failedTryLogin)
+          ? (
+            <p data-testid={COMMON_REGISTER_INVALID}>
+              {
+                `O campo [nome] ou [email] já foi cadastrado!`
+              }
+            </p>
+          )
+          : ''
+      }</p>
+    </div>
   );
 }
 
