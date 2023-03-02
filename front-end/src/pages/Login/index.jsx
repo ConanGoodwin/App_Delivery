@@ -24,6 +24,19 @@ function Login() {
       setToken(token);
       localStorage.setItem('token', token);
       localStorage.setItem('role', role);
+      switch (role) {
+      case 'customer':
+        navigate(`/${role}/products`);
+        break;
+      case 'seller':
+        navigate(`/${role}/orders`);
+        break;
+      case 'administrator':
+        navigate('/admin/manage');
+        break;
+      default:
+        break;
+      }
       navigate(`/${role}/products`);
       // setIsLogged(true);
     } catch (error) {
