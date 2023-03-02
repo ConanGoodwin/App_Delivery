@@ -17,7 +17,6 @@ function Login() {
   const navigate = useNavigate();
   // const [isLogged, setIsLogged] = useState(false);
   const [failedTryLogin, setFailedTryLogin] = useState(false);
-  // zebirita@email.com $#zebirita#$
   const login = async (event) => {
     event.preventDefault();
 
