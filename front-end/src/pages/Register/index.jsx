@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import isValidEmail from '../../validations/validationEmail';
+// import RedirectLogin from '../../utils/redirectLogin';
 import {
   COMMON_REGISTER_BUTTON,
   COMMON_REGISTER_EMAIL,
@@ -8,12 +9,14 @@ import {
   COMMON_REGISTER_NAME,
   COMMON_REGISTER_PASSWORD,
 } from '../../constant/register_dataTestId';
-import { requestPost } from '../../services/api';
+import { requestPost, setToken } from '../../services/api';
+import LoginContext from '../../context/LoginContext';
 
 const MAX_NAME_LENGTH = 12;
 const MAX_PASSWORD_LENGTH = 6;
 
 function LoginForm() {
+  const { setUserLogin } = useContext(LoginContext);
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -33,16 +36,8 @@ function LoginForm() {
 
       return result;
     };
-    // return () => {
-    //   setIsDisabledButton(true);
-    //   setIsDisabledButton(validateRegistration);
-    // };
     setIsDisabledButton(validateRegistration());
   }, [email, password, userName]);
-
-  // useEffect(() => {
-  //   console.log(isDisabledButton);
-  // }, [isDisabledButton]);
 
   const resetInput = () => {
     setIsDisabledButton(false);
@@ -61,7 +56,27 @@ function LoginForm() {
       { name: userName, email, password, role: 'customer' },
     );
     console.log(id);
-    navigate('/customer/products'); // substituir pelo metodo empregado na pagina login, no exito do login.
+    if (id) {
+      const { token, role } = await requestPost('/user/login', { email, password });
+      setToken(token);
+      localStorage.setItem('token', token);
+      localStorage.setItem('role', role);
+      setUserLogin({ token, role });
+      switch (role) {
+      case 'customer':
+        navigate(`/${role}/products`);
+        break;
+      case 'seller':
+        navigate(`/${role}/orders`);
+        break;
+      case 'administrator':
+        navigate('/admin/manage');
+        break;
+      default:
+        break;
+      }
+    }
+    // return deixar visivel a messagem de registro invalido.
   };
 
   return (
