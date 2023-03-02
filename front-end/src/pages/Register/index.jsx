@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import isValidEmail from '../../validations/validationEmail';
 import {
   COMMON_REGISTER_BUTTON,
@@ -7,11 +8,13 @@ import {
   COMMON_REGISTER_NAME,
   COMMON_REGISTER_PASSWORD,
 } from '../../constant/register_dataTestId';
+import { requestPost } from '../../services/api';
 
 const MAX_NAME_LENGTH = 12;
 const MAX_PASSWORD_LENGTH = 6;
 
 function LoginForm() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [userName, setUserName] = useState('');
@@ -20,7 +23,7 @@ function LoginForm() {
 
   useEffect(() => {
     const validateRegistration = () => {
-      const isValidName = userName.length <= MAX_NAME_LENGTH;
+      const isValidName = userName.length >= MAX_NAME_LENGTH;
 
       const isValidPassword = password.length >= MAX_PASSWORD_LENGTH;
 
@@ -30,10 +33,16 @@ function LoginForm() {
 
       return result;
     };
-    return () => {
-      setIsDisabledButton(validateRegistration);
-    };
+    // return () => {
+    //   setIsDisabledButton(true);
+    //   setIsDisabledButton(validateRegistration);
+    // };
+    setIsDisabledButton(validateRegistration());
   }, [email, password, userName]);
+
+  // useEffect(() => {
+  //   console.log(isDisabledButton);
+  // }, [isDisabledButton]);
 
   const resetInput = () => {
     setIsDisabledButton(false);
@@ -42,11 +51,17 @@ function LoginForm() {
     setPassword('');
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     resetInput();
 
     console.log(`Email: ${email}, Password: ${password}, Name: ${userName}`);
+    const { id } = await requestPost(
+      '/user/register',
+      { name: userName, email, password, role: 'customer' },
+    );
+    console.log(id);
+    navigate('/customer/products'); // substituir pelo metodo empregado na pagina login, no exito do login.
   };
 
   return (
