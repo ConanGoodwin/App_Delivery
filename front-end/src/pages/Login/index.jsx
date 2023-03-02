@@ -27,6 +27,7 @@ function Login() {
       localStorage.setItem('token', token);
       localStorage.setItem('role', role);
       setUserLogin({ token, role });
+      // console.log(role);
       switch (role) {
       case 'customer':
         navigate(`/${role}/products`);
@@ -40,7 +41,6 @@ function Login() {
       default:
         break;
       }
-      navigate(`/${role}/products`);
       // setIsLogged(true);
     } catch (error) {
       setFailedTryLogin(true);
