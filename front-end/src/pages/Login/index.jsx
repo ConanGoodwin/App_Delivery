@@ -34,6 +34,10 @@ function Login() {
     setIsDisabledButton(validateRegistration());
   }, [email, password]);
 
+  useEffect(() => {
+    setUserLogin({ token: '', role: '', name: '' });
+  }, [setUserLogin]);
+
   const login = async (event) => {
     event.preventDefault();
 
@@ -63,10 +67,6 @@ function Login() {
       // setIsLogged(false);
     }
   };
-
-  useEffect(() => {
-    setUserLogin({ token: '', role: '', name: '' });
-  }, [setUserLogin]);
 
   useEffect(() => {
     // if (!(/^[^ ^@]+@[^ ^@^.]+\.[c][o][m](\.[A-Za-z^.]{2})?$/i).test(email))
