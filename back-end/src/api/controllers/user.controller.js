@@ -22,7 +22,7 @@ const login = async (req, res) => {
 
 const validadeToken = async (req, res) => {
   let type = null;
-  let message = { role: req.user.role };
+  let message = { role: req.user.role, name: req.user.name };
 
   if (!req.user) {
     type = 'EXPIRED_OR_INVALID_TOKEN';
