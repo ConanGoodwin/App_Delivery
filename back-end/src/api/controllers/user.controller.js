@@ -6,8 +6,6 @@ const getAll = async (_req, res) => {
   const { type, message } = await UserService.getAll();
 
   if (type) return res.status(404).json({ message });
-  const arrayPass = message.map(({ password }) => password === md5('$#zebirita#$'));
-  console.log(arrayPass);
 
   returnController(res, type, message, 200);
 };
