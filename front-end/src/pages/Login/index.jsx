@@ -54,7 +54,7 @@ function Login() {
       setUserLogin({ token, role, name });
       switch (role) {
       case 'customer':
-        navigate(`/${role}/products`);
+        navigate(`/${role}/products/checkout`);
         break;
       case 'seller':
         navigate(`/${role}/orders`);
