@@ -6,11 +6,11 @@ import App from './App';
 import LoginProvider from './context/LoginProvider';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <LoginProvider>
-      <App />
-    </LoginProvider>
-  </React.StrictMode>,
+  // <React.StrictMode>
+  <LoginProvider>
+    <App />
+  </LoginProvider>,
+  // </React.StrictMode>
   document.getElementById('root'),
 );
 

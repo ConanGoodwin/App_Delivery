@@ -1,29 +1,20 @@
 import React, { useContext, useEffect, useCallback } from 'react';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import LoginContext from '../../context/LoginContext';
 import { requestData, setToken } from '../../services/api';
 
 const BORDER = '1px solid black';
 
 function Checkout() {
-  // const setaContext = (role) => useCallback(setaContextUser(role), [role]);
   const { userLogin, setUserLogin } = useContext(LoginContext);
-  // const navigate = useNavigate();
-  console.log(userLogin);
+  const navigate = useNavigate();
 
-  const setaContextUser = useCallback(async () => {
-    const { role, name } = await requestData('/user/validate');
-
-    if (role === localStorage.getItem('role')) {
-      console.log(`role: ${role}`);
-      setUserLogin({
-        token: localStorage.getItem('token'),
-        role: localStorage.getItem('role'),
-        name,
-      });
-    } else {
-      console.log('navigateeeeee');
-    }
+  const setaContextUser = useCallback(async (name) => {
+    setUserLogin({
+      token: localStorage.getItem('token'),
+      role: localStorage.getItem('role'),
+      name,
+    });
   }, [setUserLogin]);
 
   // const setaContext = useRef({
@@ -35,17 +26,33 @@ function Checkout() {
       try {
         if (localStorage.getItem('logado') === 'true') {
           setToken(localStorage.getItem('token'));
-          // setaContext();
-          setaContextUser();
+          const { name } = await requestData('/user/validate');
+          setaContextUser(name);
+          if (localStorage.getItem('role') !== 'customer') {
+            console.log('quebra de segurança');
+            setUserLogin({ token: '', role: '', name: '' });
+            navigate('/login');
+          }
         } else {
-          console.log('ola');
+          const { role } = await requestData('/user/validate');
+          if (!role) {
+            console.log('token invalido');
+            navigate('/login');
+          }
         }
       } catch (error) {
-        console.log('navigate');
+        console.log('deslogado');
+        navigate('/login');
       }
     };
     verificaToken();
-  }, [setaContextUser]);
+  }, [
+    navigate,
+    setUserLogin,
+    setaContextUser,
+    userLogin.role,
+    userLogin.token,
+  ]);
 
   return (
     <div style={ { display: 'flex', width: '100%', border: BORDER } }>
