@@ -19,9 +19,16 @@ function Checkout() {
   }, [setUserLogin]);
 
   useEffect(() => {
-    setSellers('teste');
-    console.log(sellers);
-  }, [sellers]);
+    const getSellers = async () => {
+      try {
+        const users = await requestData('/user');
+        setSellers(users.filter(({ role }) => role === 'seller'));
+      } catch (error) {
+        console.log('bad request');
+      }
+    };
+    getSellers();
+  }, []);
 
   useEffect(() => {
     const verificaToken = async () => {
@@ -55,6 +62,8 @@ function Checkout() {
     userLogin.role,
     userLogin.token,
   ]);
+
+  console.log(sellers);
 
   return (
     <form
