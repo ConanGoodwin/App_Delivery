@@ -16,6 +16,7 @@ function Login() {
   const { setUserLogin } = useContext(LoginContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [logado, setLogado] = useState(false);
   const navigate = useNavigate();
   // const [isLogged, setIsLogged] = useState(false);
   const [failedTryLogin, setFailedTryLogin] = useState(false);
@@ -37,6 +38,10 @@ function Login() {
   useEffect(() => {
     setUserLogin({ token: '', role: '', name: '' });
   }, [setUserLogin]);
+
+  useEffect(() => {
+    setLogado(localStorage.getItem('logado') === 'true');
+  }, []);
 
   const login = async (event) => {
     event.preventDefault();
@@ -77,6 +82,20 @@ function Login() {
 
   const handleRegisterBtn = () => {
     navigate('/register');
+  };
+
+  const onInputChange = ({ target }) => {
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+
+    setLogado(value);
+    localStorage.setItem('logado', value);
+
+    // if (target.id === 'filtroTrunfo') this.setState({ isFilterdisabled: value });
+
+    // this.setState({ [target.id]: value }, () => {
+    //   const validaOk = this.validaBotao();
+    //   this.setState({ isSaveButtonDisabled: validaOk });
+    // });
   };
 
   return (
@@ -128,6 +147,16 @@ function Login() {
         >
           Ainda não tenho conta
         </button>
+        <label htmlFor="chkTrunfo">
+          <input
+            type="checkbox"
+            id="chkTrunfo"
+            checked={ logado }
+            onChange={ onInputChange }
+            data-testid="trunfo-input"
+          />
+          Permanecer logado
+        </label>
       </form>
     </div>
   );
