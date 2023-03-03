@@ -1,33 +1,57 @@
 import React, { useState, useEffect, useContext } from 'react';
-// import api from '../../services/api';
 import { useNavigate } from 'react-router-dom';
 import { requestPost, setToken } from '../../services/api';
 import LoginContext from '../../context/LoginContext';
+import isValidEmail from '../../validations/validationEmail';
 import {
   COMMON_LOGIN_BTN_L,
   COMMON_LOGIN_BTN_R,
   COMMON_LOGIN_EMAIL,
   COMMON_LOGIN_INVALID,
   COMMON_LOGIN_PASSWORD } from '../../constant/register_dataTestId';
+// import RedirectLogin from '../../utils/redirectLogin';
+const MAX_PASSWORD_LENGTH = 6;
 
 function Login() {
   const { setUserLogin } = useContext(LoginContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [logado, setLogado] = useState(false);
   const navigate = useNavigate();
   // const [isLogged, setIsLogged] = useState(false);
   const [failedTryLogin, setFailedTryLogin] = useState(false);
+  const [isDisabledButton, setIsDisabledButton] = useState(false);
+
+  useEffect(() => {
+    const validateRegistration = () => {
+      const isValidPassword = password.length >= MAX_PASSWORD_LENGTH;
+
+      const isValidEmAil = isValidEmail(email);
+
+      const result = isValidPassword && isValidEmAil;
+
+      return result;
+    };
+    setIsDisabledButton(validateRegistration());
+  }, [email, password]);
+
+  useEffect(() => {
+    setUserLogin({ token: '', role: '', name: '' });
+  }, [setUserLogin]);
+
+  useEffect(() => {
+    setLogado(localStorage.getItem('logado') === 'true');
+  }, []);
 
   const login = async (event) => {
     event.preventDefault();
 
     try {
-      const { token, role } = await requestPost('/user/login', { email, password });
+      const { token, role, name } = await requestPost('/user/login', { email, password });
       setToken(token);
       localStorage.setItem('token', token);
       localStorage.setItem('role', role);
-      setUserLogin({ token, role });
-      // console.log(role);
+      setUserLogin({ token, role, name });
       switch (role) {
       case 'customer':
         navigate(`/${role}/products`);
@@ -41,6 +65,7 @@ function Login() {
       default:
         break;
       }
+      // RedirectLogin(email, password);
       // setIsLogged(true);
     } catch (error) {
       setFailedTryLogin(true);
@@ -58,21 +83,20 @@ function Login() {
   const handleRegisterBtn = () => {
     navigate('/register');
   };
-  // const loginClick = async () => {
-  //   // api.defaults.headers.authorization = 'teste';
-  //   api
-  //     .post('/user/login', {
-  //       email: 'adm@deliveryapp.com',
-  //       password: '--adm2@21!!--',
-  //     })
-  //     .then((response) => setUser(response.data))
-  //     .catch((err) => {
-  //       setUser('');
-  //       console.error(`ops! ocorreu um erro${err}`);
-  //     });
-  //   console.log(user.token);
-  // };
-  // const loginTestId = 'common_login';
+
+  const onInputChange = ({ target }) => {
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+
+    setLogado(value);
+    localStorage.setItem('logado', value);
+
+    // if (target.id === 'filtroTrunfo') this.setState({ isFilterdisabled: value });
+
+    // this.setState({ [target.id]: value }, () => {
+    //   const validaOk = this.validaBotao();
+    //   this.setState({ isSaveButtonDisabled: validaOk });
+    // });
+  };
 
   return (
     <div>
@@ -111,8 +135,8 @@ function Login() {
         <button
           type="button"
           data-testid={ COMMON_LOGIN_BTN_L }
+          disabled={ !isDisabledButton }
           onClick={ (event) => login(event) }
-          // disabled = { estado true } // tem de mudar para false quando o regex e o lenght no useEffect form false
         >
           LOGIN
         </button>
@@ -123,6 +147,16 @@ function Login() {
         >
           Ainda não tenho conta
         </button>
+        <label htmlFor="chkTrunfo">
+          <input
+            type="checkbox"
+            id="chkTrunfo"
+            checked={ logado }
+            onChange={ onInputChange }
+            data-testid="trunfo-input"
+          />
+          Permanecer logado
+        </label>
       </form>
     </div>
   );

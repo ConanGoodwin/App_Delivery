@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import LoginContext from './LoginContext';
 
 function LoginProvider({ children }) {
-  const [userLogin, setUserLogin] = useState({ token: '', role: '' });
+  const [userLogin, setUserLogin] = useState({ token: '', role: '', name: '' });
   const stateObj = useMemo(() => ({
     userLogin,
     setUserLogin,
