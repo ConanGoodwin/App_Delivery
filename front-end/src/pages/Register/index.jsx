@@ -25,7 +25,7 @@ function LoginForm() {
 
   useEffect(() => {
     const validateRegistration = () => {
-      const isValidName = userName.length >= MAX_NAME_LENGTH;
+      const isValidName = userName.length <= MAX_NAME_LENGTH;
 
       const isValidPassword = password.length >= MAX_PASSWORD_LENGTH;
 
