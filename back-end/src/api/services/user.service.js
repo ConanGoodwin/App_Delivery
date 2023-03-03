@@ -22,6 +22,18 @@ const getByEmailPassword = async (email, noEcriptPassword) => {
   // }
 };
 
+const getById = async (id) => {
+  // try {
+    const message = await User.findOne({ where: { id } });
+
+    if (message) return { type: null, message };
+  
+    return { type: 'USER_NOT_FOUND', message: 'Invalid fields' };
+  // } catch (error) {
+  //   throwError(error);
+  // }
+};
+
 const create = async (name, email, noEcriptPassword, role) => {
   const password = md5(noEcriptPassword);
   const ifExistEmail = await User.findOne({ where: { email } });
@@ -45,6 +57,7 @@ const create = async (name, email, noEcriptPassword, role) => {
 module.exports = {
   getAll,
   getByEmailPassword,
+  getById,
   create,
 };
 

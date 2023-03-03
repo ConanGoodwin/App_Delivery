@@ -20,6 +20,19 @@ const login = async (req, res) => {
   returnControllerToken(res, type, message, 200);
 };
 
+const validadeToken = async (req, res) => {
+  let type = null;
+  let message = { role: req.user.role };
+
+  if (!req.user) {
+    type = 'EXPIRED_OR_INVALID_TOKEN';
+    message = 'Expired or Ivalid Token';
+  }
+  // message.role = req.user.role;
+
+  returnController(res, type, message, 200);
+};
+
 const create = async (req, res) => {
   const { name, email, password, role } = req.body;
 
@@ -31,5 +44,6 @@ const create = async (req, res) => {
 module.exports = {
   getAll,
   login,
+  validadeToken,
   create,
 };
