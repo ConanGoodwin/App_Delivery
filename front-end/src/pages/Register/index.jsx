@@ -50,11 +50,12 @@ function LoginForm() {
     event.preventDefault();
     resetInput();
 
+    console.log(`Email: ${email}, Password: ${password}, Name: ${userName}`);
     const { id } = await requestPost(
       '/user/register',
       { name: userName, email, password, role: 'customer' },
     );
-
+    console.log(id);
     if (id) {
       const { token, role, name } = await requestPost('/user/login', { email, password });
       setToken(token);
@@ -116,7 +117,7 @@ function LoginForm() {
         />
       </label>
       <button
-        type="button"
+        type="submit"
         disabled={ !isDisabledButton }
         data-testid={ COMMON_REGISTER_BUTTON }
       >
