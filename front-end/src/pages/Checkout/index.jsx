@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useCallback } from 'react';
+import React, { useState, useContext, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import LoginContext from '../../context/LoginContext';
 import { requestData, setToken } from '../../services/api';
@@ -7,6 +7,7 @@ const BORDER = '1px solid black';
 
 function Checkout() {
   const { userLogin, setUserLogin } = useContext(LoginContext);
+  const [sellers, setSellers] = useState('');
   const navigate = useNavigate();
 
   const setaContextUser = useCallback(async (name) => {
@@ -17,9 +18,10 @@ function Checkout() {
     });
   }, [setUserLogin]);
 
-  // const setaContext = useRef({
-  //   setaContextUser,
-  // });
+  useEffect(() => {
+    setSellers('teste');
+    console.log(sellers);
+  }, [sellers]);
 
   useEffect(() => {
     const verificaToken = async () => {
@@ -55,9 +57,37 @@ function Checkout() {
   ]);
 
   return (
-    <div style={ { display: 'flex', width: '100%', border: BORDER } }>
-      teste
-    </div>
+    <form
+      style={ { display: 'flex',
+        flexDirection: 'column',
+        width: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        border: BORDER } }
+    >
+      <section style={ { display: 'flex', flexDirection: 'column', width: '80%', border: BORDER } }>
+        <h4>Finalizar Pedido</h4>
+        <table>
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Descrição</th>
+              <th>Quantidade</th>
+              <th>Valor Unitário</th>
+              <th>Sub-total</th>
+              <th>Remover Item</th>
+            </tr>
+          </thead>
+          <tbody />
+        </table>
+      </section>
+      <section style={ { display: 'flex', width: '80%', border: BORDER } }>
+        <h4>Detalhes e Endereço para Entrega</h4>
+      </section>
+      <section>
+        <button type="button">FINALIZAR PEDIDO</button>
+      </section>
+    </form>
   );
 }
 
