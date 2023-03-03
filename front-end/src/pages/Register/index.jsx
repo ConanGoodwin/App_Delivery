@@ -53,32 +53,35 @@ function LoginForm() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     resetInput();
-    const { id } = await requestPost(
-      '/user/register',
-      { name: userName, email, password, role: 'customer' },
-    );
-    console.log(id);
-    if (id) {
-      const { token, role } = await requestPost('/user/login', { email, password });
-      setToken(token);
-      localStorage.setItem('token', token);
-      localStorage.setItem('role', role);
-      setUserLogin({ token, role });
-      switch (role) {
-      case 'customer':
-        navigate(`/${role}/products`);
-        break;
-      case 'seller':
-        navigate(`/${role}/orders`);
-        break;
-      case 'administrator':
-        navigate('/admin/manage');
-        break;
-      default:
-        break;
+    try {
+      const { id } = await requestPost(
+        '/user/register',
+        { name: userName, email, password, role: 'customer' },
+      );
+      console.log(id);
+      if (id) {
+        const { token, role } = await requestPost('/user/login', { email, password });
+        setToken(token);
+        localStorage.setItem('token', token);
+        localStorage.setItem('role', role);
+        setUserLogin({ token, role });
+        switch (role) {
+        case 'customer':
+          navigate(`/${role}/products`);
+          break;
+        case 'seller':
+          navigate(`/${role}/orders`);
+          break;
+        case 'administrator':
+          navigate('/admin/manage');
+          break;
+        default:
+          break;
+        }
       }
+    } catch (error) {
+      return setfailedTryRegister(true);
     }
-    return setfailedTryRegister(true);
   };
 
   return (
