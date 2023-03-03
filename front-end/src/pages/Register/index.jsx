@@ -116,7 +116,7 @@ function LoginForm() {
         />
       </label>
       <button
-        type="submit"
+        type="button"
         disabled={ !isDisabledButton }
         data-testid={ COMMON_REGISTER_BUTTON }
       >
