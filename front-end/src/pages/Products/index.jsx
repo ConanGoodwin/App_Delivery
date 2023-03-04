@@ -25,16 +25,21 @@ function Products() {
     const getProducts = async () => {
       try {
         const requestProducts = await requestData('/product'); // modificquei o nome da variavel
-        setAllProducts(requestProducts);
-        // setProducts(allProducts.map((item) => ({
-        //   ...item, qt: 0, unitPrice: 0.00, subTotal: 0.00 })));
+        setAllProducts(requestProducts.map((item) => {
+          let qt = 0;
+          const index = products.findIndex(({ id }) => id === item.id);
+          if (index !== NOT_FOUND) qt = products[index].qt;
+          return { ...item, qt };
+        }));
       } catch (e) {
         console.log(e);
         setReqError(true);
       }
     };
     getProducts();
-  }, [allProducts, setProducts]);
+  }, [products]);
+
+  // console.log(allProducts);
 
   useEffect(() => {
     const verificaToken = async () => {
@@ -69,9 +74,24 @@ function Products() {
     setaContextUser,
   ]);
 
+  const attAllProducts = (indexAll, operator) => {
+    const newProduct = {
+      id: allProducts[indexAll].id,
+      name: allProducts[indexAll].name,
+      price: allProducts[indexAll].price,
+      urlImage: allProducts[indexAll].urlImage,
+    };
+    if (operator === '-' && allProducts[indexAll].qt > 0) {
+      return { ...newProduct, qt: allProducts[indexAll].qt - 1 };
+    }
+    if (operator === '-') return allProducts[indexAll];
+    return { ...newProduct, qt: allProducts[indexAll].qt + 1 };
+  };
+
   const handleClickMore = ({ target: { name } }) => {
     const index = products.findIndex(({ id }) => id === Number(name));
     const indexAll = allProducts.findIndex(({ id }) => id === Number(name));
+    allProducts[indexAll] = attAllProducts(indexAll, '+');
     if (index !== NOT_FOUND) {
       products[index] = {
         id: products[index].id,
@@ -91,12 +111,14 @@ function Products() {
         })
       );
     }
-    // setProducts(products.filter(({ qt }) => qt > 0));
+    setProducts(products.filter(({ qt }) => qt > 0));
     console.log(products);
   };
 
   const handleClickMinus = ({ target: { name } }) => {
     const index = products.findIndex(({ id }) => id === Number(name));
+    const indexAll = allProducts.findIndex(({ id }) => id === Number(name));
+    allProducts[indexAll] = attAllProducts(indexAll, '-');
     if (index !== NOT_FOUND) {
       products[index] = {
         id: products[index].id,
@@ -105,8 +127,8 @@ function Products() {
         qt: products[index].qt - 1,
         subTotal: products[index].unitPrice * (products[index].qt - 1),
       };
-      setProducts(products.filter(({ qt }) => qt > 0));
     }
+    setProducts(products.filter(({ qt }) => qt > 0));
     console.log(products);
   };
 
@@ -119,13 +141,14 @@ function Products() {
         Ver Carrinho
       </button>
       {
-        !reqError ? allProducts.map(({ id, name, price, urlImage }) => (
+        !reqError ? allProducts.map(({ id, name, price, urlImage, qt }) => (
           <div key={ id }>
             <ProductCard
               id={ id }
               name={ name }
               price={ price }
               urlImage={ urlImage }
+              quantidade={ qt }
               handleClickMore={ handleClickMore }
               handleClickMinus={ handleClickMinus }
             />
