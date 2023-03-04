@@ -24,7 +24,7 @@ function Products() {
     <div>
       <button
         type="button"
-        onClick={ () => navigate('/custumer/products/checkout') }
+        onClick={ () => navigate('/custumer/checkout') }
       >
         Ver Carrinho
       </button>
