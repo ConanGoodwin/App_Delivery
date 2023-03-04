@@ -4,10 +4,7 @@ import LoginContext from './LoginContext';
 
 function LoginProvider({ children }) {
   const [userLogin, setUserLogin] = useState({ token: '', role: '', name: '' });
-  const [products, setProducts] = useState([
-    { id: 1, name: 'teste', qt: 3, unitPrice: 0.00, subTotal: 0.00 },
-    { id: 2, name: 'maisteste', qt: 8, unitPrice: 0.00, subTotal: 0.00 },
-  ]);
+  const [products, setProducts] = useState([]);
   const stateObj = useMemo(() => ({
     userLogin,
     setUserLogin,
