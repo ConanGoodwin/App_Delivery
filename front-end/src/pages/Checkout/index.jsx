@@ -6,14 +6,15 @@ import { requestData, setToken } from '../../services/api';
 const BORDER = '1px solid black';
 
 function Checkout() {
-  const { userLogin, setUserLogin } = useContext(LoginContext);
+  const { setUserLogin } = useContext(LoginContext);
   const [sellers, setSellers] = useState('');
   const navigate = useNavigate();
 
   const setaContextUser = useCallback(async (name) => {
+    const { token, role } = JSON.parse(localStorage.getItem('user'));
     setUserLogin({
-      token: localStorage.getItem('token'),
-      role: localStorage.getItem('role'),
+      token,
+      role,
       name,
     });
   }, [setUserLogin]);
@@ -34,10 +35,12 @@ function Checkout() {
     const verificaToken = async () => {
       try {
         if (localStorage.getItem('logado') === 'true') {
-          setToken(localStorage.getItem('token'));
+          const { token, role } = JSON.parse(localStorage.getItem('user'));
+          setToken(token);
           const { name } = await requestData('/user/validate');
+
           setaContextUser(name);
-          if (localStorage.getItem('role') !== 'customer') {
+          if (role !== 'customer') {
             console.log('quebra de segurança');
             setUserLogin({ token: '', role: '', name: '' });
             navigate('/login');
@@ -59,44 +62,152 @@ function Checkout() {
     navigate,
     setUserLogin,
     setaContextUser,
-    userLogin.role,
-    userLogin.token,
   ]);
 
   console.log(sellers);
 
+  // const handleChange = ({ target: { value, name, id } }) => {
+
+  // };
+
+  const handleChange = () => {
+
+  };
+
   return (
-    <form
+    // <form
+    //   style={ { display: 'flex',
+    //     flexDirection: 'column',
+    //     width: '100%',
+    //     justifyContent: 'center',
+    //     alignItems: 'center',
+    //     border: BORDER } }
+    // >
+    <section
       style={ { display: 'flex',
         flexDirection: 'column',
-        width: '100%',
         justifyContent: 'center',
         alignItems: 'center',
+        margin: '5px',
+        width: '97.5%',
+        padding: '10px',
         border: BORDER } }
     >
-      <section style={ { display: 'flex', flexDirection: 'column', width: '80%', border: BORDER } }>
+      <div style={ { display: 'flex', justifyContent: 'left', width: '100%' } }>
         <h4>Finalizar Pedido</h4>
-        <table>
-          <thead>
-            <tr>
-              <th>Item</th>
-              <th>Descrição</th>
-              <th>Quantidade</th>
-              <th>Valor Unitário</th>
-              <th>Sub-total</th>
-              <th>Remover Item</th>
-            </tr>
-          </thead>
-          <tbody />
-        </table>
-      </section>
-      <section style={ { display: 'flex', width: '80%', border: BORDER } }>
+      </div>
+      <table width="100%">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Descrição</th>
+            <th>Quantidade</th>
+            <th>Valor Unitário</th>
+            <th>Sub-total</th>
+            <th>Remover Item</th>
+          </tr>
+        </thead>
+        <tbody />
+      </table>
+      <div style={ { display: 'flex', justifyContent: 'right', width: '100%' } }>
+        <h4>
+          Total: R$
+          {' '}
+          <span data-testid="customer_checkout__element-order-total-price">0,00</span>
+        </h4>
+      </div>
+      {/* </section>
+      <section style={ { display: 'flex', width: '80%', border: BORDER } }> */}
+      <div style={ { display: 'flex', justifyContent: 'left', width: '100%' } }>
         <h4>Detalhes e Endereço para Entrega</h4>
-      </section>
-      <section>
-        <button type="button">FINALIZAR PEDIDO</button>
-      </section>
-    </form>
+      </div>
+      <form
+        style={ { display: 'flex',
+          flexDirection: 'column',
+          width: '100%',
+          justifyContent: 'center',
+          alignItems: 'center',
+          border: BORDER } }
+      >
+        <div
+          style={ { display: 'flex',
+            justifyContent: 'center',
+            width: '100%' } }
+        >
+          {
+            (sellers) ? (
+              <label
+                htmlFor="cmbSellers"
+                className="label"
+                style={ { margin: '10px', fontSize: 'small' } }
+              >
+                P. Vendedora Responsável
+                <br />
+                <select
+                  id="cmbSellers"
+                  data-testid="customer_checkout__select-seller"
+                  value="teste"
+                  onChange={ handleChange }
+                  style={ { width: '100%' } }
+                >
+                  {sellers.map(({ name }) => (
+                    <option
+                      value={ name }
+                      key={ name }
+                    >
+                      {name}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            ) : null
+          }
+          <label
+            htmlFor="txtEndereco"
+            className="label"
+            style={ { margin: '10px', fontSize: 'small', with: '60%' } }
+          >
+            Endereço
+            <br />
+            <input
+              type="text"
+              id="txtEndereco"
+              name="txtEndereco"
+              value="teste"
+              onChange={ handleChange }
+              style={ { width: '100%' } }
+              data-testid="customer_checkout__input-address"
+            />
+          </label>
+          <label
+            htmlFor="txtNumero"
+            className="label"
+            style={ { margin: '10px', fontSize: 'small', with: '60%' } }
+          >
+            Número
+            <br />
+            <input
+              type="text"
+              id="txtNumero"
+              name="txtValueFilter"
+              value="teste"
+              onChange={ handleChange }
+              style={ { width: '100%' } }
+              data-testid="customer_checkout__input-address-number"
+            />
+          </label>
+        </div>
+        <button
+          type="button"
+          data-testid="customer_checkout__button-submit-order"
+        >
+          FINALIZAR PEDIDO
+        </button>
+      </form>
+      {/* </section>
+      <section> */}
+    </section>
+    // </form>
   );
 }
 
