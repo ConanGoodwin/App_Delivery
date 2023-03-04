@@ -6,7 +6,7 @@ import { requestData, setToken } from '../../services/api';
 const BORDER = '1px solid black';
 
 function Checkout() {
-  const { setUserLogin } = useContext(LoginContext);
+  const { setUserLogin, products } = useContext(LoginContext);
   const [sellers, setSellers] = useState('');
   const navigate = useNavigate();
 
@@ -107,7 +107,59 @@ function Checkout() {
             <th>Remover Item</th>
           </tr>
         </thead>
-        <tbody />
+        <tbody>
+          { products.map((product, index) => (
+            <tr key={ index }>
+              <td
+                data-testid={
+                  `customer_checkout__element-order-table-item-number-${index}`
+                }
+              >
+                {index + 1}
+              </td>
+              <td
+                data-testid={
+                  `customer_checkout__element-order-table-name-${index}`
+                }
+              >
+                {product.name}
+              </td>
+              <td
+                data-testid={
+                  `customer_checkout__element-order-table-quantity-${index}`
+                }
+              >
+                {product.qt}
+              </td>
+              <td
+                data-testid={
+                  `customer_checkout__element-order-table-unit-price-${index}`
+                }
+              >
+                {parseFloat(product.unitPrice).toFixed(2).replace('.', ',')}
+              </td>
+              <td
+                data-testid={
+                  `customer_checkout__element-order-table-sub-total-${index}`
+                }
+              >
+                {parseFloat(product.subTotal).toFixed(2).replace('.', ',')}
+              </td>
+              <td>
+                <button
+                  name={ product.id }
+                  data-testid={
+                    `customer_checkout__element-order-table-remove-${index}`
+                  }
+                  type="button"
+                  onClick={ (e) => deleteProduct(e) }
+                >
+                  Remover
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
       </table>
       <div style={ { display: 'flex', justifyContent: 'right', width: '100%' } }>
         <h4>
