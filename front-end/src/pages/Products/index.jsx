@@ -4,6 +4,8 @@ import { requestData, setToken } from '../../services/api';
 import ProductCard from '../../components/ProductCard';
 import LoginContext from '../../context/LoginContext';
 
+const NOT_FOUND = -1;
+
 function Products() {
   const { setUserLogin, products, setProducts } = useContext(LoginContext);
   const [allProducts, setAllProducts] = useState([]);
@@ -70,7 +72,7 @@ function Products() {
   const handleClickMore = ({ target: { name } }) => {
     const index = products.findIndex(({ id }) => id === Number(name));
     const indexAll = allProducts.findIndex(({ id }) => id === Number(name));
-    if (index !== -1) {
+    if (index !== NOT_FOUND) {
       products[index] = {
         id: products[index].id,
         name: products[index].name,
@@ -95,7 +97,7 @@ function Products() {
 
   const handleClickMinus = ({ target: { name } }) => {
     const index = products.findIndex(({ id }) => id === Number(name));
-    if (index !== -1) {
+    if (index !== NOT_FOUND) {
       products[index] = {
         id: products[index].id,
         name: products[index].name,
