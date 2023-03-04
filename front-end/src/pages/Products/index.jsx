@@ -1,12 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { requestData } from '../../services/api';
+import { requestData, setToken } from '../../services/api';
 import ProductCard from '../../components/ProductCard';
+import LoginContext from '../../context/LoginContext';
 
 function Products() {
+  const { setUserLogin } = useContext(LoginContext);
   const [allProducts, setAllProducts] = useState([]);
   const [reqError, setReqError] = useState(false);
   const navigate = useNavigate();
+
+  const setaContextUser = useCallback(async (name) => {
+    const { token, role } = JSON.parse(localStorage.getItem('user'));
+    setUserLogin({
+      token,
+      role,
+      name,
+    });
+  }, [setUserLogin]);
 
   useEffect(() => {
     const getProducts = async () => {
@@ -20,6 +31,52 @@ function Products() {
     };
     getProducts();
   }, []);
+
+  useEffect(() => {
+    const getSellers = async () => {
+      try {
+        const users = await requestData('/user');
+        setSellers(users.filter(({ role }) => role === 'seller'));
+      } catch (error) {
+        console.log('bad request');
+      }
+    };
+    getSellers();
+  }, []);
+
+  useEffect(() => {
+    const verificaToken = async () => {
+      try {
+        if (localStorage.getItem('logado') === 'true') {
+          const { token, role } = JSON.parse(localStorage.getItem('user'));
+          setToken(token);
+          const { name } = await requestData('/user/validate');
+
+          setaContextUser(name);
+          if (role !== 'customer') {
+            console.log('quebra de segurança');
+            setUserLogin({ token: '', role: '', name: '' });
+            navigate('/login');
+          }
+        } else {
+          const { role } = await requestData('/user/validate');
+          if (!role) {
+            console.log('token invalido');
+            navigate('/login');
+          }
+        }
+      } catch (error) {
+        console.log('deslogado');
+        navigate('/login');
+      }
+    };
+    verificaToken();
+  }, [
+    navigate,
+    setUserLogin,
+    setaContextUser,
+  ]);
+
   return (
     <div>
       <button
