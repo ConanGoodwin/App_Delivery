@@ -6,7 +6,7 @@ import { requestData, setToken } from '../../services/api';
 const BORDER = '1px solid black';
 
 function Checkout() {
-  const { setUserLogin, products } = useContext(LoginContext);
+  const { setUserLogin, products, setProducts } = useContext(LoginContext);
   const [sellers, setSellers] = useState('');
   const navigate = useNavigate();
   const setaContextUser = useCallback(async (name) => {
@@ -63,11 +63,9 @@ function Checkout() {
     setaContextUser,
   ]);
 
-  // const handleChange = ({ target: { value, name, id } }) => {
-  // };
-
-  const handleChange = () => {
-
+  const handleChange = ({ target: { name } }) => {
+    const filter = products.filter((product) => product.id !== Number(name));
+    setProducts(filter);
   };
 
   return (
@@ -140,7 +138,7 @@ function Checkout() {
                     `customer_checkout__element-order-table-remove-${index}`
                   }
                   type="button"
-                  onClick={ (e) => deleteProduct(e) }
+                  onClick={ (target) => handleChange(target) }
                 >
                   Remover
                 </button>
