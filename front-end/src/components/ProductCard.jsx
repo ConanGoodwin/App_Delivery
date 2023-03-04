@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function ProductCard({ id, name, price, urlImage }) {
+function ProductCard({ id, name, price, urlImage, handleClickMore, handleClickMinus }) {
   return (
     <div>
       <p data-testid={ `customer_products__element-card-title-${id}` }>
@@ -18,6 +18,8 @@ function ProductCard({ id, name, price, urlImage }) {
       <button
         data-testid={ `customer_products__button-card-rm-item-${id}` }
         type="button"
+        name={ id }
+        onClick={ handleClickMinus }
       >
         -
       </button>
@@ -29,6 +31,8 @@ function ProductCard({ id, name, price, urlImage }) {
       <button
         data-testid={ `customer_products__button-card-add-item-${id}` }
         type="button"
+        name={ id }
+        onClick={ handleClickMore }
       >
         +
       </button>
@@ -43,4 +47,6 @@ ProductCard.propTypes = {
   name: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   urlImage: PropTypes.string.isRequired,
+  handleClickMore: PropTypes.func.isRequired,
+  handleClickMinus: PropTypes.func.isRequired,
 };

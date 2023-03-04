@@ -3,8 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import LoginContext from '../../context/LoginContext';
 import { requestData, setToken } from '../../services/api';
 
-const BORDER = '1px solid black';
-
 function Checkout() {
   const { setUserLogin, products, setProducts } = useContext(LoginContext);
   const [sellers, setSellers] = useState('');
@@ -12,11 +10,7 @@ function Checkout() {
 
   const setaContextUser = useCallback(async (name) => {
     const { token, role } = JSON.parse(localStorage.getItem('user'));
-    setUserLogin({
-      token,
-      role,
-      name,
-    });
+    setUserLogin({ token, role, name });
   }, [setUserLogin]);
 
   useEffect(() => {
@@ -78,7 +72,7 @@ function Checkout() {
         margin: '5px',
         width: '97.5%',
         padding: '10px',
-        border: BORDER } }
+        border: '1px solid black' } }
     >
       <div style={ { display: 'flex', justifyContent: 'left', width: '100%' } }>
         <h4>Finalizar Pedido</h4>
@@ -164,7 +158,7 @@ function Checkout() {
           width: '100%',
           justifyContent: 'center',
           alignItems: 'center',
-          border: BORDER } }
+          border: '1px solid black' } }
       >
         <div
           style={ { display: 'flex',
