@@ -7,11 +7,11 @@ import Products from './pages/Products';
 export default function Router() {
   return (
     <Routes>
-      <Route path="/" element={ <Navigate to="/login" /> } />
-      <Route path="/login" element={ <Login /> } />
-      <Route path="/register" element={ <Register /> } />
-      <Route path="/customer/products" element={ <Products /> } />
-      <Route path="/customer/products/checkout" element={ <Checkout /> } />
+      <Route exact path="/" element={ <Navigate to="/login" /> } />
+      <Route exact path="/login" element={ <Login /> } />
+      <Route exact path="/register" element={ <Register /> } />
+      <Route exact path="/customer/products" element={ <Products /> } />
+      <Route exact path="/custumer/products/checkout" element={ <Checkout /> } />
     </Routes>
   );
 }
