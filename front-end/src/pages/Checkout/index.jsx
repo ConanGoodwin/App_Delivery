@@ -9,7 +9,6 @@ function Checkout() {
   const { setUserLogin, products } = useContext(LoginContext);
   const [sellers, setSellers] = useState('');
   const navigate = useNavigate();
-
   const setaContextUser = useCallback(async (name) => {
     const { token, role } = JSON.parse(localStorage.getItem('user'));
     setUserLogin({
@@ -64,10 +63,7 @@ function Checkout() {
     setaContextUser,
   ]);
 
-  console.log(sellers);
-
   // const handleChange = ({ target: { value, name, id } }) => {
-
   // };
 
   const handleChange = () => {
@@ -75,14 +71,6 @@ function Checkout() {
   };
 
   return (
-    // <form
-    //   style={ { display: 'flex',
-    //     flexDirection: 'column',
-    //     width: '100%',
-    //     justifyContent: 'center',
-    //     alignItems: 'center',
-    //     border: BORDER } }
-    // >
     <section
       style={ { display: 'flex',
         flexDirection: 'column',
@@ -168,8 +156,6 @@ function Checkout() {
           <span data-testid="customer_checkout__element-order-total-price">0,00</span>
         </h4>
       </div>
-      {/* </section>
-      <section style={ { display: 'flex', width: '80%', border: BORDER } }> */}
       <div style={ { display: 'flex', justifyContent: 'left', width: '100%' } }>
         <h4>Detalhes e Endereço para Entrega</h4>
       </div>
@@ -256,10 +242,7 @@ function Checkout() {
           FINALIZAR PEDIDO
         </button>
       </form>
-      {/* </section>
-      <section> */}
     </section>
-    // </form>
   );
 }
 
