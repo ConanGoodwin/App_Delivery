@@ -1,4 +1,4 @@
-const md5 = require('md5');
+// const md5 = require('md5');
 const UserService = require('../services/user.service');
 const { returnController, returnControllerToken } = require('../utils/returnServicesControllers');
 
