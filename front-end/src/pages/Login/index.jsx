@@ -55,7 +55,7 @@ function Login() {
       localStorage.setItem('user', JSON.stringify({ token, name, email, role }));
       switch (role) {
       case 'customer':
-        navigate(`/${role}/products/checkout`);
+        navigate(`/${role}/products`);
         break;
       case 'seller':
         navigate(`/${role}/orders`);
