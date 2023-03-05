@@ -4,7 +4,7 @@ import LoginContext from '../../context/LoginContext';
 import { requestData, setToken } from '../../services/api';
 
 function Checkout() {
-  const { setUserLogin, products, setProducts } = useContext(LoginContext);
+  const { setUserLogin, cart, setCart } = useContext(LoginContext);
   const [sellers, setSellers] = useState('');
   const navigate = useNavigate();
 
@@ -59,8 +59,8 @@ function Checkout() {
   ]);
 
   const handleChange = ({ target: { name } }) => {
-    const filter = products.filter((product) => product.id !== Number(name));
-    setProducts(filter);
+    const filter = cart.filter((product) => product.id !== Number(name));
+    setCart(filter);
   };
 
   return (
@@ -89,7 +89,7 @@ function Checkout() {
           </tr>
         </thead>
         <tbody>
-          { products.map((product, index) => (
+          { cart.map((product, index) => (
             <tr key={ index }>
               <td
                 data-testid={

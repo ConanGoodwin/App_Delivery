@@ -7,7 +7,7 @@ import LoginContext from '../../context/LoginContext';
 const NOT_FOUND = -1;
 
 function Products() {
-  const { setUserLogin, products, setProducts } = useContext(LoginContext);
+  const { setUserLogin, cart, setCart } = useContext(LoginContext);
   const [isDisabledButton, setIsDisabledButton] = useState(true);
   const [allProducts, setAllProducts] = useState([]);
   const [txtQtProduct, setTxtQtProduct] = useState([]);
@@ -24,18 +24,18 @@ function Products() {
   }, [setUserLogin]);
 
   useEffect(() => {
-    setIsDisabledButton(Number(products
+    setIsDisabledButton(Number(cart
       .reduce((acc, curr) => acc + curr.subTotal, 0)) === 0);
     const getProducts = async () => {
       try {
-        const requestProducts = await requestData('/product'); // modificquei o nome da variavel
-        setAllProducts(requestProducts.map((item) => {
+        const products = await requestData('/product');
+        setAllProducts(products.map((item) => {
           let qt = 0;
 
-          const index = products.findIndex(({ id }) => id === item.id);
+          const index = cart.findIndex(({ id }) => id === item.id);
           if (index !== NOT_FOUND) {
-            qt = products[index].qt;
-            setTxtQtProduct((prevsate) => [...prevsate, products[index].qt]);
+            qt = cart[index].qt;
+            setTxtQtProduct((prevsate) => [...prevsate, cart[index].qt]);
           } else {
             setTxtQtProduct((prevsate) => [...prevsate, 0]);
           }
@@ -47,7 +47,7 @@ function Products() {
       }
     };
     getProducts();
-  }, [products]);
+  }, [cart]);
 
   useEffect(() => {
     const verificaToken = async () => {
@@ -101,20 +101,20 @@ function Products() {
   };
 
   const handleClickMore = ({ target: { name } }, value = 1) => {
-    const index = products.findIndex(({ id }) => id === Number(name));
+    const index = cart.findIndex(({ id }) => id === Number(name));
     const indexAll = allProducts.findIndex(({ id }) => id === Number(name));
     allProducts[indexAll] = attAllProducts(indexAll, '+', value);
     if (index !== NOT_FOUND) {
-      products[index] = {
-        id: products[index].id,
-        name: products[index].name,
-        unitPrice: products[index].unitPrice,
-        qt: products[index].qt + value,
-        subTotal: products[index].unitPrice * (products[index].qt + value),
+      cart[index] = {
+        id: cart[index].id,
+        name: cart[index].name,
+        unitPrice: cart[index].unitPrice,
+        qt: cart[index].qt + value,
+        subTotal: cart[index].unitPrice * (cart[index].qt + value),
       };
     } else {
       (
-        products.push({
+        cart.push({
           id: allProducts[indexAll].id,
           name: allProducts[indexAll].name,
           unitPrice: allProducts[indexAll].price,
@@ -123,29 +123,29 @@ function Products() {
         })
       );
     }
-    setProducts(products.filter(({ qt }) => qt > 0));
-    setIsDisabledButton(Number(products
+    setCart(cart.filter(({ qt }) => qt > 0));
+    setIsDisabledButton(Number(cart
       .reduce((acc, curr) => acc + curr.subTotal, 0)) === 0);
-    console.log(products);
+    console.log(cart);
   };
 
   const handleClickMinus = ({ target: { name } }, value = 1) => {
-    const index = products.findIndex(({ id }) => id === Number(name));
+    const index = cart.findIndex(({ id }) => id === Number(name));
     const indexAll = allProducts.findIndex(({ id }) => id === Number(name));
     allProducts[indexAll] = attAllProducts(indexAll, '-', value);
     if (index !== NOT_FOUND) {
-      products[index] = {
-        id: products[index].id,
-        name: products[index].name,
-        unitPrice: products[index].unitPrice,
-        qt: products[index].qt - 1,
-        subTotal: products[index].unitPrice * (products[index].qt - 1),
+      cart[index] = {
+        id: cart[index].id,
+        name: cart[index].name,
+        unitPrice: cart[index].unitPrice,
+        qt: cart[index].qt - 1,
+        subTotal: cart[index].unitPrice * (cart[index].qt - 1),
       };
     }
-    setProducts(products.filter(({ qt }) => qt > 0));
-    setIsDisabledButton(Number(products
+    setCart(cart.filter(({ qt }) => qt > 0));
+    setIsDisabledButton(Number(cart
       .reduce((acc, curr) => acc + curr.subTotal, 0)) === 0);
-    console.log(products);
+    console.log(cart);
   };
 
   const txtChange = ({ target: { value, name } }) => {
@@ -153,11 +153,11 @@ function Products() {
     if (Number(value) >= 0) {
       if (!value) attValue = 0;
       console.log(value);
-      const index = products.findIndex(({ id }) => id === Number(name));
+      const index = cart.findIndex(({ id }) => id === Number(name));
       const indexAll = allProducts.findIndex(({ id }) => id === Number(name));
       const att = { target: { name } };
       if (index !== NOT_FOUND) {
-        handleClickMore(att, attValue - products[index].qt);
+        handleClickMore(att, attValue - cart[index].qt);
       } else {
         handleClickMore(att, attValue);
       }
@@ -176,7 +176,7 @@ function Products() {
         disabled={ isDisabledButton }
       >
         <span data-testid="customer_products__checkout-bottom-value">
-          { Number(products.reduce((acc, curr) => acc + curr.subTotal, 0))
+          { Number(cart.reduce((acc, curr) => acc + curr.subTotal, 0))
             .toFixed(2)
             .replace('.', ',') }
         </span>
