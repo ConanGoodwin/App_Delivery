@@ -117,7 +117,7 @@ function Products() {
           id: allProducts[indexAll].id,
           name: allProducts[indexAll].name,
           unitPrice: allProducts[indexAll].price,
-          qt: 1,
+          qt: value,
           subTotal: allProducts[indexAll].price,
         })
       );
