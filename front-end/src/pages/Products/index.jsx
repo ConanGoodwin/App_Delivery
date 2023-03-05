@@ -9,6 +9,7 @@ const NOT_FOUND = -1;
 function Products() {
   const { setUserLogin, products, setProducts } = useContext(LoginContext);
   const [allProducts, setAllProducts] = useState([]);
+  const [txtQtProduct, setTxtQtProduct] = useState([]);
   const [reqError, setReqError] = useState(false);
   const navigate = useNavigate();
 
@@ -27,8 +28,14 @@ function Products() {
         const requestProducts = await requestData('/product'); // modificquei o nome da variavel
         setAllProducts(requestProducts.map((item) => {
           let qt = 0;
+
           const index = products.findIndex(({ id }) => id === item.id);
-          if (index !== NOT_FOUND) qt = products[index].qt;
+          if (index !== NOT_FOUND) {
+            qt = products[index].qt;
+            setTxtQtProduct((prevsate) => [...prevsate, products[index].qt]);
+          } else {
+            setTxtQtProduct((prevsate) => [...prevsate, 0]);
+          }
           return { ...item, qt };
         }));
       } catch (e) {
@@ -74,7 +81,7 @@ function Products() {
     setaContextUser,
   ]);
 
-  const attAllProducts = (indexAll, operator) => {
+  const attAllProducts = (indexAll, operator, value) => {
     const newProduct = {
       id: allProducts[indexAll].id,
       name: allProducts[indexAll].name,
@@ -82,23 +89,27 @@ function Products() {
       urlImage: allProducts[indexAll].urlImage,
     };
     if (operator === '-' && allProducts[indexAll].qt > 0) {
-      return { ...newProduct, qt: allProducts[indexAll].qt - 1 };
+      txtQtProduct[indexAll] = allProducts[indexAll].qt - value;
+      setTxtQtProduct((prev) => [...prev]);
+      return { ...newProduct, qt: allProducts[indexAll].qt - value };
     }
     if (operator === '-') return allProducts[indexAll];
-    return { ...newProduct, qt: allProducts[indexAll].qt + 1 };
+    txtQtProduct[indexAll] = allProducts[indexAll].qt + value;
+    setTxtQtProduct((prev) => [...prev]);
+    return { ...newProduct, qt: allProducts[indexAll].qt + value };
   };
 
-  const handleClickMore = ({ target: { name } }) => {
+  const handleClickMore = ({ target: { name } }, value = 1) => {
     const index = products.findIndex(({ id }) => id === Number(name));
     const indexAll = allProducts.findIndex(({ id }) => id === Number(name));
-    allProducts[indexAll] = attAllProducts(indexAll, '+');
+    allProducts[indexAll] = attAllProducts(indexAll, '+', value);
     if (index !== NOT_FOUND) {
       products[index] = {
         id: products[index].id,
         name: products[index].name,
         unitPrice: products[index].unitPrice,
-        qt: products[index].qt + 1,
-        subTotal: products[index].unitPrice * (products[index].qt + 1),
+        qt: products[index].qt + value,
+        subTotal: products[index].unitPrice * (products[index].qt + value),
       };
     } else {
       (
@@ -115,10 +126,10 @@ function Products() {
     console.log(products);
   };
 
-  const handleClickMinus = ({ target: { name } }) => {
+  const handleClickMinus = ({ target: { name } }, value = 1) => {
     const index = products.findIndex(({ id }) => id === Number(name));
     const indexAll = allProducts.findIndex(({ id }) => id === Number(name));
-    allProducts[indexAll] = attAllProducts(indexAll, '-');
+    allProducts[indexAll] = attAllProducts(indexAll, '-', value);
     if (index !== NOT_FOUND) {
       products[index] = {
         id: products[index].id,
@@ -132,6 +143,25 @@ function Products() {
     console.log(products);
   };
 
+  const txtChange = ({ target: { value, name } }) => {
+    let attValue = Number(value);
+    if (Number(value) >= 0) {
+      if (!value) attValue = 0;
+      console.log(value);
+      const index = products.findIndex(({ id }) => id === Number(name));
+      const indexAll = allProducts.findIndex(({ id }) => id === Number(name));
+      const att = { target: { name } };
+      if (index !== NOT_FOUND) {
+        handleClickMore(att, attValue - products[index].qt);
+      } else {
+        handleClickMore(att, attValue);
+      }
+      setAllProducts((prev) => [...prev]);
+      txtQtProduct[indexAll] = attValue;
+      setTxtQtProduct((prev) => [...prev]);
+    }
+  };
+
   return (
     <div>
       <button
@@ -141,14 +171,15 @@ function Products() {
         Ver Carrinho
       </button>
       {
-        !reqError ? allProducts.map(({ id, name, price, urlImage, qt }) => (
+        !reqError ? allProducts.map(({ id, name, price, urlImage }, index) => (
           <div key={ id }>
             <ProductCard
               id={ id }
               name={ name }
               price={ price }
               urlImage={ urlImage }
-              quantidade={ qt }
+              quantidade={ txtQtProduct[index] }
+              txtChange={ txtChange }
               handleClickMore={ handleClickMore }
               handleClickMinus={ handleClickMinus }
             />

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 function ProductCard({
-  id, name, price, urlImage, quantidade, handleClickMore, handleClickMinus }) {
+  id, name, price, urlImage, quantidade, txtChange, handleClickMore, handleClickMinus }) {
   return (
     <div>
       <p data-testid={ `customer_products__element-card-title-${id}` }>
@@ -27,8 +27,9 @@ function ProductCard({
       <input
         type="text"
         data-testid={ `customer_products__input-card-quantity-${id}` }
+        name={ id }
         value={ quantidade }
-        // onChange={ (event) => handleChange(event) }
+        onChange={ txtChange }
       />
       <button
         data-testid={ `customer_products__button-card-add-item-${id}` }
@@ -50,6 +51,7 @@ ProductCard.propTypes = {
   price: PropTypes.number.isRequired,
   urlImage: PropTypes.string.isRequired,
   quantidade: PropTypes.number.isRequired,
+  txtChange: PropTypes.func.isRequired,
   handleClickMore: PropTypes.func.isRequired,
   handleClickMinus: PropTypes.func.isRequired,
 };
