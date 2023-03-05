@@ -118,7 +118,7 @@ function Products() {
           name: allProducts[indexAll].name,
           unitPrice: allProducts[indexAll].price,
           qt: value,
-          subTotal: allProducts[indexAll].price,
+          subTotal: allProducts[indexAll].price * value,
         })
       );
     }
