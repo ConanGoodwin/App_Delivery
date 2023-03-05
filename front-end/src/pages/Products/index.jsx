@@ -169,7 +169,9 @@ function Products() {
         onClick={ () => navigate('/custumer/checkout') }
         data-testid="customer_products__button-cart"
       >
-        <span data-testid="customer_products__checkout-bottom-value">Ver Carrinho</span>
+        <span data-testid="customer_products__checkout-bottom-value">
+          { Number(products.reduce((acc, curr) => acc + curr.subTotal, 0)).toFixed(2) }
+        </span>
       </button>
       {
         !reqError ? allProducts.map(({ id, name, price, urlImage }, index) => (
