@@ -170,7 +170,9 @@ function Products() {
         data-testid="customer_products__button-cart"
       >
         <span data-testid="customer_products__checkout-bottom-value">
-          { Number(products.reduce((acc, curr) => acc + curr.subTotal, 0)).toFixed(2) }
+          { Number(products.reduce((acc, curr) => acc + curr.subTotal, 0))
+            .toFixed(2)
+            .replace('.', ',') }
         </span>
       </button>
       {
