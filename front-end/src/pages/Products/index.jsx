@@ -8,6 +8,7 @@ const NOT_FOUND = -1;
 
 function Products() {
   const { setUserLogin, products, setProducts } = useContext(LoginContext);
+  const [isDisabledButton, setIsDisabledButton] = useState(true);
   const [allProducts, setAllProducts] = useState([]);
   const [txtQtProduct, setTxtQtProduct] = useState([]);
   const [reqError, setReqError] = useState(false);
@@ -23,6 +24,8 @@ function Products() {
   }, [setUserLogin]);
 
   useEffect(() => {
+    setIsDisabledButton(Number(products
+      .reduce((acc, curr) => acc + curr.subTotal, 0)) === 0);
     const getProducts = async () => {
       try {
         const requestProducts = await requestData('/product'); // modificquei o nome da variavel
@@ -45,8 +48,6 @@ function Products() {
     };
     getProducts();
   }, [products]);
-
-  // console.log(allProducts);
 
   useEffect(() => {
     const verificaToken = async () => {
@@ -123,6 +124,8 @@ function Products() {
       );
     }
     setProducts(products.filter(({ qt }) => qt > 0));
+    setIsDisabledButton(Number(products
+      .reduce((acc, curr) => acc + curr.subTotal, 0)) === 0);
     console.log(products);
   };
 
@@ -140,6 +143,8 @@ function Products() {
       };
     }
     setProducts(products.filter(({ qt }) => qt > 0));
+    setIsDisabledButton(Number(products
+      .reduce((acc, curr) => acc + curr.subTotal, 0)) === 0);
     console.log(products);
   };
 
@@ -168,6 +173,7 @@ function Products() {
         type="button"
         onClick={ () => navigate('/custumer/checkout') }
         data-testid="customer_products__button-cart"
+        disabled={ isDisabledButton }
       >
         <span data-testid="customer_products__checkout-bottom-value">
           { Number(products.reduce((acc, curr) => acc + curr.subTotal, 0))
