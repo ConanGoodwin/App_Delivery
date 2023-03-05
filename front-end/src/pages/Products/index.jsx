@@ -167,8 +167,9 @@ function Products() {
       <button
         type="button"
         onClick={ () => navigate('/custumer/checkout') }
+        data-testid="customer_products__button-cart"
       >
-        Ver Carrinho
+        <span data-testid="customer_products__checkout-bottom-value">Ver Carrinho</span>
       </button>
       {
         !reqError ? allProducts.map(({ id, name, price, urlImage }, index) => (
