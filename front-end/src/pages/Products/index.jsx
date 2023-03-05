@@ -171,7 +171,7 @@ function Products() {
     <div>
       <button
         type="button"
-        onClick={ () => navigate('/custumer/checkout') }
+        onClick={ () => navigate('/customer/checkout') }
         data-testid="customer_products__button-cart"
         disabled={ isDisabledButton }
       >
