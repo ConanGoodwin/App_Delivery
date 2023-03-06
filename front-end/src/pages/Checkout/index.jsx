@@ -8,6 +8,7 @@ function Checkout() {
   const { setUserLogin, cart, setCart } = useContext(LoginContext);
   const [sellers, setSellers] = useState('');
   const navigate = useNavigate();
+  let total = 0;
 
   useEffect(() => {
     const getSellers = async () => {
@@ -133,13 +134,16 @@ function Checkout() {
               </td>
             </tr>
           ))}
+          { cart.forEach(({ subTotal }) => { total += subTotal; })}
         </tbody>
       </table>
       <div style={ { display: 'flex', justifyContent: 'right', width: '100%' } }>
         <h4>
           Total: R$
           {' '}
-          <span data-testid="customer_checkout__element-order-total-price">0,00</span>
+          <span data-testid="customer_checkout__element-order-total-price">
+            { (total).toFixed(2).replace('.', ',') }
+          </span>
         </h4>
       </div>
       <div style={ { display: 'flex', justifyContent: 'left', width: '100%' } }>
