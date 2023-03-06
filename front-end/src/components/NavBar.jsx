@@ -7,6 +7,11 @@ const BORDER = '1px solid black';
 function NavBar() {
   const { userLogin } = useContext(LoginContext);
 
+  const handleClickLogout = () => {
+    localStorage.removeItem('user');
+    localStorage.removeItem('cart');
+  };
+
   return (
     <nav style={ { display: 'flex', width: '100%', border: BORDER } }>
       <div
@@ -77,7 +82,7 @@ function NavBar() {
         <Link
           to="/login"
           data-testid="customer_products__element-navbar-link-logout"
-          onClick={ () => localStorage.removeItem('user') }
+          onClick={ handleClickLogout }
         >
           Sair
 
