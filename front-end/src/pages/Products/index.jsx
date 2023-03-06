@@ -53,7 +53,9 @@ function Products() {
       role,
       name,
     });
-    setCart(JSON.parse(localStorage.getItem('cart')));
+    if (JSON.parse(localStorage.getItem('cart'))) {
+      setCart(JSON.parse(localStorage.getItem('cart')));
+    }
   }, [setCart, setUserLogin]);
 
   // faz a validação do token e verifica a role do usuario logado para validar se
