@@ -20,6 +20,7 @@ function Checkout() {
     const getSellers = async () => {
       try {
         const users = await requestData('/user');
+
         setSellers(users.filter(({ role }) => role === 'seller'));
       } catch (error) {
         console.log('bad request');
