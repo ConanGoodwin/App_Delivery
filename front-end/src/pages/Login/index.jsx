@@ -9,6 +9,9 @@ import {
   COMMON_LOGIN_EMAIL,
   COMMON_LOGIN_INVALID,
   COMMON_LOGIN_PASSWORD } from '../../constant/register_dataTestId';
+
+import bgimg from '../../images/ee.jpg';
+import logo from '../../images/logo2.png';
 // import RedirectLogin from '../../utils/redirectLogin';
 const MAX_PASSWORD_LENGTH = 6;
 
@@ -99,65 +102,75 @@ function Login() {
   };
 
   return (
-    <div>
-      <form>
-        <label htmlFor="email-input">
-          <input
-            className="login__login_input"
-            type="text"
-            value={ email }
-            onChange={ ({ target: { value } }) => setEmail(value) }
-            data-testid={ COMMON_LOGIN_EMAIL }
-            placeholder="Login"
-          />
-        </label>
-        <label htmlFor="password-input">
-          <input
-            type="password"
-            value={ password }
-            onChange={ ({ target: { value } }) => setPassword(value) }
-            data-testid={ COMMON_LOGIN_PASSWORD }
-            placeholder="Senha"
-          />
-        </label>
-        {
-          (failedTryLogin)
-            ? (
-              <p data-testid={ COMMON_LOGIN_INVALID }>
-                {
-                  `O endereço de e-mail ou a senha não estão corretos.
+    <div className="container_login">
+      <div className="container_login_bg">
+        <img className="bg_login" src={ bgimg } alt="dsds" />
+        <form>
+          <img className="logo_login" src={ logo } alt="logo" />
+          <label htmlFor="email-input">
+            <input
+              className="login__login_input"
+              type="text"
+              value={ email }
+              onChange={ ({ target: { value } }) => setEmail(value) }
+              data-testid={ COMMON_LOGIN_EMAIL }
+              placeholder="Login"
+            />
+          </label>
+          <label htmlFor="password-input">
+            <input
+              className="password_input"
+              type="password"
+              value={ password }
+              onChange={ ({ target: { value } }) => setPassword(value) }
+              data-testid={ COMMON_LOGIN_PASSWORD }
+              placeholder="Senha"
+            />
+          </label>
+          {
+            (failedTryLogin)
+              ? (
+                <p data-testid={ COMMON_LOGIN_INVALID }>
+                  {
+                    `O endereço de e-mail ou a senha não estão corretos.
                     Por favor, tente novamente.`
-                }
-              </p>
-            )
-            : null
-        }
-        <button
-          type="button"
-          data-testid={ COMMON_LOGIN_BTN_L }
-          disabled={ !isDisabledButton }
-          onClick={ (event) => login(event) }
-        >
-          LOGIN
-        </button>
-        <button
-          type="button"
-          data-testid={ COMMON_LOGIN_BTN_R }
-          onClick={ handleRegisterBtn }
-        >
-          Ainda não tenho conta
-        </button>
-        <label htmlFor="chkTrunfo">
-          <input
-            type="checkbox"
-            id="chkTrunfo"
-            checked={ logado }
-            onChange={ onInputChange }
-            data-testid="trunfo-input"
-          />
-          Permanecer logado
-        </label>
-      </form>
+                  }
+                </p>
+              )
+              : null
+          }
+
+          <button
+            type="button"
+            className="button_login"
+            data-testid={ COMMON_LOGIN_BTN_L }
+            disabled={ !isDisabledButton }
+            onClick={ (event) => login(event) }
+          >
+            LOGIN
+          </button>
+
+          <button
+            type="button"
+            data-testid={ COMMON_LOGIN_BTN_R }
+            className="button_create_account"
+            onClick={ handleRegisterBtn }
+          >
+            Ainda não tenho conta
+          </button>
+          <label htmlFor="chkTrunfo">
+            <input
+              type="checkbox"
+              className="checkbox"
+              id="chkTrunfo"
+              checked={ logado }
+              onChange={ onInputChange }
+              data-testid="trunfo-input"
+            />
+            Permanecer logado
+          </label>
+        </form>
+      </div>
     </div>
   );
 }
