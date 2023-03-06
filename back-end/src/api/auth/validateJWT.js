@@ -9,7 +9,6 @@ const secret = fs.readFileSync(path.resolve(__dirname, `${FILE_PATH}/jwt.evaluat
 
 module.exports = async (req, res, next) => {
   const token = req.header('Authorization');
-
   if (!token) return res.status(401).json({ message: 'Token not found' });
 
   try {
