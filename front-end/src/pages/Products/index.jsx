@@ -191,6 +191,8 @@ function Products() {
         data-testid="customer_products__button-cart"
         disabled={ isDisabledButton }
       >
+        Ver carrinho:
+        {' '}
         <span data-testid="customer_products__checkout-bottom-value">
           { Number(cart.reduce((acc, curr) => acc + curr.subTotal, 0))
             .toFixed(2)
