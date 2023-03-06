@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import LoginContext from '../../context/LoginContext';
-import { requestData, setToken } from '../../services/api';
+import { requestData } from '../../services/api';
 import verficaToken from '../../utils/auth/verficaToken';
 
 function Checkout() {
