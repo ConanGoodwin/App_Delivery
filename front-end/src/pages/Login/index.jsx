@@ -16,7 +16,7 @@ import logo from '../../images/logo2.png';
 const MAX_PASSWORD_LENGTH = 6;
 
 function Login() {
-  const { setUserLogin } = useContext(LoginContext);
+  const { setUserLogin, setCart } = useContext(LoginContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [logado, setLogado] = useState(false);
@@ -40,7 +40,8 @@ function Login() {
 
   useEffect(() => {
     setUserLogin({ token: '', role: '', name: '' });
-  }, [setUserLogin]);
+    setCart([]);
+  }, [setCart, setUserLogin]);
 
   useEffect(() => {
     setLogado(localStorage.getItem('logado') === 'true');
