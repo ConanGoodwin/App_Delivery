@@ -62,17 +62,13 @@ function Checkout() {
     const filter = cart.filter((product) => product.id !== Number(name));
     switch (name) {
     case 'dropBSeller':
-      setStatusForm((prev) => ({ ...prev, drbSeller: value }));
-      break;
+      return setStatusForm((prev) => ({ ...prev, drbSeller: value }));
     case 'txtEndereco':
-      setStatusForm((prev) => ({ ...prev, txtEndereco: value }));
-      break;
+      return setStatusForm((prev) => ({ ...prev, txtEndereco: value }));
     case 'txtNumero':
-      setStatusForm((prev) => ({ ...prev, txtNumero: value }));
-      break;
+      return setStatusForm((prev) => ({ ...prev, txtNumero: value }));
     default:
-      setCart(filter);
-      break;
+      return setCart(filter);
     }
   };
 
