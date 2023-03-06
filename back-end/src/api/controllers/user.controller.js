@@ -1,4 +1,4 @@
-const md5 = require('md5');
+// const md5 = require('md5');
 const UserService = require('../services/user.service');
 const { returnController, returnControllerToken } = require('../utils/returnServicesControllers');
 
@@ -6,8 +6,6 @@ const getAll = async (_req, res) => {
   const { type, message } = await UserService.getAll();
 
   if (type) return res.status(404).json({ message });
-  const arrayPass = message.map(({ password }) => password === md5('$#zebirita#$'));
-  console.log(arrayPass);
 
   returnController(res, type, message, 200);
 };
@@ -22,7 +20,7 @@ const login = async (req, res) => {
 
 const validadeToken = async (req, res) => {
   let type = null;
-  let message = { role: req.user.role };
+  let message = { role: req.user.role, name: req.user.name };
 
   if (!req.user) {
     type = 'EXPIRED_OR_INVALID_TOKEN';

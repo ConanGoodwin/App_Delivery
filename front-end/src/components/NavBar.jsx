@@ -77,6 +77,7 @@ function NavBar() {
         <Link
           to="/login"
           data-testid="customer_products__element-navbar-link-logout"
+          onClick={ () => localStorage.removeItem('user') }
         >
           Sair
 

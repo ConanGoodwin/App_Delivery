@@ -52,6 +52,7 @@ function Login() {
       localStorage.setItem('token', token);
       localStorage.setItem('role', role);
       setUserLogin({ token, role, name });
+      localStorage.setItem('user', JSON.stringify({ token, name, email, role }));
       switch (role) {
       case 'customer':
         navigate(`/${role}/products`);
