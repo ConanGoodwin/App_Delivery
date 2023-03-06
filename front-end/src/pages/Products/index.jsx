@@ -53,7 +53,8 @@ function Products() {
       role,
       name,
     });
-  }, [setUserLogin]);
+    setCart(JSON.parse(localStorage.getItem('cart')));
+  }, [setCart, setUserLogin]);
 
   // faz a validação do token e verifica a role do usuario logado para validar se
   // aquele tipo de usuario tem acesso aquela pagina.
@@ -183,11 +184,16 @@ function Products() {
     }
   };
 
+  const handleClickBtnCart = () => {
+    localStorage.setItem('cart', JSON.stringify(cart));
+    navigate('/customer/checkout');
+  };
+
   return (
     <div>
       <button
         type="button"
-        onClick={ () => navigate('/customer/checkout') }
+        onClick={ handleClickBtnCart }
         data-testid="customer_products__button-cart"
         disabled={ isDisabledButton }
       >
