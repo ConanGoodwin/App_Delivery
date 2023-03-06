@@ -7,6 +7,12 @@ import verficaToken from '../../utils/auth/verficaToken';
 function Checkout() {
   const { setUserLogin, cart, setCart } = useContext(LoginContext);
   const [sellers, setSellers] = useState('');
+  const [statusForm, setStatusForm] = useState({
+    idSeller: '',
+    drbSeller: '',
+    txtEndereco: '',
+    txtNumero: '',
+  });
   const navigate = useNavigate();
   let total = 0;
 
@@ -52,9 +58,22 @@ function Checkout() {
     setaContextUser,
   ]);
 
-  const handleChange = ({ target: { name } }) => {
+  const handleChange = ({ target: { name, value } }) => {
     const filter = cart.filter((product) => product.id !== Number(name));
-    setCart(filter);
+    switch (name) {
+    case 'dropBSeller':
+      setStatusForm((prev) => ({ ...prev, drbSeller: value }));
+      break;
+    case 'txtEndereco':
+      setStatusForm((prev) => ({ ...prev, txtEndereco: value }));
+      break;
+    case 'txtNumero':
+      setStatusForm((prev) => ({ ...prev, txtNumero: value }));
+      break;
+    default:
+      setCart(filter);
+      break;
+    }
   };
 
   return (
@@ -174,13 +193,15 @@ function Checkout() {
                 <select
                   id="cmbSellers"
                   data-testid="customer_checkout__select-seller"
-                  value="teste"
+                  name="dropBSeller"
+                  value={ statusForm.drbSeller }
                   onChange={ handleChange }
                   style={ { width: '100%' } }
                 >
-                  {sellers.map(({ name }) => (
+                  {sellers.map(({ name, id }) => (
                     <option
                       value={ name }
+                      name={ id }
                       key={ name }
                     >
                       {name}
@@ -201,7 +222,7 @@ function Checkout() {
               type="text"
               id="txtEndereco"
               name="txtEndereco"
-              value="teste"
+              value={ statusForm.txtEndereco }
               onChange={ handleChange }
               style={ { width: '100%' } }
               data-testid="customer_checkout__input-address"
@@ -217,8 +238,8 @@ function Checkout() {
             <input
               type="text"
               id="txtNumero"
-              name="txtValueFilter"
-              value="teste"
+              name="txtNumero"
+              value={ statusForm.txtNumero }
               onChange={ handleChange }
               style={ { width: '100%' } }
               data-testid="customer_checkout__input-address-number"
