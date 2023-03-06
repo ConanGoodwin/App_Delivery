@@ -2,16 +2,12 @@ import React, { useState, useContext, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import LoginContext from '../../context/LoginContext';
 import { requestData, setToken } from '../../services/api';
+import verficaToken from '../../utils/auth/verficaToken';
 
 function Checkout() {
   const { setUserLogin, cart, setCart } = useContext(LoginContext);
   const [sellers, setSellers] = useState('');
   const navigate = useNavigate();
-
-  const setaContextUser = useCallback(async (name) => {
-    const { token, role } = JSON.parse(localStorage.getItem('user'));
-    setUserLogin({ token, role, name });
-  }, [setUserLogin]);
 
   useEffect(() => {
     const getSellers = async () => {
@@ -25,33 +21,30 @@ function Checkout() {
     getSellers();
   }, []);
 
-  useEffect(() => {
-    const verificaToken = async () => {
-      try {
-        if (localStorage.getItem('logado') === 'true') {
-          const { token, role } = JSON.parse(localStorage.getItem('user'));
-          setToken(token);
-          const { name } = await requestData('/user/validate');
+  const setaContextUser = useCallback(async (name) => {
+    const { token, role } = JSON.parse(localStorage.getItem('user'));
+    setUserLogin({ token, role, name });
+  }, [setUserLogin]);
 
-          setaContextUser(name);
-          if (role !== 'customer') {
-            console.log('quebra de segurança');
-            setUserLogin({ token: '', role: '', name: '' });
-            navigate('/login');
-          }
-        } else {
-          const { role } = await requestData('/user/validate');
-          if (!role) {
-            console.log('token invalido');
-            navigate('/login');
-          }
-        }
-      } catch (error) {
-        console.log('deslogado');
+  useEffect(() => {
+    const validaToken = async () => {
+      const respValida = await verficaToken('customer');
+      if (respValida === 'error') {
+        setUserLogin({ token: '', role: '', name: '' });
         navigate('/login');
       }
+      if (localStorage.getItem('logado') === 'true') {
+        setaContextUser(respValida);
+      } else {
+        try {
+          await requestData('/user/validate');
+        } catch (error) {
+          setUserLogin({ token: '', role: '', name: '' });
+          navigate('/login');
+        }
+      }
     };
-    verificaToken();
+    validaToken();
   }, [
     navigate,
     setUserLogin,
