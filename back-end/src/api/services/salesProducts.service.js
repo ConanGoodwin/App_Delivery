@@ -12,13 +12,13 @@ const addProductSales = async (reqBody) => {
 };
 
 const getById = async (id) => {
-  const message = await salesProducts.findByPk(id)
+  const message = await salesProducts.findByPk(id);
   if (message) return { type: null, message };
 
   return { type: 'NOT_FOUND', message: 'Not found seller product' };
-}
+};
 
 module.exports = {
   addProductSales,
-  getById
+  getById,
 };
