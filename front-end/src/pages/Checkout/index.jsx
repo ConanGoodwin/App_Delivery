@@ -20,7 +20,6 @@ function Checkout() {
     const getSellers = async () => {
       try {
         const users = await requestData('/user');
-
         setSellers(users.filter(({ role }) => role === 'seller'));
       } catch (error) {
         console.log('bad request');
@@ -78,16 +77,7 @@ function Checkout() {
   };
 
   return (
-    <section
-      style={ { display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        margin: '5px',
-        width: '97.5%',
-        padding: '10px',
-        border: '1px solid black' } }
-    >
+    <section>
       <div style={ { display: 'flex', justifyContent: 'left', width: '100%' } }>
         <h4>Finalizar Pedido</h4>
       </div>
@@ -169,14 +159,7 @@ function Checkout() {
       <div style={ { display: 'flex', justifyContent: 'left', width: '100%' } }>
         <h4>Detalhes e Endereço para Entrega</h4>
       </div>
-      <form
-        style={ { display: 'flex',
-          flexDirection: 'column',
-          width: '100%',
-          justifyContent: 'center',
-          alignItems: 'center',
-          border: '1px solid black' } }
-      >
+      <form>
         <div
           style={ { display: 'flex',
             justifyContent: 'center',
@@ -187,10 +170,9 @@ function Checkout() {
               <label
                 htmlFor="cmbSellers"
                 className="label"
-                style={ { margin: '10px', fontSize: 'small' } }
+                style={ { margin: '10px', display: 'flex', flexDirection: 'column' } }
               >
                 P. Vendedora Responsável
-                <br />
                 <select
                   id="cmbSellers"
                   data-testid="customer_checkout__select-seller"
@@ -215,10 +197,9 @@ function Checkout() {
           <label
             htmlFor="txtEndereco"
             className="label"
-            style={ { margin: '10px', fontSize: 'small', with: '60%' } }
+            style={ { margin: '10px', display: 'flex', flexDirection: 'column' } }
           >
             Endereço
-            <br />
             <input
               type="text"
               id="txtEndereco"
@@ -232,10 +213,9 @@ function Checkout() {
           <label
             htmlFor="txtNumero"
             className="label"
-            style={ { margin: '10px', fontSize: 'small', with: '60%' } }
+            style={ { margin: '10px', display: 'flex', flexDirection: 'column' } }
           >
             Número
-            <br />
             <input
               type="text"
               id="txtNumero"
