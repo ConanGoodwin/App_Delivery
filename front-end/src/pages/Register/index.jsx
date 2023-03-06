@@ -85,44 +85,38 @@ function LoginForm() {
   };
 
   return (
-    <div>
+    <div className="container_login">
       <form onSubmit={ handleSubmit }>
         <h2>Cadastro</h2>
-        <label htmlFor="name-input">
-          Nome
-          <input
-            type="text"
-            id="name-input"
-            value={ userName }
-            onChange={ (event) => setUserName(event.target.value) }
-            placeholder="Seu nome"
-            data-testid={ COMMON_REGISTER_NAME }
-          />
-        </label>
-        <label htmlFor="email-input">
-          Email
-          <input
-            type="email"
-            id="email-input"
-            value={ email }
-            onChange={ (event) => setEmail(event.target.value) }
-            placeholder="seu-email@site.com.br"
-            data-testid={ COMMON_REGISTER_EMAIL }
-
-          />
-        </label>
-        <label htmlFor="password-input">
-          Senha
-          <input
-            type="password"
-            id="email-input"
-            value={ password }
-            onChange={ (event) => setPassword(event.target.value) }
-            placeholder="***********"
-            data-testid={ COMMON_REGISTER_PASSWORD }
-          />
-        </label>
+        <input
+          className="input_name_register"
+          type="text"
+          id="name-input"
+          value={ userName }
+          onChange={ (event) => setUserName(event.target.value) }
+          placeholder="Seu nome"
+          data-testid={ COMMON_REGISTER_NAME }
+        />
+        <input
+          className="input_email_register"
+          type="email"
+          id="email-input"
+          value={ email }
+          onChange={ (event) => setEmail(event.target.value) }
+          placeholder="seu-email@site.com.br"
+          data-testid={ COMMON_REGISTER_EMAIL }
+        />
+        <input
+          className="input_password_register"
+          type="password"
+          id="email-input"
+          value={ password }
+          onChange={ (event) => setPassword(event.target.value) }
+          placeholder="***********"
+          data-testid={ COMMON_REGISTER_PASSWORD }
+        />
         <button
+          className="button_register"
           type="submit"
           disabled={ !isDisabledButton }
           data-testid={ COMMON_REGISTER_BUTTON }
