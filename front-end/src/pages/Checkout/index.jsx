@@ -118,6 +118,7 @@ function Checkout() {
         acomuladora={ acomuladora }
         handleChange={ handleChange }
         dataTestId={ dataTestId }
+        data={ cart }
       />
       <div style={ { display: 'flex', justifyContent: 'right', width: '100%' } }>
         <h4>

@@ -1,15 +1,11 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import LoginContext from '../context/LoginContext';
 
-function TableCart({ acomuladora, handleChange, dataTestId }) {
-  const { cart } = useContext(LoginContext);
+function TableCart({ acomuladora, handleChange, dataTestId, data }) {
   let total = 0;
 
   useEffect(() => {
     acomuladora(total);
-    // setRefresh((prev) => prev + 1);
-    // console.log(`total: ${total}`);
   }, [acomuladora, total]);
 
   return (
@@ -25,7 +21,7 @@ function TableCart({ acomuladora, handleChange, dataTestId }) {
         </tr>
       </thead>
       <tbody>
-        { cart.map((product, index) => (
+        { data.map((product, index) => (
           <tr key={ index }>
             <td
               data-testid={
@@ -82,7 +78,7 @@ function TableCart({ acomuladora, handleChange, dataTestId }) {
           </tr>
         ))}
       </tbody>
-      { cart.forEach(({ subTotal }) => { total += subTotal; }) }
+      { data.forEach(({ subTotal }) => { total += subTotal; }) }
     </table>
   );
 }
@@ -92,6 +88,12 @@ export default TableCart;
 TableCart.propTypes = {
   acomuladora: PropTypes.func.isRequired,
   handleChange: PropTypes.func.isRequired,
+  data: PropTypes.shape([{
+    name: PropTypes.string.isRequired,
+    qt: PropTypes.string.isRequired,
+    unitPrice: PropTypes.number.isRequired,
+    subTotal: PropTypes.number.isRequired,
+  }]).isRequired,
   dataTestId: PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
