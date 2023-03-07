@@ -3,6 +3,7 @@ import Checkout from './pages/Checkout';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Products from './pages/Products';
+import SellerOrderDetail from './pages/SellerOrderDetail.js';
 
 export default function Router() {
   return (
@@ -12,6 +13,7 @@ export default function Router() {
       <Route exact path="/register" element={ <Register /> } />
       <Route exact path="/customer/products" element={ <Products /> } />
       <Route exact path="/customer/checkout" element={ <Checkout /> } />
+      <Route exact path="/seller/orders/:id" element={ <SellerOrderDetail /> } />
     </Routes>
   );
 }

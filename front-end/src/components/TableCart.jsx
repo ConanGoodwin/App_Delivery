@@ -17,7 +17,13 @@ function TableCart({ acomuladora, handleChange, dataTestId, data }) {
           <th>Quantidade</th>
           <th>Valor Unitário</th>
           <th>Sub-total</th>
-          <th>Remover Item</th>
+          {
+            (dataTestId.btnRemove)
+              ? (
+                <th>Remover Item</th>
+              ) : null
+          }
+
         </tr>
       </thead>
       <tbody>
