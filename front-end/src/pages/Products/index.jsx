@@ -15,6 +15,21 @@ function Products() {
   const [reqError, setReqError] = useState(false);
   const navigate = useNavigate();
 
+  // recupera os dados de usuario do local storage e preenche a variavel global user com eles
+  const setaContextUser = useCallback(async (name) => {
+    const { token, role } = JSON.parse(localStorage.getItem('user'));
+    // if (JSON.parse(localStorage.getItem('cart'))) {
+    //   setCart(JSON.parse(localStorage.getItem('cart')));
+    //   setTxtQtProduct((prev) => [...prev]);
+    //   console.log(cart);
+    // }
+    setUserLogin({
+      token,
+      role,
+      name,
+    });
+  }, [setUserLogin]);
+
   // busca a lista de produtos no banco e preenche o estado allProducts com esta lista.
   // esta funão vai acionada sempre que entrar na pagina
   useEffect(() => {
@@ -44,16 +59,6 @@ function Products() {
     };
     getProducts();
   }, [cart]);
-
-  // recupera os dados de usuario do local storage e preenche a variavel global user com eles
-  const setaContextUser = useCallback(async (name) => {
-    const { token, role } = JSON.parse(localStorage.getItem('user'));
-    setUserLogin({
-      token,
-      role,
-      name,
-    });
-  }, [setUserLogin]);
 
   // faz a validação do token e verifica a role do usuario logado para validar se
   // aquele tipo de usuario tem acesso aquela pagina.
@@ -183,11 +188,16 @@ function Products() {
     }
   };
 
+  const handleClickBtnCart = () => {
+    localStorage.setItem('cart', JSON.stringify(cart));
+    navigate('/customer/checkout');
+  };
+
   return (
     <div>
       <button
         type="button"
-        onClick={ () => navigate('/customer/checkout') }
+        onClick={ handleClickBtnCart }
         data-testid="customer_products__button-cart"
         disabled={ isDisabledButton }
       >
