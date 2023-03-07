@@ -1,26 +1,25 @@
 import React, { useState, useContext, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import LoginContext from '../../context/LoginContext';
-import { requestData } from '../../services/api';
+import { requestData, requestPost } from '../../services/api';
 import verficaToken from '../../utils/auth/verficaToken';
 
 function Checkout() {
-  const { setUserLogin, cart, setCart } = useContext(LoginContext);
+  const { userLogin, setUserLogin, cart, setCart } = useContext(LoginContext);
   const [sellers, setSellers] = useState('');
-  const [statusForm, setStatusForm] = useState({
-    idSeller: '',
-    drbSeller: '',
-    txtEndereco: '',
-    txtNumero: '',
-  });
+  const [allUsers, setAllUsers] = useState([]);
+  const [deliveryAddress, setDeliveryAddress] = useState('');
+  const [deliveryNumber, setDeliveryNumber] = useState('');
+  const [drbSeller, setDrbSeller] = useState('');
   const navigate = useNavigate();
-  let total = 0;
+  let totalPrice = 0;
 
   useEffect(() => {
     const getSellers = async () => {
       try {
         const users = await requestData('/user');
         setSellers(users.filter(({ role }) => role === 'seller'));
+        setAllUsers(users);
       } catch (error) {
         console.log('bad request');
       }
@@ -58,27 +57,35 @@ function Checkout() {
     setaContextUser,
   ]);
 
-  const handleChange = ({ target: { name, value } }) => {
+  const handleChange = ({ target: { name } }) => {
     const filter = cart.filter((product) => product.id !== Number(name));
-    switch (name) {
-    case 'dropBSeller':
-      return setStatusForm((prev) => ({ ...prev, drbSeller: value }));
-    case 'txtEndereco':
-      return setStatusForm((prev) => ({ ...prev, txtEndereco: value }));
-    case 'txtNumero':
-      return setStatusForm((prev) => ({ ...prev, txtNumero: value }));
-    default:
-      return setCart(filter);
-    }
+    return setCart(filter);
   };
 
-  const handleClick = () => {
+  const handleClick = async () => {
+    let sellerId = sellers.find(({ name }) => name === drbSeller);
+    if (!sellerId) {
+      sellerId = sellers[0].id;
+    } else {
+      sellerId = sellerId.id;
+    }
+    try {
+      const userId = (allUsers.find(({ name }) => name === userLogin.name)).id;
+      const { id } = await requestPost(
+        '/sales/register',
+        { userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, status: 0 },
+      );
+      console.log(id);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
     <section>
       <div style={ { display: 'flex', justifyContent: 'left', width: '100%' } }>
         <h4>Finalizar Pedido</h4>
+        { (cart.length === 0) ? navigate('/customer/products') : null }
       </div>
       <table width="100%">
         <thead>
@@ -143,7 +150,7 @@ function Checkout() {
               </td>
             </tr>
           ))}
-          { cart.forEach(({ subTotal }) => { total += subTotal; })}
+          { cart.forEach(({ subTotal }) => { totalPrice += subTotal; })}
         </tbody>
       </table>
       <div style={ { display: 'flex', justifyContent: 'right', width: '100%' } }>
@@ -151,7 +158,7 @@ function Checkout() {
           Total: R$
           {' '}
           <span data-testid="customer_checkout__element-order-total-price">
-            { (total).toFixed(2).replace('.', ',') }
+            { (totalPrice).toFixed(2).replace('.', ',') }
           </span>
         </h4>
       </div>
@@ -176,8 +183,8 @@ function Checkout() {
                   id="cmbSellers"
                   data-testid="customer_checkout__select-seller"
                   name="dropBSeller"
-                  value={ statusForm.drbSeller }
-                  onChange={ handleChange }
+                  value={ drbSeller }
+                  onChange={ ({ target: { value } }) => setDrbSeller(value) }
                   style={ { width: '100%' } }
                 >
                   {sellers.map(({ name, id }) => (
@@ -203,8 +210,8 @@ function Checkout() {
               type="text"
               id="txtEndereco"
               name="txtEndereco"
-              value={ statusForm.txtEndereco }
-              onChange={ handleChange }
+              value={ deliveryAddress }
+              onChange={ ({ target: { value } }) => setDeliveryAddress(value) }
               style={ { width: '100%' } }
               data-testid="customer_checkout__input-address"
             />
@@ -219,8 +226,8 @@ function Checkout() {
               type="text"
               id="txtNumero"
               name="txtNumero"
-              value={ statusForm.txtNumero }
-              onChange={ handleChange }
+              value={ deliveryNumber }
+              onChange={ ({ target: { value } }) => setDeliveryNumber(value) }
               style={ { width: '100%' } }
               data-testid="customer_checkout__input-address-number"
             />
