@@ -1,10 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import LoginContext from '../context/LoginContext';
 
 function TableCart({ acomuladora, handleChange, dataTestId }) {
   const { cart } = useContext(LoginContext);
-  const [refresh, setRefresh] = useState(0);
   let total = 0;
 
   useEffect(() => {
