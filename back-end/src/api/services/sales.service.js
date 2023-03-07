@@ -1,10 +1,11 @@
 const { sales } = require('../../database/models');
 
 const addProductSales = async (reqBody) => {
-  const { totalPrice, deliveryAddress, deliveryNumber, saleDate, status } = reqBody;
+  const { userId, sellerId, totalPrice, deliveryAddress } = reqBody;
+  const { deliveryNumber, saleDate, status } = reqBody;
 
   const message = await sales
-   .create({ totalPrice, deliveryAddress, deliveryNumber, saleDate, status });
+   .create({ userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, saleDate, status });
 
   if (message) return { type: null, message };
 

@@ -1,32 +1,32 @@
 import React, { useState, useContext, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import LoginContext from '../../context/LoginContext';
-import { requestData } from '../../services/api';
+import { requestData, requestPost } from '../../services/api';
 import verficaToken from '../../utils/auth/verficaToken';
 
 function Checkout() {
-  const { setUserLogin, cart, setCart } = useContext(LoginContext);
-  const [sellers, setSellers] = useState('');
+  const { userLogin, setUserLogin, cart, setCart } = useContext(LoginContext);
+  const [sellers, setSellers] = useState([]);
+  const [allUsers, setAllUsers] = useState([]);
+  const [deliveryAddress, setDeliveryAddress] = useState('');
+  const [deliveryNumber, setDeliveryNumber] = useState('');
+  const [drbSeller, setDrbSeller] = useState('');
   const navigate = useNavigate();
-  let total = 0;
-
+  let totalPrice = 0;
   useEffect(() => {
     const getSellers = async () => {
       try {
         const users = await requestData('/user');
         setSellers(users.filter(({ role }) => role === 'seller'));
-      } catch (error) {
-        console.log('bad request');
-      }
+        setAllUsers(users);
+      } catch (error) { console.log('bad request'); }
     };
     getSellers();
   }, []);
-
   const setaContextUser = useCallback(async (name) => {
     const { token, role } = JSON.parse(localStorage.getItem('user'));
     setUserLogin({ token, role, name });
   }, [setUserLogin]);
-
   useEffect(() => {
     const validaToken = async () => {
       const respValida = await verficaToken('customer');
@@ -54,23 +54,47 @@ function Checkout() {
 
   const handleChange = ({ target: { name } }) => {
     const filter = cart.filter((product) => product.id !== Number(name));
-    setCart(filter);
+    return setCart(filter);
+  };
+
+  const handleClick = async () => {
+    let sellerId = '';
+    if (!drbSeller) {
+      sellerId = sellers[0].id;
+    } else {
+      sellerId = (sellers.find(({ name }) => name === drbSeller)).id;
+    }
+    try {
+      const userId = (allUsers.find(({ name }) => name === userLogin.name)).id;
+      const { id } = await requestPost(
+        '/sales/register',
+        { userId,
+          sellerId,
+          totalPrice,
+          deliveryAddress,
+          deliveryNumber,
+          saleDate: Date.now(),
+          status: 'Pendente' },
+      );
+      if (id) {
+        Promise.all(
+          cart.map(async (i) => {
+            await requestPost(
+              '/salesProducts/register',
+              { saleId: id, productId: i.id, quantity: i.qt },
+            );
+          }),
+        );
+        setCart([]);
+        navigate(`/customer/orders/${id}`);
+      }
+    } catch (error) { console.log(error); }
   };
 
   return (
-    <section
-      style={ { display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        margin: '5px',
-        width: '97.5%',
-        padding: '10px',
-        border: '1px solid black' } }
-    >
-      <div style={ { display: 'flex', justifyContent: 'left', width: '100%' } }>
-        <h4>Finalizar Pedido</h4>
-      </div>
+    <section>
+      <h4>Finalizar Pedido</h4>
+      { (cart.length === 0) ? navigate('/customer/products') : null }
       <table width="100%">
         <thead>
           <tr>
@@ -134,53 +158,44 @@ function Checkout() {
               </td>
             </tr>
           ))}
-          { cart.forEach(({ subTotal }) => { total += subTotal; })}
+          { cart.forEach(({ subTotal }) => { totalPrice += subTotal; })}
         </tbody>
       </table>
       <div style={ { display: 'flex', justifyContent: 'right', width: '100%' } }>
         <h4>
           Total: R$
-          {' '}
           <span data-testid="customer_checkout__element-order-total-price">
-            { (total).toFixed(2).replace('.', ',') }
+            { (totalPrice).toFixed(2).replace('.', ',') }
           </span>
         </h4>
       </div>
       <div style={ { display: 'flex', justifyContent: 'left', width: '100%' } }>
         <h4>Detalhes e Endereço para Entrega</h4>
       </div>
-      <form
-        style={ { display: 'flex',
-          flexDirection: 'column',
-          width: '100%',
-          justifyContent: 'center',
-          alignItems: 'center',
-          border: '1px solid black' } }
-      >
+      <form>
         <div
-          style={ { display: 'flex',
-            justifyContent: 'center',
-            width: '100%' } }
+          style={ { display: 'flex', justifyContent: 'center', width: '100%' } }
         >
           {
             (sellers) ? (
               <label
                 htmlFor="cmbSellers"
                 className="label"
-                style={ { margin: '10px', fontSize: 'small' } }
+                style={ { margin: '10px', display: 'flex', flexDirection: 'column' } }
               >
                 P. Vendedora Responsável
-                <br />
                 <select
                   id="cmbSellers"
                   data-testid="customer_checkout__select-seller"
-                  value="teste"
-                  onChange={ handleChange }
+                  name="dropBSeller"
+                  value={ drbSeller }
+                  onChange={ ({ target: { value } }) => setDrbSeller(value) }
                   style={ { width: '100%' } }
                 >
-                  {sellers.map(({ name }) => (
+                  {sellers.map(({ name, id }) => (
                     <option
                       value={ name }
+                      name={ id }
                       key={ name }
                     >
                       {name}
@@ -193,16 +208,14 @@ function Checkout() {
           <label
             htmlFor="txtEndereco"
             className="label"
-            style={ { margin: '10px', fontSize: 'small', with: '60%' } }
+            style={ { margin: '10px', display: 'flex', flexDirection: 'column' } }
           >
             Endereço
-            <br />
             <input
               type="text"
               id="txtEndereco"
-              name="txtEndereco"
-              value="teste"
-              onChange={ handleChange }
+              value={ deliveryAddress }
+              onChange={ ({ target: { value } }) => setDeliveryAddress(value) }
               style={ { width: '100%' } }
               data-testid="customer_checkout__input-address"
             />
@@ -210,16 +223,14 @@ function Checkout() {
           <label
             htmlFor="txtNumero"
             className="label"
-            style={ { margin: '10px', fontSize: 'small', with: '60%' } }
+            style={ { margin: '10px', display: 'flex', flexDirection: 'column' } }
           >
             Número
-            <br />
             <input
               type="text"
               id="txtNumero"
-              name="txtValueFilter"
-              value="teste"
-              onChange={ handleChange }
+              value={ deliveryNumber }
+              onChange={ ({ target: { value } }) => setDeliveryNumber(value) }
               style={ { width: '100%' } }
               data-testid="customer_checkout__input-address-number"
             />
@@ -228,6 +239,7 @@ function Checkout() {
         <button
           type="button"
           data-testid="customer_checkout__button-submit-order"
+          onClick={ handleClick }
         >
           FINALIZAR PEDIDO
         </button>
@@ -235,5 +247,4 @@ function Checkout() {
     </section>
   );
 }
-
 export default Checkout;
