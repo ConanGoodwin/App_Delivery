@@ -75,6 +75,14 @@ function Checkout() {
         '/sales/register',
         { userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, status: 0 },
       );
+      if (id) {
+        cart.forEach(async (i) => {
+          await requestPost(
+            '/salesProducts/register',
+            { saleId: id, productId: i.id, quantity: i.qt },
+          );
+        });
+      }
       console.log(id);
     } catch (error) {
       console.log(error);
@@ -83,10 +91,8 @@ function Checkout() {
 
   return (
     <section>
-      <div style={ { display: 'flex', justifyContent: 'left', width: '100%' } }>
-        <h4>Finalizar Pedido</h4>
-        { (cart.length === 0) ? navigate('/customer/products') : null }
-      </div>
+      <h4>Finalizar Pedido</h4>
+      { (cart.length === 0) ? navigate('/customer/products') : null }
       <table width="100%">
         <thead>
           <tr>
@@ -156,7 +162,6 @@ function Checkout() {
       <div style={ { display: 'flex', justifyContent: 'right', width: '100%' } }>
         <h4>
           Total: R$
-          {' '}
           <span data-testid="customer_checkout__element-order-total-price">
             { (totalPrice).toFixed(2).replace('.', ',') }
           </span>
@@ -167,9 +172,7 @@ function Checkout() {
       </div>
       <form>
         <div
-          style={ { display: 'flex',
-            justifyContent: 'center',
-            width: '100%' } }
+          style={ { display: 'flex', justifyContent: 'center', width: '100%' } }
         >
           {
             (sellers) ? (
@@ -209,7 +212,6 @@ function Checkout() {
             <input
               type="text"
               id="txtEndereco"
-              name="txtEndereco"
               value={ deliveryAddress }
               onChange={ ({ target: { value } }) => setDeliveryAddress(value) }
               style={ { width: '100%' } }
@@ -225,7 +227,6 @@ function Checkout() {
             <input
               type="text"
               id="txtNumero"
-              name="txtNumero"
               value={ deliveryNumber }
               onChange={ ({ target: { value } }) => setDeliveryNumber(value) }
               style={ { width: '100%' } }
