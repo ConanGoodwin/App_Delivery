@@ -72,6 +72,9 @@ function Checkout() {
     }
   };
 
+  const handleClick = () => {
+  };
+
   return (
     <section>
       <div style={ { display: 'flex', justifyContent: 'left', width: '100%' } }>
@@ -226,6 +229,7 @@ function Checkout() {
         <button
           type="button"
           data-testid="customer_checkout__button-submit-order"
+          onClick={ handleClick }
         >
           FINALIZAR PEDIDO
         </button>
