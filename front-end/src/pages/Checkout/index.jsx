@@ -6,23 +6,20 @@ import verficaToken from '../../utils/auth/verficaToken';
 
 function Checkout() {
   const { userLogin, setUserLogin, cart, setCart } = useContext(LoginContext);
-  const [sellers, setSellers] = useState('');
+  const [sellers, setSellers] = useState([]);
   const [allUsers, setAllUsers] = useState([]);
   const [deliveryAddress, setDeliveryAddress] = useState('');
   const [deliveryNumber, setDeliveryNumber] = useState('');
   const [drbSeller, setDrbSeller] = useState('');
   const navigate = useNavigate();
   let totalPrice = 0;
-
   useEffect(() => {
     const getSellers = async () => {
       try {
         const users = await requestData('/user');
         setSellers(users.filter(({ role }) => role === 'seller'));
         setAllUsers(users);
-      } catch (error) {
-        console.log('bad request');
-      }
+      } catch (error) { console.log('bad request'); }
     };
     getSellers();
   }, []);
@@ -54,16 +51,18 @@ function Checkout() {
     setUserLogin,
     setaContextUser,
   ]);
+
   const handleChange = ({ target: { name } }) => {
     const filter = cart.filter((product) => product.id !== Number(name));
     return setCart(filter);
   };
+
   const handleClick = async () => {
-    let sellerId = sellers.find(({ name }) => name === drbSeller);
-    if (!sellerId) {
+    let sellerId = '';
+    if (!drbSeller) {
       sellerId = sellers[0].id;
     } else {
-      sellerId = sellerId.id;
+      sellerId = (sellers.find(({ name }) => name === drbSeller)).id;
     }
     try {
       const userId = (allUsers.find(({ name }) => name === userLogin.name)).id;
@@ -74,23 +73,24 @@ function Checkout() {
           totalPrice,
           deliveryAddress,
           deliveryNumber,
+          saleDate: Date.now(),
           status: 'Pendente' },
       );
       if (id) {
-        cart.forEach(async (i) => {
-          await requestPost(
-            '/salesProducts/register',
-            { saleId: id, productId: i.id, quantity: i.qt },
-          );
-        });
+        Promise.all(
+          cart.map(async (i) => {
+            await requestPost(
+              '/salesProducts/register',
+              { saleId: id, productId: i.id, quantity: i.qt },
+            );
+          }),
+        );
         setCart([]);
         navigate(`/customer/orders/${id}`);
       }
-      console.log(id);
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) { console.log(error); }
   };
+
   return (
     <section>
       <h4>Finalizar Pedido</h4>
