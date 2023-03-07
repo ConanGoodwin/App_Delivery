@@ -1,7 +1,8 @@
 const { sales } = require('../../database/models');
 
 const addProductSales = async (reqBody) => {
-  const { userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, saleDate, status } = reqBody;
+  const { userId, sellerId, totalPrice, deliveryAddress } = reqBody;
+  const { deliveryNumber, saleDate, status } = reqBody;
 
   const message = await sales
    .create({ userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, saleDate, status });
