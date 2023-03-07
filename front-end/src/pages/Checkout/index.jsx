@@ -14,6 +14,7 @@ function Checkout() {
   const [drbSeller, setDrbSeller] = useState('');
   const [totalCart, setTotalCart] = useState(0);
   const navigate = useNavigate();
+
   useEffect(() => {
     const getSellers = async () => {
       try {
@@ -24,10 +25,12 @@ function Checkout() {
     };
     getSellers();
   }, []);
+
   const setaContextUser = useCallback(async (name) => {
     const { token, role } = JSON.parse(localStorage.getItem('user'));
     setUserLogin({ token, role, name });
   }, [setUserLogin]);
+
   useEffect(() => {
     const validaToken = async () => {
       const respValida = await verficaToken('customer');
