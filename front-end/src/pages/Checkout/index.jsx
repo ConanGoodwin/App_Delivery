@@ -82,6 +82,8 @@ function Checkout() {
             { saleId: id, productId: i.id, quantity: i.qt },
           );
         });
+        setCart([]);
+        navigate(`/customer/orders/${id}`);
       }
       console.log(id);
     } catch (error) {
@@ -245,5 +247,4 @@ function Checkout() {
     </section>
   );
 }
-
 export default Checkout;
