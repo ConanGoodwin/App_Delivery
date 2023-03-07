@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
+import TableCart from '../../components/TableCart';
 import LoginContext from '../../context/LoginContext';
 import { requestData, requestPost } from '../../services/api';
 import verficaToken from '../../utils/auth/verficaToken';
@@ -11,8 +12,8 @@ function Checkout() {
   const [deliveryAddress, setDeliveryAddress] = useState('');
   const [deliveryNumber, setDeliveryNumber] = useState('');
   const [drbSeller, setDrbSeller] = useState('');
+  const [totalCart, setTotalCart] = useState(0);
   const navigate = useNavigate();
-  let totalPrice = 0;
   useEffect(() => {
     const getSellers = async () => {
       try {
@@ -70,7 +71,7 @@ function Checkout() {
         '/sales/register',
         { userId,
           sellerId,
-          totalPrice,
+          totalPrice: totalCart,
           deliveryAddress,
           deliveryNumber,
           saleDate: Date.now(),
@@ -91,81 +92,35 @@ function Checkout() {
     } catch (error) { console.log(error); }
   };
 
+  const acomuladora = (value) => {
+    if (totalCart !== value) {
+      setTotalCart(value);
+    }
+  };
+
+  const dataTestId = {
+    id: 'customer_checkout__element-order-table-item-number',
+    name: 'customer_checkout__element-order-table-name',
+    quantity: 'customer_checkout__element-order-table-quantity',
+    price: 'customer_checkout__element-order-table-unit-price',
+    subTotal: 'customer_checkout__element-order-table-sub-total',
+    btnRemove: 'customer_checkout__element-order-table-remove',
+  };
+
   return (
-    <section>
+    <section style={ { padding: '10px' } }>
       <h4>Finalizar Pedido</h4>
       { (cart.length === 0) ? navigate('/customer/products') : null }
-      <table width="100%">
-        <thead>
-          <tr>
-            <th>Item</th>
-            <th>Descrição</th>
-            <th>Quantidade</th>
-            <th>Valor Unitário</th>
-            <th>Sub-total</th>
-            <th>Remover Item</th>
-          </tr>
-        </thead>
-        <tbody>
-          { cart.map((product, index) => (
-            <tr key={ index }>
-              <td
-                data-testid={
-                  `customer_checkout__element-order-table-item-number-${index}`
-                }
-              >
-                {index + 1}
-              </td>
-              <td
-                data-testid={
-                  `customer_checkout__element-order-table-name-${index}`
-                }
-              >
-                {product.name}
-              </td>
-              <td
-                data-testid={
-                  `customer_checkout__element-order-table-quantity-${index}`
-                }
-              >
-                {product.qt}
-              </td>
-              <td
-                data-testid={
-                  `customer_checkout__element-order-table-unit-price-${index}`
-                }
-              >
-                {parseFloat(product.unitPrice).toFixed(2).replace('.', ',')}
-              </td>
-              <td
-                data-testid={
-                  `customer_checkout__element-order-table-sub-total-${index}`
-                }
-              >
-                {parseFloat(product.subTotal).toFixed(2).replace('.', ',')}
-              </td>
-              <td>
-                <button
-                  name={ product.id }
-                  data-testid={
-                    `customer_checkout__element-order-table-remove-${index}`
-                  }
-                  type="button"
-                  onClick={ (target) => handleChange(target) }
-                >
-                  Remover
-                </button>
-              </td>
-            </tr>
-          ))}
-          { cart.forEach(({ subTotal }) => { totalPrice += subTotal; })}
-        </tbody>
-      </table>
+      <TableCart
+        acomuladora={ acomuladora }
+        handleChange={ handleChange }
+        dataTestId={ dataTestId }
+      />
       <div style={ { display: 'flex', justifyContent: 'right', width: '100%' } }>
         <h4>
           Total: R$
           <span data-testid="customer_checkout__element-order-total-price">
-            { (totalPrice).toFixed(2).replace('.', ',') }
+            { (totalCart).toFixed(2).replace('.', ',') }
           </span>
         </h4>
       </div>
