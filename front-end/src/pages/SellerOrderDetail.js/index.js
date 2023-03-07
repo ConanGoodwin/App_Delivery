@@ -3,18 +3,21 @@ import { useParams } from 'react-router-dom';
 import TableCart from '../../components/TableCart';
 import { requestData } from '../../services/api';
 
+function handleChange() {
+  console.log('oi');
+}
+
 function SellerOrderDetail() {
   const [totalCart, setTotalCart] = useState(0);
-  // const [products, setProducts] = useState([]);
-  // const [saleProducts, setSaleProducts] = useState([]);
+  const [sale, setSale] = useState({});
   const [data, setData] = useState([]);
   const { id } = useParams();
   const dataTestId = {
-    id: 'customer_checkout__element-order-table-item-number',
-    name: 'customer_checkout__element-order-table-name',
-    quantity: 'customer_checkout__element-order-table-quantity',
-    price: 'customer_checkout__element-order-table-unit-price',
-    subTotal: 'customer_checkout__element-order-table-sub-total',
+    id: 'seller_order_details__element-order-table-item-number',
+    name: 'seller_order_details__element-order-table-name',
+    quantity: 'seller_order_details__element-order-table-quantity',
+    price: 'seller_order_details__element-order-table-unit-price',
+    subTotal: 'seller_order_details__element-order-table-sub-total',
     btnRemove: '',
   };
 
@@ -23,6 +26,7 @@ function SellerOrderDetail() {
       try {
         const allSaleProducts = await requestData(`/salesProducts/${id}`);
         const allProducts = await requestData('/product');
+        const allSales = await requestData('/sales');
         const formatSaleProject = allSaleProducts.map((item) => {
           const prod = allProducts.find((produc) => produc.id === item.productId);
           return {
@@ -32,6 +36,7 @@ function SellerOrderDetail() {
             unitPrice: prod.price,
           };
         });
+        setSale(allSales.find((item) => item.id === Number(id)));
         setData(formatSaleProject);
       } catch (error) {
         console.log('bad request');
@@ -46,12 +51,33 @@ function SellerOrderDetail() {
     }
   };
 
+  const formatId = () => {
+    if (id) {
+      switch (id.length) {
+      case 1:
+        return ` 000${id}`;
+      case 2:
+        return ` 00${id}`;
+      case 3:
+        return ` 0${id}`;
+      default:
+        return ` ${id}`;
+      }
+    }
+  };
+
   return (
     <div>
-      teste
+      <div>
+        PEDIDO:
+        <span data-testid="seller_order_details__element-order-details-label-order-id">
+          { sale && formatId() }
+        </span>
+      </div>
+      {/* { console.log(sale) } */}
       <TableCart
         acomuladora={ acomuladora }
-        // handleChange={ handleChange }
+        handleChange={ handleChange }
         dataTestId={ dataTestId }
         data={ data }
       />
