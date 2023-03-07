@@ -7,6 +7,10 @@ function handleChange() {
   console.log('oi');
 }
 
+const NUMBER_ONE = 1;
+const NUMBER_TWO = 2;
+const NUMBER_TREE = 3;
+
 function SellerOrderDetail() {
   const [totalCart, setTotalCart] = useState(0);
   const [sale, setSale] = useState({});
@@ -54,11 +58,11 @@ function SellerOrderDetail() {
   const formatId = () => {
     if (id) {
       switch (id.length) {
-      case 1:
+      case NUMBER_ONE:
         return ` 000${id}`;
-      case 2:
+      case NUMBER_TWO:
         return ` 00${id}`;
-      case 3:
+      case NUMBER_TREE:
         return ` 0${id}`;
       default:
         return ` ${id}`;
