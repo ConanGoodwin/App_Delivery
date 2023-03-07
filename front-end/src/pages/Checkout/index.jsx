@@ -26,12 +26,10 @@ function Checkout() {
     };
     getSellers();
   }, []);
-
   const setaContextUser = useCallback(async (name) => {
     const { token, role } = JSON.parse(localStorage.getItem('user'));
     setUserLogin({ token, role, name });
   }, [setUserLogin]);
-
   useEffect(() => {
     const validaToken = async () => {
       const respValida = await verficaToken('customer');
@@ -56,12 +54,10 @@ function Checkout() {
     setUserLogin,
     setaContextUser,
   ]);
-
   const handleChange = ({ target: { name } }) => {
     const filter = cart.filter((product) => product.id !== Number(name));
     return setCart(filter);
   };
-
   const handleClick = async () => {
     let sellerId = sellers.find(({ name }) => name === drbSeller);
     if (!sellerId) {
@@ -73,7 +69,12 @@ function Checkout() {
       const userId = (allUsers.find(({ name }) => name === userLogin.name)).id;
       const { id } = await requestPost(
         '/sales/register',
-        { userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, status: 0 },
+        { userId,
+          sellerId,
+          totalPrice,
+          deliveryAddress,
+          deliveryNumber,
+          status: 'Pendente' },
       );
       if (id) {
         cart.forEach(async (i) => {
@@ -90,7 +91,6 @@ function Checkout() {
       console.log(error);
     }
   };
-
   return (
     <section>
       <h4>Finalizar Pedido</h4>
