@@ -16,7 +16,7 @@ import logo from '../../images/logo2.png';
 const MAX_PASSWORD_LENGTH = 6;
 
 function Login() {
-  const { userLogin, setUserLogin } = useContext(LoginContext);
+  const { setUserLogin } = useContext(LoginContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [logado, setLogado] = useState(false);
@@ -38,21 +38,20 @@ function Login() {
     setIsDisabledButton(validateRegistration());
   }, [email, password]);
 
-  // useEffect(() => {
-  //   setUserLogin({ token: '', role: '', name: '' });
-  //   setCart([]);
-  // }, [setCart, setUserLogin]);
-
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
+    const log = JSON.parse(localStorage.getItem('logado'));
 
-    if (user && user.role === 'customer') {
+    if (user && user.role === 'customer' && log) {
       setUserLogin(user);
       navigate('/customer/products');
     }
   }, [navigate, setUserLogin]);
 
   useEffect(() => {
+    const log = localStorage.getItem('logado');
+
+    if (log === null) localStorage.setItem('logado', true);
     setLogado(localStorage.getItem('logado') === 'true');
   }, []);
 
@@ -111,12 +110,6 @@ function Login() {
 
   return (
     <div className="container_login">
-      {/* {
-        ((JSON
-          .parse(localStorage.getItem('user'))) && (JSON
-          .parse(localStorage.getItem('user')))
-          .role === 'customer') && navigate('/customer/products')
-      } */}
       <div className="container_login_bg">
         <img className="bg_login" src={ bgimg } alt="dsds" />
         <form>

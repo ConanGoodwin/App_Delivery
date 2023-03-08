@@ -15,47 +15,47 @@ function Products() {
   const [reqError, setReqError] = useState(false);
   const navigate = useNavigate();
 
-  // // recupera os dados de usuario do local storage e preenche a variavel global user com eles
-  // const setaContextUser = useCallback(async (name) => {
-  //   const { token, role } = JSON.parse(localStorage.getItem('user'));
-  //   // if (JSON.parse(localStorage.getItem('cart'))) {
-  //   //   setCart(JSON.parse(localStorage.getItem('cart')));
-  //   //   setTxtQtProduct((prev) => [...prev]);
-  //   //   console.log(cart);
-  //   // }
-  //   setUserLogin({
-  //     token,
-  //     role,
-  //     name,
-  //   });
-  // }, [setUserLogin]);
+  // recupera os dados de usuario do local storage e preenche a variavel global user com eles
+  const setaContextUser = useCallback(async (name) => {
+    const { token, role } = JSON.parse(localStorage.getItem('user'));
+    // if (JSON.parse(localStorage.getItem('cart'))) {
+    //   setCart(JSON.parse(localStorage.getItem('cart')));
+    //   setTxtQtProduct((prev) => [...prev]);
+    //   console.log(cart);
+    // }
+    setUserLogin({
+      token,
+      role,
+      name,
+    });
+  }, [setUserLogin]);
 
-  // // faz a validação do token e verifica a role do usuario logado para validar se
-  // // aquele tipo de usuario tem acesso aquela pagina.
-  // useEffect(() => {
-  //   const validaToken = async () => {
-  //     const respValida = await verficaToken('customer');
-  //     if (respValida === 'error') {
-  //       setUserLogin({ token: '', role: '', name: '' });
-  //       navigate('/login');
-  //     }
-  //     if (localStorage.getItem('logado') === 'true') {
-  //       setaContextUser(respValida);
-  //     } else {
-  //       try {
-  //         await requestData('/user/validate');
-  //       } catch (error) {
-  //         setUserLogin({ token: '', role: '', name: '' });
-  //         navigate('/login');
-  //       }
-  //     }
-  //   };
-  //   validaToken();
-  // }, [
-  //   navigate,
-  //   setUserLogin,
-  //   setaContextUser,
-  // ]);
+  // faz a validação do token e verifica a role do usuario logado para validar se
+  // aquele tipo de usuario tem acesso aquela pagina.
+  useEffect(() => {
+    const validaToken = async () => {
+      const respValida = await verficaToken('customer');
+      if (respValida === 'error') {
+        setUserLogin({ token: '', role: '', name: '' });
+        navigate('/login');
+      }
+      if (localStorage.getItem('logado') === 'true') {
+        setaContextUser(respValida);
+      } else {
+        try {
+          await requestData('/user/validate');
+        } catch (error) {
+          setUserLogin({ token: '', role: '', name: '' });
+          navigate('/login');
+        }
+      }
+    };
+    validaToken();
+  }, [
+    navigate,
+    setUserLogin,
+    setaContextUser,
+  ]);
 
   // busca a lista de produtos no banco e preenche o estado allProducts com esta lista.
   // esta funão vai acionada sempre que entrar na pagina
