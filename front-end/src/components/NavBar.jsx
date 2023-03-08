@@ -27,7 +27,7 @@ function NavBar() {
           to={
             (() => {
               if (userLogin.role === 'customer') return '/customer/products';
-              if (userLogin.role === 'seller') return '/teste';
+              if (userLogin.role === 'seller') return '/seller/orders';
               if (userLogin.role === 'administrator') return '/teste';
             })()
           }
