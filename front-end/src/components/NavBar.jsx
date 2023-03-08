@@ -5,9 +5,11 @@ import LoginContext from '../context/LoginContext';
 const BORDER = '1px solid black';
 
 function NavBar() {
-  const { userLogin } = useContext(LoginContext);
+  const { userLogin, setUserLogin, setCart } = useContext(LoginContext);
 
   const handleClickLogout = () => {
+    setUserLogin({ token: '', role: '', name: '' });
+    setCart([]);
     localStorage.removeItem('user');
     localStorage.removeItem('cart');
   };

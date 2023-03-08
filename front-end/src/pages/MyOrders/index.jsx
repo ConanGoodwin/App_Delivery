@@ -43,9 +43,9 @@ function MyOrders() {
     // console.log(day, 'day');
     const month = (dateObj.getMonth() + 1).toString().padStart(2, '0');
     // console.log('month', dateObj.getMonth());
-    const year = dateObj.getFullYear().toString().slice(2);
+    // const year = dateObj.getFullYear().toString().slice(2); // o ano precisa ser por extenso
     // console.log(year, 'year');
-    return `${day}/${month}/${year}`;
+    return `${day}/${month}/${dateObj.getFullYear()}`;
   }
 
   function formatCurrency(value) {
