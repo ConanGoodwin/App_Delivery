@@ -2,7 +2,7 @@ import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import TableCart from '../../components/TableCart';
 import LoginContext from '../../context/LoginContext';
-import { requestData } from '../../services/api';
+import { requestData, requestPut } from '../../services/api';
 import verficaToken from '../../utils/auth/verficaToken';
 
 function handleChange() {
@@ -61,15 +61,6 @@ function SellerOrderDetail() {
     validaToken();
   }, [navigate, setUserLogin, setaContextUser]);
 
-  const handleClick = ({ target: { name } }) => {
-    if (name === 'btnPrepara') {
-      setSale((prev) => ({ ...prev, status: 'Preparando' })); // subustituir pelo update do status da venda no banco
-      return true;
-    }
-    setSale((prev) => ({ ...prev, status: 'Em Trânsito' })); // subustituir pelo update do status da venda no banco
-    return true;
-  };
-
   useEffect(() => {
     const getData = async () => {
       try {
@@ -117,11 +108,22 @@ function SellerOrderDetail() {
 
   const formatDate = () => {
     const date = new Date(sale.saleDate);
-    const day = (date.getDay().toString.length < 2) ? `0${date.getDay()}` : date.getDay();
-    const month = (date.getMonth().toString.length < 2)
-      ? `0${date.getMonth()}` : date.getMonth();
+    return date.toLocaleDateString('pt-br');
+  };
 
-    return `  ${day}/${month}/${date.getFullYear()}`;
+  const handleBtnStatus = ({ target: { name } }) => {
+    let body = { ...sale };
+
+    if (name === 'btnPrepara') body = { ...sale, status: 'Preparando' };
+    if (name === 'btnEntrega') body = { ...sale, status: 'Em Trânsito' };
+
+    const fecthProducts = async () => {
+      const products = await requestPut(`/sales/update/${id}`, body);
+
+      setSale(products);
+      return products;
+    };
+    fecthProducts();
   };
 
   return (
@@ -144,7 +146,7 @@ function SellerOrderDetail() {
           name="btnPrepara"
           data-testid="seller_order_details__button-preparing-check"
           disabled={ (sale && sale.status !== 'Pendente') }
-          onClick={ handleClick }
+          onClick={ handleBtnStatus }
         >
           PREPARAR PEDIDO
         </button>
@@ -153,7 +155,7 @@ function SellerOrderDetail() {
           name="btnEntrega"
           data-testid="seller_order_details__button-dispatch-check"
           disabled={ (sale && sale.status !== 'Preparando') }
-          onClick={ handleClick }
+          onClick={ handleBtnStatus }
         >
           SAIU PARA ENTREGA
         </button>
