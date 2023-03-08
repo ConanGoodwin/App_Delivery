@@ -51,11 +51,7 @@ function Products() {
       }
     };
     validaToken();
-  }, [
-    navigate,
-    setUserLogin,
-    setaContextUser,
-  ]);
+  }, [navigate, setUserLogin, setaContextUser]);
 
   // busca a lista de produtos no banco e preenche o estado allProducts com esta lista.
   // esta funão vai acionada sempre que entrar na pagina

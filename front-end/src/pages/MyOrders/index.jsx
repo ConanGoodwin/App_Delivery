@@ -1,19 +1,54 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   COSTUMER_ORDERS_CARD_PRICE_ID,
   COSTUMER_ORDERS_DATE_ID,
   CUSTOMER_DELIVERY_STATUS_ID,
   CUSTOMER_ORDERS_ID,
 } from '../../constant/myOrders_dataTestId';
+import LoginContext from '../../context/LoginContext';
 // import LoginContext from '../../context/LoginContext';
 import { requestData } from '../../services/api';
+import verficaToken from '../../utils/auth/verficaToken';
 
 function MyOrders() {
-  // const { userLogin, setUserLogin } = useContext(LoginContext);
+  const { setUserLogin } = useContext(LoginContext);
   const [allSales, setAllSales] = useState([]);
-  // const [sales, setSales] = useState([]);
+  const navigate = useNavigate();
+
+  // recupera os dados de usuario do local storage e preenche a variavel global user com eles
+  const setaContextUser = useCallback(async (name) => {
+    const { token, role } = JSON.parse(localStorage.getItem('user'));
+    setUserLogin({
+      token,
+      role,
+      name,
+    });
+  }, [setUserLogin]);
+
+  // faz a validação do token e verifica a role do usuario logado para validar se
+  // aquele tipo de usuario tem acesso aquela pagina.
+  useEffect(() => {
+    const validaToken = async () => {
+      const respValida = await verficaToken('customer');
+      if (respValida === 'error') {
+        setUserLogin({ token: '', role: '', name: '' });
+        navigate('/login');
+      }
+      if (localStorage.getItem('logado') === 'true') {
+        setaContextUser(respValida);
+      } else {
+        try {
+          await requestData('/user/validate');
+        } catch (error) {
+          setUserLogin({ token: '', role: '', name: '' });
+          navigate('/login');
+        }
+      }
+    };
+    validaToken();
+  }, [navigate, setUserLogin, setaContextUser]);
 
   useEffect(() => {
     const getCustomerSales = async () => {

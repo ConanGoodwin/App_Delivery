@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import TableCart from '../../components/TableCart';
-import { requestData } from '../../services/api';
+import LoginContext from '../../context/LoginContext';
+import { requestData, requestPut } from '../../services/api';
+import verficaToken from '../../utils/auth/verficaToken';
 
 function handleChange() {
   console.log('oi');
@@ -12,9 +14,11 @@ const NUMBER_TWO = 2;
 const NUMBER_TREE = 3;
 
 function SellerOrderDetail() {
+  const { setUserLogin } = useContext(LoginContext);
   const [totalCart, setTotalCart] = useState(0);
   const [sale, setSale] = useState({});
   const [data, setData] = useState([]);
+  const navigate = useNavigate();
   const { id } = useParams();
   const dataTestId = {
     id: 'seller_order_details__element-order-table-item-number',
@@ -25,14 +29,37 @@ function SellerOrderDetail() {
     btnRemove: '',
   };
 
-  const handleClick = ({ target: { name } }) => {
-    if (name === 'btnPrepara') {
-      setSale((prev) => ({ ...prev, status: 'Preparando' })); // subustituir pelo update do status da venda no banco
-      return true;
-    }
-    setSale((prev) => ({ ...prev, status: 'Em Trânsito' })); // subustituir pelo update do status da venda no banco
-    return true;
-  };
+  const setaContextUser = useCallback(async (name) => {
+    const { token, role } = JSON.parse(localStorage.getItem('user'));
+    setUserLogin({
+      token,
+      role,
+      name,
+    });
+  }, [setUserLogin]);
+
+  // faz a validação do token e verifica a role do usuario logado para validar se
+  // aquele tipo de usuario tem acesso aquela pagina.
+  useEffect(() => {
+    const validaToken = async () => {
+      const respValida = await verficaToken('seller');
+      if (respValida === 'error') {
+        setUserLogin({ token: '', role: '', name: '' });
+        navigate('/login');
+      }
+      if (localStorage.getItem('logado') === 'true') {
+        setaContextUser(respValida);
+      } else {
+        try {
+          await requestData('/user/validate');
+        } catch (error) {
+          setUserLogin({ token: '', role: '', name: '' });
+          navigate('/login');
+        }
+      }
+    };
+    validaToken();
+  }, [navigate, setUserLogin, setaContextUser]);
 
   useEffect(() => {
     const getData = async () => {
@@ -81,11 +108,22 @@ function SellerOrderDetail() {
 
   const formatDate = () => {
     const date = new Date(sale.saleDate);
-    const day = (date.getDay().toString.length < 2) ? `0${date.getDay()}` : date.getDay();
-    const month = (date.getMonth().toString.length < 2)
-      ? `0${date.getMonth()}` : date.getMonth();
+    return date.toLocaleDateString('pt-br');
+  };
 
-    return `  ${day}/${month}/${date.getFullYear()}`;
+  const handleBtnStatus = ({ target: { name } }) => {
+    let body = { ...sale };
+
+    if (name === 'btnPrepara') body = { ...sale, status: 'Preparando' };
+    if (name === 'btnEntrega') body = { ...sale, status: 'Em Trânsito' };
+
+    const fecthProducts = async () => {
+      const products = await requestPut(`/sales/update/${id}`, body);
+
+      setSale(products);
+      return products;
+    };
+    fecthProducts();
   };
 
   return (
@@ -108,16 +146,16 @@ function SellerOrderDetail() {
           name="btnPrepara"
           data-testid="seller_order_details__button-preparing-check"
           disabled={ (sale && sale.status !== 'Pendente') }
-          onClick={ handleClick }
+          onClick={ handleBtnStatus }
         >
           PREPARAR PEDIDO
         </button>
         <button
           type="button"
           name="btnEntrega"
-          data-testid="seller_order_details__button"
+          data-testid="seller_order_details__button-dispatch-check"
           disabled={ (sale && sale.status !== 'Preparando') }
-          onClick={ handleClick }
+          onClick={ handleBtnStatus }
         >
           SAIU PARA ENTREGA
         </button>
