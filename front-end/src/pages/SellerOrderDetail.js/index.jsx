@@ -25,6 +25,15 @@ function SellerOrderDetail() {
     btnRemove: '',
   };
 
+  const handleClick = ({ target: { name } }) => {
+    if (name === 'btnPrepara') {
+      setSale((prev) => ({ ...prev, status: 'Preparando' })); // subustituir pelo update do status da venda no banco
+      return true;
+    }
+    setSale((prev) => ({ ...prev, status: 'Em Trânsito' })); // subustituir pelo update do status da venda no banco
+    return true;
+  };
+
   useEffect(() => {
     const getData = async () => {
       try {
@@ -81,29 +90,34 @@ function SellerOrderDetail() {
 
   return (
     <div>
-      <div>
-        PEDIDO:
+      <div style={ { display: 'flex', justifyContent: 'space-between' } }>
         <span data-testid="seller_order_details__element-order-details-label-order-id">
+          PEDIDO:
           { sale && formatId() }
         </span>
         <span data-testid="seller_order_details__element-order-details-label-order-date">
           { sale && formatDate() }
         </span>
-        <button
-          type="button"
+        <p
           data-testid="seller_order_details__element-order-details-label-delivery-status"
         >
           { sale && sale.status }
-        </button>
+        </p>
         <button
           type="button"
+          name="btnPrepara"
           data-testid="seller_order_details__button-preparing-check"
+          disabled={ (sale && sale.status !== 'Pendente') }
+          onClick={ handleClick }
         >
           PREPARAR PEDIDO
         </button>
         <button
           type="button"
+          name="btnEntrega"
           data-testid="seller_order_details__button"
+          disabled={ (sale && sale.status !== 'Preparando') }
+          onClick={ handleClick }
         >
           SAIU PARA ENTREGA
         </button>
