@@ -1,6 +1,6 @@
 export const CUSTOMER_ORDERS_ID = 'customer_orders__element-order-id';
 
-export const CUSTOMER_DELIVERY_STATUS_ID = 'customer_orders__element-order-id';
+export const CUSTOMER_DELIVERY_STATUS_ID = 'customer_orders__element-delivery-status';
 
 export const COSTUMER_ORDERS_DATE_ID = 'customer_orders__element-order-date';
 
