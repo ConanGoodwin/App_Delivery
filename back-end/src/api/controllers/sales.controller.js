@@ -33,7 +33,7 @@ const getAllSales = async (_req, res) => {
 
 const getSalesId = async (req, res) => {
   const { id } = req.params;
-  const { type, message } = await salesProductsService.getById(id, req.body);
+  const { type, message } = await salesService.updateSale(id, req.body);
 
   returnController(res, type, message, 200);
 };

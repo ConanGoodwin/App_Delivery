@@ -15,39 +15,14 @@ function Products() {
   const [reqError, setReqError] = useState(false);
   const navigate = useNavigate();
 
-  // busca a lista de produtos no banco e preenche o estado allProducts com esta lista.
-  // esta funão vai acionada sempre que entrar na pagina
-  useEffect(() => {
-    setIsDisabledButton(Number(cart
-      .reduce((acc, curr) => acc + curr.subTotal, 0)) === 0); // desabilita o botão se o valor da soma dos subtotais for zero, abilita se não for
-    const getProducts = async () => {
-      try {
-        const products = await requestData('/product');
-        // acresenta o campo qt com, zero quando o produto não esta no carrinho,
-        // ou o valor de qt quando o produto esta no carrinho
-        setAllProducts(products.map((item) => {
-          let qt = 0;
-
-          const index = cart.findIndex(({ id }) => id === item.id); // busca o indice do produto no carrinho, -1 se não encontrar
-          if (index !== NOT_FOUND) {
-            qt = cart[index].qt; // o valor de qt do produto no carrinho
-            setTxtQtProduct((prevsate) => [...prevsate, cart[index].qt]); // o valor de qt do carrinho nas caixas de texto
-          } else {
-            setTxtQtProduct((prevsate) => [...prevsate, 0]); // zera o valor das caixas de texto
-          }
-          return { ...item, qt };
-        }));
-      } catch (e) {
-        console.log(e);
-        setReqError(true); // deixa visivel menssagem de erro em caso de falha na conexão com o banco de dados
-      }
-    };
-    getProducts();
-  }, [cart]);
-
   // recupera os dados de usuario do local storage e preenche a variavel global user com eles
   const setaContextUser = useCallback(async (name) => {
     const { token, role } = JSON.parse(localStorage.getItem('user'));
+    // if (JSON.parse(localStorage.getItem('cart'))) {
+    //   setCart(JSON.parse(localStorage.getItem('cart')));
+    //   setTxtQtProduct((prev) => [...prev]);
+    //   console.log(cart);
+    // }
     setUserLogin({
       token,
       role,
@@ -81,6 +56,36 @@ function Products() {
     setUserLogin,
     setaContextUser,
   ]);
+
+  // busca a lista de produtos no banco e preenche o estado allProducts com esta lista.
+  // esta funão vai acionada sempre que entrar na pagina
+  useEffect(() => {
+    setIsDisabledButton(Number(cart
+      .reduce((acc, curr) => acc + curr.subTotal, 0)) === 0); // desabilita o botão se o valor da soma dos subtotais for zero, abilita se não for
+    const getProducts = async () => {
+      try {
+        const products = await requestData('/product');
+        // acresenta o campo qt com, zero quando o produto não esta no carrinho,
+        // ou o valor de qt quando o produto esta no carrinho
+        setAllProducts(products.map((item) => {
+          let qt = 0;
+
+          const index = cart.findIndex(({ id }) => id === item.id); // busca o indice do produto no carrinho, -1 se não encontrar
+          if (index !== NOT_FOUND) {
+            qt = cart[index].qt; // o valor de qt do produto no carrinho
+            setTxtQtProduct((prevsate) => [...prevsate, cart[index].qt]); // o valor de qt do carrinho nas caixas de texto
+          } else {
+            setTxtQtProduct((prevsate) => [...prevsate, 0]); // zera o valor das caixas de texto
+          }
+          return { ...item, qt };
+        }));
+      } catch (e) {
+        console.log(e);
+        setReqError(true); // deixa visivel menssagem de erro em caso de falha na conexão com o banco de dados
+      }
+    };
+    getProducts();
+  }, [cart]);
 
   // atualiza qt em allProducts, do produto especificado(atavés de indexAll),
   // diminuindo ou aumentando(de acordo com operator),
@@ -183,11 +188,16 @@ function Products() {
     }
   };
 
+  const handleClickBtnCart = () => {
+    localStorage.setItem('cart', JSON.stringify(cart));
+    navigate('/customer/checkout');
+  };
+
   return (
     <div>
       <button
         type="button"
-        onClick={ () => navigate('/customer/checkout') }
+        onClick={ handleClickBtnCart }
         data-testid="customer_products__button-cart"
         disabled={ isDisabledButton }
       >
