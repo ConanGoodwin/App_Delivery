@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import LoginContext from '../../context/LoginContext';
 import { setToken, requestData, requestPut } from '../../services/api';
 import TableCart from '../../components/TableCart';
@@ -8,6 +8,7 @@ import { LABEL_DEL_STATUS,
   LABEL_ORDER_ID,
   LABEL_SELLER_NAME,
   TOTAL_PRICE, BTN_CHECK } from '../../constant/orderDetails_dataTestId';
+import verficaToken from '../../utils/auth/verficaToken';
 
 function handleChange() {
   console.log('oi');
@@ -18,12 +19,13 @@ const NUMBER_TWO = 2;
 const NUMBER_TREE = 3;
 
 function OrderDetails() {
-  const { setSales, userLogin } = useContext(LoginContext);
+  const { setSales, userLogin, setUserLogin } = useContext(LoginContext);
   const [data, setData] = useState([]);
   const [totalCart, setTotalCart] = useState(0);
   const [seller, setSeller] = useState('');
   const [orderId, setOrderId] = useState('');
   const [status, setStatus] = useState('');
+  const navigate = useNavigate();
   const { id } = useParams();
   const dataTestId = {
     id: 'customer_order_details__element-order-table-item-number',
@@ -33,6 +35,39 @@ function OrderDetails() {
     subTotal: 'customer_order_details__element-order-table-sub-total',
     btnRemove: '',
   };
+
+  // recupera os dados de usuario do local storage e preenche a variavel global user com eles
+  const setaContextUser = useCallback(async (name) => {
+    const { token, role } = JSON.parse(localStorage.getItem('user'));
+    setUserLogin({
+      token,
+      role,
+      name,
+    });
+  }, [setUserLogin]);
+
+  // faz a validação do token e verifica a role do usuario logado para validar se
+  // aquele tipo de usuario tem acesso aquela pagina.
+  useEffect(() => {
+    const validaToken = async () => {
+      const respValida = await verficaToken('customer');
+      if (respValida === 'error') {
+        setUserLogin({ token: '', role: '', name: '' });
+        navigate('/login');
+      }
+      if (localStorage.getItem('logado') === 'true') {
+        setaContextUser(respValida);
+      } else {
+        try {
+          await requestData('/user/validate');
+        } catch (error) {
+          setUserLogin({ token: '', role: '', name: '' });
+          navigate('/login');
+        }
+      }
+    };
+    validaToken();
+  }, [navigate, setUserLogin, setaContextUser]);
 
   useEffect(() => {
     const getSales = async () => {
@@ -97,6 +132,9 @@ function OrderDetails() {
     };
     const fecthProducts = async () => {
       const products = await requestPut(`/sales/update/${id}`, body);
+      setStatus(products.status);
+      setOrderId(products);
+
       return products;
     };
     fecthProducts();
@@ -122,7 +160,7 @@ function OrderDetails() {
         type="button"
         data-testid={ BTN_CHECK }
         onClick={ handleBtnStatus }
-        disabled={ status !== 'Entregue' }
+        disabled={ status !== 'Em Trânsito' }
       >
         MARCAR COMO ENTREGUE
       </button>
