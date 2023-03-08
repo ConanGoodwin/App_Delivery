@@ -70,6 +70,15 @@ function SellerOrderDetail() {
     }
   };
 
+  const formatDate = () => {
+    const date = new Date(sale.saleDate);
+    const day = (date.getDay().toString.length < 2) ? `0${date.getDay()}` : date.getDay();
+    const month = (date.getMonth().toString.length < 2)
+      ? `0${date.getMonth()}` : date.getMonth();
+
+    return `  ${day}/${month}/${date.getFullYear()}`;
+  };
+
   return (
     <div>
       <div>
@@ -77,14 +86,40 @@ function SellerOrderDetail() {
         <span data-testid="seller_order_details__element-order-details-label-order-id">
           { sale && formatId() }
         </span>
+        <span data-testid="seller_order_details__element-order-details-label-order-date">
+          { sale && formatDate() }
+        </span>
+        <button
+          type="button"
+          data-testid="seller_order_details__element-order-details-label-delivery-status"
+        >
+          { sale && sale.status }
+        </button>
+        <button
+          type="button"
+          data-testid="seller_order_details__button-preparing-check"
+        >
+          PREPARAR PEDIDO
+        </button>
+        <button
+          type="button"
+          data-testid="seller_order_details__button"
+        >
+          SAIU PARA ENTREGA
+        </button>
       </div>
-      {/* { console.log(sale) } */}
       <TableCart
         acomuladora={ acomuladora }
         handleChange={ handleChange }
         dataTestId={ dataTestId }
         data={ data }
       />
+      <h4>
+        Total: R$
+        <span data-testid="seller_order_details__element-order-total-price">
+          { (totalCart).toFixed(2).replace('.', ',') }
+        </span>
+      </h4>
     </div>
   );
 }
