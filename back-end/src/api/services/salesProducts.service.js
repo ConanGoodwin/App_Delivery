@@ -11,8 +11,8 @@ const addProductSales = async (reqBody) => {
   return { type: 'NOT_FOUND', message: 'seller product not found' };
 };
 
-const getById = async (id) => {
-  const message = await salesProducts.findByPk(id);
+const getById = async (saleId) => {
+  const message = await salesProducts.findAll({ where: { saleId } });
   if (message) return { type: null, message };
 
   return { type: 'NOT_FOUND', message: 'Not found seller product' };
