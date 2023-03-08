@@ -16,7 +16,7 @@ import logo from '../../images/logo2.png';
 const MAX_PASSWORD_LENGTH = 6;
 
 function Login() {
-  const { setUserLogin, setCart } = useContext(LoginContext);
+  const { userLogin, setUserLogin } = useContext(LoginContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [logado, setLogado] = useState(false);
@@ -38,10 +38,19 @@ function Login() {
     setIsDisabledButton(validateRegistration());
   }, [email, password]);
 
+  // useEffect(() => {
+  //   setUserLogin({ token: '', role: '', name: '' });
+  //   setCart([]);
+  // }, [setCart, setUserLogin]);
+
   useEffect(() => {
-    setUserLogin({ token: '', role: '', name: '' });
-    setCart([]);
-  }, [setCart, setUserLogin]);
+    const user = JSON.parse(localStorage.getItem('user'));
+
+    if (user && user.role === 'customer') {
+      setUserLogin(user);
+      navigate('/customer/products');
+    }
+  }, [navigate, setUserLogin]);
 
   useEffect(() => {
     setLogado(localStorage.getItem('logado') === 'true');
@@ -79,9 +88,6 @@ function Login() {
   };
 
   useEffect(() => {
-    // if (!(/^[^ ^@]+@[^ ^@^.]+\.[c][o][m](\.[A-Za-z^.]{2})?$/i).test(email))
-    // password.length < 6
-    // melhor importar um função, porque estas mesmas validações terão de ser feitas da tela de Register
     setFailedTryLogin(false);
   }, [email, password]);
 
@@ -105,6 +111,12 @@ function Login() {
 
   return (
     <div className="container_login">
+      {/* {
+        ((JSON
+          .parse(localStorage.getItem('user'))) && (JSON
+          .parse(localStorage.getItem('user')))
+          .role === 'customer') && navigate('/customer/products')
+      } */}
       <div className="container_login_bg">
         <img className="bg_login" src={ bgimg } alt="dsds" />
         <form>
