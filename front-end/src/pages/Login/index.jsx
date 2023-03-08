@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { requestPost, setToken } from '../../services/api';
+import { requestPost, setToken, requestData } from '../../services/api';
 import LoginContext from '../../context/LoginContext';
 import isValidEmail from '../../validations/validationEmail';
 import {
@@ -12,7 +12,7 @@ import {
 
 import bgimg from '../../images/ee.jpg';
 import logo from '../../images/logo2.png';
-// import RedirectLogin from '../../utils/redirectLogin';
+
 const MAX_PASSWORD_LENGTH = 6;
 
 function Login() {
@@ -21,7 +21,6 @@ function Login() {
   const [password, setPassword] = useState('');
   const [logado, setLogado] = useState(false);
   const navigate = useNavigate();
-  // const [isLogged, setIsLogged] = useState(false);
   const [failedTryLogin, setFailedTryLogin] = useState(false);
   const [isDisabledButton, setIsDisabledButton] = useState(false);
 
@@ -42,10 +41,37 @@ function Login() {
     const user = JSON.parse(localStorage.getItem('user'));
     const log = JSON.parse(localStorage.getItem('logado'));
 
-    if (user && user.role === 'customer' && log) {
-      setUserLogin(user);
-      navigate('/customer/products');
-    }
+    const validaToken = async () => {
+      if (user && log) {
+        try {
+          setToken(user.token);
+          const { role } = await requestData('/user/validate');
+
+          switch (role) {
+          case 'customer':
+            navigate('/customer/products');
+            break;
+          case 'administrator':
+            navigate('/admin/manage');
+            break;
+          case 'seller':
+            navigate('/seller//orders');
+            break;
+          default:
+            break;
+          }
+        } catch (error) {
+          console.log('bad request');
+        }
+      }
+    };
+
+    validaToken();
+
+    // if (user && user.role === 'customer' && log) {
+    //   setUserLogin(user);
+    //   navigate('/customer/products');
+    // }
   }, [navigate, setUserLogin]);
 
   useEffect(() => {
@@ -78,11 +104,8 @@ function Login() {
       default:
         break;
       }
-      // RedirectLogin(email, password);
-      // setIsLogged(true);
     } catch (error) {
       setFailedTryLogin(true);
-      // setIsLogged(false);
     }
   };
 
@@ -99,13 +122,6 @@ function Login() {
 
     setLogado(value);
     localStorage.setItem('logado', value);
-
-    // if (target.id === 'filtroTrunfo') this.setState({ isFilterdisabled: value });
-
-    // this.setState({ [target.id]: value }, () => {
-    //   const validaOk = this.validaBotao();
-    //   this.setState({ isSaveButtonDisabled: validaOk });
-    // });
   };
 
   return (
