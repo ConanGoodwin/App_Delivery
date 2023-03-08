@@ -55,7 +55,7 @@ function Login() {
             navigate('/admin/manage');
             break;
           case 'seller':
-            navigate('/seller//orders');
+            navigate('/seller/orders');
             break;
           default:
             break;
