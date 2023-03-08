@@ -9,4 +9,7 @@ salesRouter
 
 salesRouter.get('/', salesController.getAllSales);
 
+salesRouter
+  .put('/update/:id', validateJWT, salesController.getSalesId);
+
 module.exports = salesRouter;

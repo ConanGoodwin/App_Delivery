@@ -18,7 +18,19 @@ const getAll = async () => {
   return { type: 'NOT_FOUND', message: 'Not found seller' };
 };
 
+
+const updateSale = async (id, reqBody) => {
+  const sales = await salesProducts.findByPk(id);
+  const { totalPrice, deliveryAddress, deliveryNumber, saleDate, status } = reqBody;
+  const message = await sales
+    .update({ totalPrice, deliveryAddress, deliveryNumber, saleDate, status })
+  if (message) return { type: null, message };
+
+  return { type: 'NOT_FOUND', message: 'Not found seller product' };
+};
+
 module.exports = {
   addProductSales,
   getAll,
+  updateSale
 };
