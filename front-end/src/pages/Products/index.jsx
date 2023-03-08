@@ -30,6 +30,33 @@ function Products() {
     });
   }, [setUserLogin]);
 
+  // faz a validação do token e verifica a role do usuario logado para validar se
+  // aquele tipo de usuario tem acesso aquela pagina.
+  useEffect(() => {
+    const validaToken = async () => {
+      const respValida = await verficaToken('customer');
+      if (respValida === 'error') {
+        setUserLogin({ token: '', role: '', name: '' });
+        navigate('/login');
+      }
+      if (localStorage.getItem('logado') === 'true') {
+        setaContextUser(respValida);
+      } else {
+        try {
+          await requestData('/user/validate');
+        } catch (error) {
+          setUserLogin({ token: '', role: '', name: '' });
+          navigate('/login');
+        }
+      }
+    };
+    validaToken();
+  }, [
+    navigate,
+    setUserLogin,
+    setaContextUser,
+  ]);
+
   // busca a lista de produtos no banco e preenche o estado allProducts com esta lista.
   // esta funão vai acionada sempre que entrar na pagina
   useEffect(() => {
@@ -59,33 +86,6 @@ function Products() {
     };
     getProducts();
   }, [cart]);
-
-  // faz a validação do token e verifica a role do usuario logado para validar se
-  // aquele tipo de usuario tem acesso aquela pagina.
-  useEffect(() => {
-    const validaToken = async () => {
-      const respValida = await verficaToken('customer');
-      if (respValida === 'error') {
-        setUserLogin({ token: '', role: '', name: '' });
-        navigate('/login');
-      }
-      if (localStorage.getItem('logado') === 'true') {
-        setaContextUser(respValida);
-      } else {
-        try {
-          await requestData('/user/validate');
-        } catch (error) {
-          setUserLogin({ token: '', role: '', name: '' });
-          navigate('/login');
-        }
-      }
-    };
-    validaToken();
-  }, [
-    navigate,
-    setUserLogin,
-    setaContextUser,
-  ]);
 
   // atualiza qt em allProducts, do produto especificado(atavés de indexAll),
   // diminuindo ou aumentando(de acordo com operator),
