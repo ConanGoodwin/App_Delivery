@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import TableCart from '../../components/TableCart';
+import LoginContext from '../../context/LoginContext';
 import { requestData } from '../../services/api';
+import verficaToken from '../../utils/auth/verficaToken';
 
 function handleChange() {
   console.log('oi');
@@ -12,9 +14,11 @@ const NUMBER_TWO = 2;
 const NUMBER_TREE = 3;
 
 function SellerOrderDetail() {
+  const { setUserLogin } = useContext(LoginContext);
   const [totalCart, setTotalCart] = useState(0);
   const [sale, setSale] = useState({});
   const [data, setData] = useState([]);
+  const navigate = useNavigate();
   const { id } = useParams();
   const dataTestId = {
     id: 'seller_order_details__element-order-table-item-number',
@@ -24,6 +28,38 @@ function SellerOrderDetail() {
     subTotal: 'seller_order_details__element-order-table-sub-total',
     btnRemove: '',
   };
+
+  const setaContextUser = useCallback(async (name) => {
+    const { token, role } = JSON.parse(localStorage.getItem('user'));
+    setUserLogin({
+      token,
+      role,
+      name,
+    });
+  }, [setUserLogin]);
+
+  // faz a validação do token e verifica a role do usuario logado para validar se
+  // aquele tipo de usuario tem acesso aquela pagina.
+  useEffect(() => {
+    const validaToken = async () => {
+      const respValida = await verficaToken('seller');
+      if (respValida === 'error') {
+        setUserLogin({ token: '', role: '', name: '' });
+        navigate('/login');
+      }
+      if (localStorage.getItem('logado') === 'true') {
+        setaContextUser(respValida);
+      } else {
+        try {
+          await requestData('/user/validate');
+        } catch (error) {
+          setUserLogin({ token: '', role: '', name: '' });
+          navigate('/login');
+        }
+      }
+    };
+    validaToken();
+  }, [navigate, setUserLogin, setaContextUser]);
 
   const handleClick = ({ target: { name } }) => {
     if (name === 'btnPrepara') {

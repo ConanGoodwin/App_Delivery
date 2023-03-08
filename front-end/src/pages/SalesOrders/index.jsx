@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   SELLER_ORDERS_CARD_PRICE_ID,
   SELLER_ORDERS_DATE_ID,
@@ -8,10 +8,46 @@ import {
   SELLER_ORDERS_ID,
   SELLER_ORDERS_STREET_ID,
 } from '../../constant/salesOrders_dataTestId';
+import LoginContext from '../../context/LoginContext';
 import { requestData } from '../../services/api';
+import verficaToken from '../../utils/auth/verficaToken';
 
 function SalesOrders() {
+  const { setUserLogin } = useContext(LoginContext);
   const [allSales, setAllSales] = useState([]);
+  const navigate = useNavigate();
+
+  const setaContextUser = useCallback(async (name) => {
+    const { token, role } = JSON.parse(localStorage.getItem('user'));
+    setUserLogin({
+      token,
+      role,
+      name,
+    });
+  }, [setUserLogin]);
+
+  // faz a validação do token e verifica a role do usuario logado para validar se
+  // aquele tipo de usuario tem acesso aquela pagina.
+  useEffect(() => {
+    const validaToken = async () => {
+      const respValida = await verficaToken('seller');
+      if (respValida === 'error') {
+        setUserLogin({ token: '', role: '', name: '' });
+        navigate('/login');
+      }
+      if (localStorage.getItem('logado') === 'true') {
+        setaContextUser(respValida);
+      } else {
+        try {
+          await requestData('/user/validate');
+        } catch (error) {
+          setUserLogin({ token: '', role: '', name: '' });
+          navigate('/login');
+        }
+      }
+    };
+    validaToken();
+  }, [navigate, setUserLogin, setaContextUser]);
 
   useEffect(() => {
     const getCustomerSales = async () => {

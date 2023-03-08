@@ -5,7 +5,7 @@ import Register from './pages/Register';
 import Products from './pages/Products';
 import SellerOrderDetail from './pages/SellerOrderDetail.js';
 import MyOrders from './pages/MyOrders/index';
-import SalesOrders from './pages/SalesOrders/index';
+import SalesOrders from './pages/SalesOrders';
 
 export default function Router() {
   return (
