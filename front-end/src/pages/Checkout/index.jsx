@@ -26,35 +26,35 @@ function Checkout() {
     getSellers();
   }, []);
 
-  const setaContextUser = useCallback(async (name) => {
-    const { token, role } = JSON.parse(localStorage.getItem('user'));
-    setUserLogin({ token, role, name });
-  }, [setUserLogin]);
+  // const setaContextUser = useCallback(async (name) => {
+  //   const { token, role } = JSON.parse(localStorage.getItem('user'));
+  //   setUserLogin({ token, role, name });
+  // }, [setUserLogin]);
 
-  useEffect(() => {
-    const validaToken = async () => {
-      const respValida = await verficaToken('customer');
-      if (respValida === 'error') {
-        setUserLogin({ token: '', role: '', name: '' });
-        navigate('/login');
-      }
-      if (localStorage.getItem('logado') === 'true') {
-        setaContextUser(respValida);
-      } else {
-        try {
-          await requestData('/user/validate');
-        } catch (error) {
-          setUserLogin({ token: '', role: '', name: '' });
-          navigate('/login');
-        }
-      }
-    };
-    validaToken();
-  }, [
-    navigate,
-    setUserLogin,
-    setaContextUser,
-  ]);
+  // useEffect(() => {
+  //   const validaToken = async () => {
+  //     const respValida = await verficaToken('customer');
+  //     if (respValida === 'error') {
+  //       setUserLogin({ token: '', role: '', name: '' });
+  //       navigate('/login');
+  //     }
+  //     if (localStorage.getItem('logado') === 'true') {
+  //       setaContextUser(respValida);
+  //     } else {
+  //       try {
+  //         await requestData('/user/validate');
+  //       } catch (error) {
+  //         setUserLogin({ token: '', role: '', name: '' });
+  //         navigate('/login');
+  //       }
+  //     }
+  //   };
+  //   validaToken();
+  // }, [
+  //   navigate,
+  //   setUserLogin,
+  //   setaContextUser,
+  // ]);
 
   const handleChange = ({ target: { name } }) => {
     const filter = cart.filter((product) => product.id !== Number(name));
