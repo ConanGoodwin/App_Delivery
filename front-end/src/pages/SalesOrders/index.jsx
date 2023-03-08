@@ -52,7 +52,7 @@ function SalesOrders() {
       <h1>Minhas vendas</h1>
       {allSales.map((data) => (
         <div key={ data.id }>
-          <Link to={ `/customer/orders/${data.id} ` }>
+          <Link to={ `/seller/orders/${data.id} ` }>
             <span data-testid={ `${SELLER_ORDERS_ID}-${data.id}` }>
               {`Pedido ${addZeros(data.id)} `}
             </span>
