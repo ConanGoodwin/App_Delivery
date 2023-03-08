@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import LoginContext from '../../context/LoginContext';
-import { setToken, requestData } from '../../services/api';
+import { setToken, requestData, requestPut } from '../../services/api';
 import TableCart from '../../components/TableCart';
 import { LABEL_DEL_STATUS,
   LABEL_ORDER_DATE,
@@ -87,14 +87,20 @@ function OrderDetails() {
 
   const formatDate = () => {
     const date = new Date(orderId.saleDate);
-    return `${date.getDay()}/${date.getMonth()}/${date.getFullYear()}`;
+    return date.toLocaleDateString('pt-br');
   };
 
-  // const handleBtnStatus = () => {
-  //   const body = {
-  //     status: 'Entregue',
-  //   };
-  // };
+  const handleBtnStatus = () => {
+    const body = {
+      ...orderId,
+      status: 'Entregue',
+    };
+    const fecthProducts = async () => {
+      const products = await requestPut(`/sales/update/${id}`, body);
+      return products;
+    };
+    fecthProducts();
+  };
 
   return (
     <div>
@@ -115,8 +121,8 @@ function OrderDetails() {
       <button
         type="button"
         data-testid={ BTN_CHECK }
-        // onClick={ handleBtnStatus }
-        disabled={ status !== 'Em Trânsito' }
+        onClick={ handleBtnStatus }
+        disabled={ status !== 'Entregue' }
       >
         MARCAR COMO ENTREGUE
       </button>
