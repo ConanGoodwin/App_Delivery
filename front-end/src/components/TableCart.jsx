@@ -94,12 +94,12 @@ export default TableCart;
 TableCart.propTypes = {
   acomuladora: PropTypes.func.isRequired,
   handleChange: PropTypes.func.isRequired,
-  data: PropTypes.shape([{
+  data: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired,
-    qt: PropTypes.string.isRequired,
-    unitPrice: PropTypes.number.isRequired,
+    qt: PropTypes.number.isRequired,
+    unitPrice: PropTypes.string.isRequired,
     subTotal: PropTypes.number.isRequired,
-  }]).isRequired,
+  })).isRequired,
   dataTestId: PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
