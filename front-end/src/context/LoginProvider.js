@@ -5,12 +5,15 @@ import LoginContext from './LoginContext';
 function LoginProvider({ children }) {
   const [userLogin, setUserLogin] = useState({ token: '', role: '', name: '' });
   const [cart, setCart] = useState([]);
+  const [sales, setSales] = useState([]);
   const stateObj = useMemo(() => ({
     userLogin,
     setUserLogin,
     cart,
     setCart,
-  }), [userLogin, cart]);
+    sales,
+    setSales,
+  }), [userLogin, cart, sales]);
 
   return (
     <LoginContext.Provider value={ stateObj }>
