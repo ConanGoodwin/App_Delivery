@@ -151,7 +151,7 @@ function SellerOrderDetail() {
         <button
           type="button"
           name="btnEntrega"
-          data-testid="seller_order_details__button"
+          data-testid="seller_order_details__button-dispatch-check"
           disabled={ (sale && sale.status !== 'Preparando') }
           onClick={ handleClick }
         >
