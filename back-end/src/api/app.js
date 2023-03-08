@@ -14,4 +14,3 @@ app.use('/salesProducts', salesProductsRouter);
 app.use('/images', express.static('public/images'));
 
 module.exports = app;
-// teste
