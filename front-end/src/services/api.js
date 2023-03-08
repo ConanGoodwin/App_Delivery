@@ -18,4 +18,10 @@ export const requestPost = async (endpoint, body) => {
   return data;
 };
 
+export const requestPut = async (endpoint, body) => {
+  const { data } = await api.put(endpoint, body);
+  console.log(data);
+  return data;
+};
+
 export default api;
