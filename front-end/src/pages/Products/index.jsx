@@ -190,8 +190,9 @@ function Products() {
   };
 
   return (
-    <div>
+    <main>
       <button
+        className="button_checkout"
         type="button"
         onClick={ handleClickBtnCart }
         data-testid="customer_products__button-cart"
@@ -221,7 +222,7 @@ function Products() {
           </div>
         )) : <p>{ erro }</p>
       }
-    </div>
+    </main>
   );
 }
 

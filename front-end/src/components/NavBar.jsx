@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import LoginContext from '../context/LoginContext';
 
-const BORDER = '1px solid black';
+// const BORDER = '1px solid black';
 
 function NavBar() {
   const { userLogin, setUserLogin, setCart } = useContext(LoginContext);
@@ -15,12 +15,21 @@ function NavBar() {
   };
 
   return (
-    <nav style={ { display: 'flex', width: '100%', border: BORDER } }>
+    <nav>
       <div
+        className="teste"
         style={ {
           display: 'flex',
           justifyContent: 'center',
-          border: BORDER,
+          alignItems: 'center',
+          // border: BORDER,
+          // borderRight: 'no',
+          // borderRadius: '20px',
+          borderTopLeftRadius: '20px',
+          borderTopRightRadius: '20px',
+          borderBottomLeftRadius: '20px',
+          // borderRight: '3px solid',
+          backgroundColor: '#556662',
           width: '15%' } }
       >
         <Link
@@ -44,6 +53,7 @@ function NavBar() {
               }
             })()
           }
+          style={ { color: 'white' } }
         >
           {(() => {
             if (userLogin.role === 'customer') return <p>PRODUTOS</p>;
@@ -54,17 +64,19 @@ function NavBar() {
       </div>
       <div
         style={ { display: 'flex',
-          border: BORDER,
+          // border: BORDER,
           width: '60%',
           justifyContent: 'left',
-          alignItems: 'center' } }
+          alignItems: 'center',
+          backgroundColor: 'rgb(238, 75, 75)' } }
       >
         { (userLogin.role === 'customer')
           ? (
             <Link
               to="/customer/orders"
-              style={ { marginLeft: '20px' } }
+              style={ { marginLeft: '20px', textDecoration: 'none', color: 'white' } }
               data-testid="customer_products__element-navbar-link-orders"
+              color="white"
             >
               MEUS PEDIDOS
 
@@ -75,12 +87,22 @@ function NavBar() {
       <div
         style={ {
           display: 'flex',
+          // position: 'fixed',
           justifyContent: 'center',
-          border: BORDER,
-          width: '15%' } }
+          // border: BORDER,
+          boxShadow: '$form-login-box-shadow',
+          borderRight: '3px solid rgb(59,59,59)',
+          borderBottom: '3px solid rgb(29,29,29, 0.1)',
+          borderRadius: '20px',
+          margin: '5px',
+          width: '15%',
+          // backgroundColor: 'blueviolet',
+          backgroundColor: 'rgb(241, 25, 25) ',
+        } }
       >
         <p
           data-testid="customer_products__element-navbar-user-full-name"
+          style={ { color: 'white' } }
         >
           { userLogin.name }
 
@@ -88,15 +110,19 @@ function NavBar() {
       </div>
       <div
         style={ { display: 'flex',
-          border: BORDER,
+          // border: BORDER,
+          borderTopRightRadius: '20px',
+          borderBottomLeftRadius: '20px',
           width: '10%',
           justifyContent: 'center',
-          alignItems: 'center' } }
+          alignItems: 'center',
+          backgroundColor: 'blue' } }
       >
         <Link
           to="/login"
           data-testid="customer_products__element-navbar-link-logout"
           onClick={ handleClickLogout }
+          style={ { color: 'white' } }
         >
           Sair
 
