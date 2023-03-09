@@ -51,14 +51,6 @@ nav {
   }
 }
 
-// link {
-//   text-decoration: none;
-// }
-
-// link:hover {
-//   text-decoration: underline;
-// }
-
 section {
   display: flex;
   min-height: 62vh;
@@ -118,4 +110,38 @@ section {
   }
   
   
+}
+
+table {
+  box-shadow: $form-login-box-shadow;
+  background-color: rgb(227, 255, 255);
+  text-align: center;
+
+  th {
+    background-color: #0a5543;
+    color: white;
+  }
+
+  td {
+    font-family: typew;
+    border: 1px solid black;
+  }
+
+  .fundoEscuro {
+    background-color: #267663;
+    color: white;
+  }
+
+  .button_remove {
+    right: 1%;
+    background-color:#0a5543;
+    font-size: medium;
+    height: 40px;
+    width: 100px;
+    border-radius: 10px;
+    margin: 5px;
+    color: white;
+    cursor: pointer;
+    border: none;
+  }
 }
