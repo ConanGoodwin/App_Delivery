@@ -42,18 +42,18 @@
 }
 
 .sale__status {
-  font-size: 1.1rem;
   margin-left: 20px;
+  font-size: 1.1rem;
 }
 
 .sale__date {
-  font-size: 1.1rem;
   margin-left: 20px;
+  font-size: 1.1rem;
 }
 
 .sale__price {
-  font-size: 1.1rem;
   margin-left: 20px;
+  font-size: 1.1rem;
 }
 
 @media (max-width: 768px) {
