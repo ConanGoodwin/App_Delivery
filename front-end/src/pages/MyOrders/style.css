@@ -39,7 +39,7 @@
 .sale__id {
   font-size: 1.2rem;
   margin-left: 20px;
-  font-weight: 700;
+  /* font-weight: 700; */
 }
 
 .sale__status {
@@ -57,16 +57,3 @@
   margin-left: 20px;
 }
 
-@media (max-width: 768px) {
-  .sale__link {
-    align-items: flex-start;
-    flex-direction: column;
-  }
-
-  .sale__status,
-  .sale__date,
-  .sale__price {
-    margin-left: 0;
-    margin-top: 10px;
-  }
-}
