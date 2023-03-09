@@ -28,10 +28,22 @@ function NavBar() {
             (() => {
               if (userLogin.role === 'customer') return '/customer/products';
               if (userLogin.role === 'seller') return '/seller/orders';
-              if (userLogin.role === 'administrator') return '/teste';
+              if (userLogin.role === 'administrator') return '/admin/manage';
             })()
           }
-          data-testid="customer_products__element-navbar-link-products"
+          data-testid={
+            (() => {
+              if (userLogin.role === 'customer') {
+                return 'customer_products__element-navbar-link-products';
+              }
+              if (userLogin.role === 'seller') {
+                return 'customer_products__element-navbar-link-orders';
+              }
+              if (userLogin.role === 'administrator') {
+                return 'customer_products__element-navbar-link-orders';
+              }
+            })()
+          }
         >
           {(() => {
             if (userLogin.role === 'customer') return <p>PRODUTOS</p>;
