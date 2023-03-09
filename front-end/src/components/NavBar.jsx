@@ -16,22 +16,7 @@ function NavBar() {
 
   return (
     <nav>
-      <div
-        className="teste"
-        style={ {
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          // border: BORDER,
-          // borderRight: 'no',
-          // borderRadius: '20px',
-          borderTopLeftRadius: '20px',
-          borderTopRightRadius: '20px',
-          borderBottomLeftRadius: '20px',
-          // borderRight: '3px solid',
-          backgroundColor: '#556662',
-          width: '15%' } }
-      >
+      <div className="navBarFunction">
         <Link
           to={
             (() => {
@@ -62,14 +47,7 @@ function NavBar() {
           })()}
         </Link>
       </div>
-      <div
-        style={ { display: 'flex',
-          // border: BORDER,
-          width: '60%',
-          justifyContent: 'left',
-          alignItems: 'center',
-          backgroundColor: 'rgb(238, 75, 75)' } }
-      >
+      <div className="navBarLabelTela">
         { (userLogin.role === 'customer')
           ? (
             <Link
@@ -84,22 +62,7 @@ function NavBar() {
           )
           : null }
       </div>
-      <div
-        style={ {
-          display: 'flex',
-          // position: 'fixed',
-          justifyContent: 'center',
-          // border: BORDER,
-          boxShadow: '$form-login-box-shadow',
-          borderRight: '3px solid rgb(59,59,59)',
-          borderBottom: '3px solid rgb(29,29,29, 0.1)',
-          borderRadius: '20px',
-          margin: '5px',
-          width: '15%',
-          // backgroundColor: 'blueviolet',
-          backgroundColor: 'rgb(241, 25, 25) ',
-        } }
-      >
+      <div className="navBarName">
         <p
           data-testid="customer_products__element-navbar-user-full-name"
           style={ { color: 'white' } }
