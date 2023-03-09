@@ -38,22 +38,23 @@
 
 .sale__id {
   font-size: 1.2rem;
+  margin-left: 20px;
   font-weight: 700;
 }
 
 .sale__status {
-  margin-left: 20px;
   font-size: 1.1rem;
+  margin-left: 20px;
 }
 
 .sale__date {
-  margin-left: 20px;
   font-size: 1.1rem;
+  margin-left: 20px;
 }
 
 .sale__price {
-  margin-left: 20px;
   font-size: 1.1rem;
+  margin-left: 20px;
 }
 
 @media (max-width: 768px) {
@@ -65,7 +66,7 @@
   .sale__status,
   .sale__date,
   .sale__price {
-    margin-top: 10px;
     margin-left: 0;
+    margin-top: 10px;
   }
 }
