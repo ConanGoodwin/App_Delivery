@@ -123,7 +123,7 @@ function Checkout() {
         dataTestId={ dataTestId }
         data={ cart }
       />
-      <div style={ { display: 'flex', justifyContent: 'right', width: '100%', fontSize: 'xx-large' } }>
+      <div className="labelTotal">
         <h4>
           Total: R$
           <span data-testid="customer_checkout__element-order-total-price">
