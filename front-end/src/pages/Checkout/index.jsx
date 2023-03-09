@@ -123,7 +123,7 @@ function Checkout() {
         dataTestId={ dataTestId }
         data={ cart }
       />
-      <div style={ { display: 'flex', justifyContent: 'right', width: '100%' } }>
+      <div style={ { display: 'flex', justifyContent: 'right', width: '100%', fontSize: 'xx-large' } }>
         <h4>
           Total: R$
           <span data-testid="customer_checkout__element-order-total-price">
@@ -131,19 +131,20 @@ function Checkout() {
           </span>
         </h4>
       </div>
-      <div style={ { display: 'flex', justifyContent: 'left', width: '100%' } }>
+      {/* <div style={ { display: 'flex', justifyContent: 'left', width: '100%' } }>
         <h4>Detalhes e Endereço para Entrega</h4>
-      </div>
-      <form>
+      </div> */}
+      <div className="formCheckout">
+        <h4>Detalhes e Endereço para Entrega</h4>
         <div
-          style={ { display: 'flex', justifyContent: 'center', width: '100%' } }
+          className="formInputs"
         >
           {
             (sellers) ? (
               <label
                 htmlFor="cmbSellers"
                 className="label"
-                style={ { margin: '10px', display: 'flex', flexDirection: 'column' } }
+
               >
                 P. Vendedora Responsável
                 <select
@@ -202,10 +203,11 @@ function Checkout() {
           type="button"
           data-testid="customer_checkout__button-submit-order"
           onClick={ handleClick }
+          className="button_finish_sale"
         >
           FINALIZAR PEDIDO
         </button>
-      </form>
+      </div>
     </section>
   );
 }
