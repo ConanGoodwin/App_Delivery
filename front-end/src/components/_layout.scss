@@ -1,0 +1,81 @@
+nav {
+  display: flex; 
+  width: 99%; 
+  // // border: 2px groove #5e6d69;
+  box-shadow: $form-login-box-shadow;
+  border-radius: 20px;
+  margin: 1px 5px;
+  // position: fixed;
+  // // background-color: $container-login-background-color;
+  background-color: rgb(238, 75, 75);
+  // z-index: -30;
+}
+
+// link {
+//   text-decoration: none;
+// }
+
+// link:hover {
+//   text-decoration: underline;
+// }
+
+section {
+  display: flex;
+  min-height: 62vh;
+  min-width: 10vw;
+  align-items: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  background-color: $form-login-background-color;
+  box-shadow: $form-login-box-shadow;
+  border-radius: 20px;
+  margin: 5px;
+  padding: 5px;
+
+  p {
+    margin: 5px;
+    font-family: digitalLime;
+    font-size: larger;
+    word-wrap: break-word;
+  }
+
+  .fontLarger {
+    font-size: 20px;
+  }
+
+  .img_product {
+    background-color: $form-login-background-color;
+    box-shadow: $form-login-box-shadow;
+    border-radius: 10px;
+    margin: 5px;
+    height: 40vh;
+    width: 180px;
+  }
+  
+  .divBtn {
+    margin: 10px;
+  }
+  
+  .imput_qt_product {
+      // height: 25px;
+      width: 120px;
+      border-radius: 7px;
+      margin: 5px;
+      border: 2px solid;
+      border-color: $form-login-inputs-color;
+    }
+  
+  .button {
+    background-color:#0a5543;
+    height: 22px;
+    width: 22px;
+    border-radius: 5px;
+    // margin: 5px;
+    color: white;
+    cursor: pointer;
+    border: none;
+  }
+  
+  
+}

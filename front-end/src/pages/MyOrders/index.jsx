@@ -8,7 +8,6 @@ import {
   CUSTOMER_ORDERS_ID,
 } from '../../constant/myOrders_dataTestId';
 import LoginContext from '../../context/LoginContext';
-// import LoginContext from '../../context/LoginContext';
 import { requestData } from '../../services/api';
 import verficaToken from '../../utils/auth/verficaToken';
 
@@ -54,7 +53,6 @@ function MyOrders() {
     const getCustomerSales = async () => {
       try {
         const getSales = await requestData('/sales');
-        // setSales(getSales.filter(({ role }) => role === 'customer'));
         setAllSales(getSales);
       } catch (error) { console.log('bad request'); }
     };
@@ -71,20 +69,15 @@ function MyOrders() {
   };
 
   function convertDate(dateString) {
-    // console.log(dateString, 'data recebida');
     const dateObj = new Date(dateString);
-    // console.log(dateObj);
     const day = dateObj.getDate().toString().padStart(2, '0');
-    // console.log(day, 'day');
     const month = (dateObj.getMonth() + 1).toString().padStart(2, '0');
-    // console.log('month', dateObj.getMonth());
     // const year = dateObj.getFullYear().toString().slice(2); // o ano precisa ser por extenso
-    // console.log(year, 'year');
+
     return `${day}/${month}/${dateObj.getFullYear()}`;
   }
 
   function formatCurrency(value) {
-    // return console.log(typeof value);
     const formattedValue = `R$ ${Number(value).toFixed(2).replace('.', ',')}`;
     return formattedValue;
   }
