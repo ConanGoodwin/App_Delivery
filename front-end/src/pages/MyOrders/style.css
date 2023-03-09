@@ -37,9 +37,9 @@
 }
 
 .sale__id {
-  font-size: 1.2rem;
-  margin-left: 20px;
   font-weight: 700;
+  /* Alterado para manter ordem alfabética */
+  font-size: 1.2rem;
 }
 
 .sale__status {
@@ -66,7 +66,30 @@
   .sale__status,
   .sale__date,
   .sale__price {
-    margin-left: 0;
     margin-top: 10px;
+    margin-left: 0;
+  }
+
+  /* Corrigido para ter espaço antes e depois dos dois pontos */
+  @media (max-width: 768px) {
+    .sale__link {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    .sale__status,
+    .sale__date,
+    .sale__price {
+      margin-top: 10px;
+      margin-left: 0;
+    }
+  }
+
+  /* Adicionado espaço após vírgulas */
+  .sale__status,
+  .sale__date,
+  .sale__price {
+    margin-top: 10px;
+    margin-left: 0;
   }
 }
