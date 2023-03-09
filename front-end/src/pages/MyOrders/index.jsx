@@ -87,7 +87,7 @@ function MyOrders() {
         <div className="sale" key={ data.id }>
           <Link class="sale__link" to={ `/customer/orders/${data.id}` }>
             <span className="sale__id" data-testid={ `${CUSTOMER_ORDERS_ID}-${data.id}` }>
-              Pedido
+              <strong>Pedido:</strong>
               {' '}
               {addZeros(data.id)}
             </span>
@@ -95,7 +95,7 @@ function MyOrders() {
               className="sale__status"
               data-testid={ `${CUSTOMER_DELIVERY_STATUS_ID}-${data.id}` }
             >
-              Status:
+              <strong>Status:</strong>
               {' '}
               {data.status}
             </span>
@@ -103,7 +103,7 @@ function MyOrders() {
               className="sale__date"
               data-testid={ `${COSTUMER_ORDERS_DATE_ID}-${data.id}` }
             >
-              Data:
+              <strong>Data:</strong>
               {' '}
               {convertDate(data.saleDate)}
             </span>
@@ -111,7 +111,7 @@ function MyOrders() {
               className="sale__price"
               data-testid={ `${COSTUMER_ORDERS_CARD_PRICE_ID}-${data.id}` }
             >
-              Preço total:
+              <strong>Preço total:</strong>
               {' '}
               {formatCurrency(data.totalPrice)}
             </span>
