@@ -124,6 +124,8 @@ function SellerOrderDetail() {
       return products;
     };
     fecthProducts();
+
+    if (name === 'btnEntrega') navigate('/seller/orders');
   };
 
   return (

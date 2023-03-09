@@ -53,8 +53,9 @@ function SalesOrders() {
     const getCustomerSales = async () => {
       try {
         const getSales = await requestData('/sales');
-        // setSales(getSales.filter(({ role }) => role === 'customer'));
+        // const salesFiltred = getSales.filter(({ status }) => status !== 'Entregue');
         setAllSales(getSales);
+        // setAllSales(getSales);
       } catch (error) { console.log('bad request'); }
     };
     getCustomerSales();
