@@ -1,23 +1,55 @@
 nav {
   display: flex; 
   width: 99%; 
-  // // border: 2px groove #5e6d69;
   box-shadow: $form-login-box-shadow;
   border-radius: 20px;
   margin: 1px 5px;
   // position: fixed;
-  // // background-color: $container-login-background-color;
   background-color: rgb(238, 75, 75);
   // z-index: -30;
+
+  .navBarFunction {
+    display: 'flex';
+    justify-content: center;
+    align-self: center;
+    text-align: center;
+    align-items: center;
+    margin-left: 5px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    background-color: #556662;
+    width: 13%;
+    font-family: college;
+    font-size: large;
+  }
+
+  .navBarLabelTela {
+    display: 'flex';
+    width: 60%;
+    // justify-content: left;
+    align-self: center;
+    font-family: pimball;
+    font-size: xxx-large;
+    // font-family: college;
+    // font-size: xx-large;
+    background-color: rgb(238, 75, 75);
+  }
+
+  .navBarName {
+    display: 'flex';
+    text-align: center;
+    align-items: center;
+    box-shadow: $form-login-box-shadow;
+    border-right: 3px solid rgb(59,59,59);
+    border-bottom: 3px solid rgb(29,29,29, 0.1);
+    border-radius: 20px;
+    margin: 5px;
+    width: 18%;
+    background-color: rgb(241, 25, 25) ;
+    font-family: paly;
+  }
 }
-
-// link {
-//   text-decoration: none;
-// }
-
-// link:hover {
-//   text-decoration: underline;
-// }
 
 section {
   display: flex;
@@ -78,4 +110,38 @@ section {
   }
   
   
+}
+
+table {
+  box-shadow: $form-login-box-shadow;
+  background-color: rgb(227, 255, 255);
+  text-align: center;
+
+  th {
+    background-color: rgb(238, 75, 75);
+    color: white;
+  }
+
+  td {
+    font-family: typew;
+    border: 1px solid black;
+  }
+
+  .fundoEscuro {
+    background-color: #39a68c;
+    color: white;
+  }
+
+  .button_remove {
+    right: 1%;
+    background-color:#0a5543;
+    font-size: medium;
+    height: 40px;
+    width: 100px;
+    border-radius: 10px;
+    margin: 5px;
+    color: white;
+    cursor: pointer;
+    border: none;
+  }
 }
