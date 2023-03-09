@@ -28,7 +28,7 @@ function TableCart({ acomuladora, handleChange, dataTestId, data }) {
       </thead>
       <tbody>
         { data.map((product, index) => (
-          <tr key={ index }>
+          <tr key={ index } className={ (index % 2 !== 0) && 'fundoEscuro' }>
             <td
               data-testid={
                 `${dataTestId.id}-${index}`
@@ -75,6 +75,7 @@ function TableCart({ acomuladora, handleChange, dataTestId, data }) {
                       }
                       type="button"
                       onClick={ (target) => handleChange(target) }
+                      className="button_remove"
                     >
                       Remover
                     </button>
