@@ -1,26 +1,26 @@
 .sales {
+  align-items: center;
   background-color: #f1f1f1;
-  padding: 20px;
-  margin: 0 auto;
-  max-width: 800px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  margin: 0 auto;
+  max-width: 800px;
+  padding: 20px;
 }
 
 .sales__title {
   font-size: 2.5rem;
-  text-align: center;
   margin-bottom: 30px;
+  text-align: center;
 }
 
 .sale {
   background-color: white;
-  padding: 20px;
-  margin: 10px 0;
-  width: 100%;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  margin: 10px 0;
+  padding: 20px;
   transition: all 0.3s ease;
+  width: 100%;
 }
 
 .sale:hover {
@@ -28,17 +28,17 @@
 }
 
 .sale__link {
+  align-items: center;
+  color: #333;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  align-items: center;
   text-decoration: none;
-  color: #333;
 }
 
 .sale__id {
-  font-weight: bold;
   font-size: 1.2rem;
+  font-weight: 700;
 }
 
 .sale__status {
@@ -56,17 +56,16 @@
   margin-left: 20px;
 }
 
-@media ( max-width: 768px ) {
-
+@media (max-width: 768px) {
   .sale__link {
-    flex-direction: column;
     align-items: flex-start;
+    flex-direction: column;
   }
 
-  .sale__status, 
-  .sale__date, 
+  .sale__status,
+  .sale__date,
   .sale__price {
-    margin-left: 0;
     margin-top: 10px;
+    margin-left: 0;
   }
 }
