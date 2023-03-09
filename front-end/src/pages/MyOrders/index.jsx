@@ -10,6 +10,7 @@ import {
 import LoginContext from '../../context/LoginContext';
 import { requestData } from '../../services/api';
 import verficaToken from '../../utils/auth/verficaToken';
+import './style.css';
 
 function MyOrders() {
   const { setUserLogin } = useContext(LoginContext);
@@ -59,12 +60,9 @@ function MyOrders() {
     getCustomerSales();
   }, []);
 
-  // console.log(allSales);
-
   const addZeros = (dataId) => {
     const padding = 4;
 
-    // example https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/String/padStart
     return String(dataId).padStart(padding, '0');
   };
 
@@ -83,31 +81,37 @@ function MyOrders() {
   }
 
   return (
-    <div>
-      <h1>Meus pedidos</h1>
+    <div className="sales">
+      <h1 className="sales__title">Meus pedidos</h1>
       {allSales.map((data) => (
-        <div key={ data.id }>
-          <Link to={ `/customer/orders/${data.id} ` }>
-            <span data-testid={ `${CUSTOMER_ORDERS_ID}-${data.id}` }>
-              {`Pedido ${addZeros(data.id)} `}
+        <div className="sale" key={ data.id }>
+          <Link class="sale__link" to={ `/customer/orders/${data.id}` }>
+            <span className="sale__id" data-testid={ `${CUSTOMER_ORDERS_ID}-${data.id}` }>
+              <strong>Pedido:</strong>
+              {' '}
+              {addZeros(data.id)}
             </span>
-
-            <span data-testid={ `${CUSTOMER_DELIVERY_STATUS_ID}-${data.id}` }>
-              Status:
+            <span
+              className="sale__status"
+              data-testid={ `${CUSTOMER_DELIVERY_STATUS_ID}-${data.id}` }
+            >
+              <strong>Status:</strong>
               {' '}
               {data.status}
             </span>
-
             <span
+              className="sale__date"
               data-testid={ `${COSTUMER_ORDERS_DATE_ID}-${data.id}` }
             >
+              <strong>Data:</strong>
               {' '}
               {convertDate(data.saleDate)}
-              {' '}
             </span>
-
-            <span data-testid={ `${COSTUMER_ORDERS_CARD_PRICE_ID}-${data.id}` }>
-              Preço total:
+            <span
+              className="sale__price"
+              data-testid={ `${COSTUMER_ORDERS_CARD_PRICE_ID}-${data.id}` }
+            >
+              <strong>Preço total:</strong>
               {' '}
               {formatCurrency(data.totalPrice)}
             </span>
@@ -119,4 +123,3 @@ function MyOrders() {
 }
 
 export default MyOrders;
-// teste
