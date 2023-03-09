@@ -58,7 +58,11 @@ function Checkout() {
 
   const handleChange = ({ target: { name } }) => {
     const filter = cart.filter((product) => product.id !== Number(name));
-    return setCart(filter);
+
+    setCart(filter);
+    if (cart.length === 1) navigate('/customer/products');
+
+    return true;
   };
 
   const handleClick = async () => {
@@ -113,7 +117,6 @@ function Checkout() {
   return (
     <section style={ { padding: '10px' } }>
       <h4>Finalizar Pedido</h4>
-      { (cart.length === 0) ? navigate('/customer/products') : null }
       <TableCart
         acomuladora={ acomuladora }
         handleChange={ handleChange }
