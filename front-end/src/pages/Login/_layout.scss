@@ -12,6 +12,7 @@
   max-width: 25vw;
   position: absolute;
   right: 150px;
+  z-index: 0;
 }
 
 .logo_login {
@@ -21,6 +22,7 @@
 
 .container_login_bg {
   display: flex;
+  flex-wrap: wrap;
   min-height: 65vh;
   min-width: 100vw;
   justify-content: center;
@@ -40,6 +42,7 @@ form {
   background-color: $form-login-background-color;
   box-shadow: $form-login-box-shadow;
   border-radius: 20px;
+  z-index: 1;
 
   .login__login_input {
     height: 25px;
