@@ -9,13 +9,15 @@
 }
 
 .sales__title {
-  font-size: 2.5rem;
+  font-size: 3.5rem;
+  font-family: pimball;
   margin-bottom: 30px;
   text-align: center;
 }
 
 .sale {
   background-color: white;
+  font-family: turpa;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
   margin: 10px 0;
   padding: 20px;
@@ -42,35 +44,38 @@
 }
 
 .sale__status {
-  display: flex;
   align-items: center;
-  justify-content: center;
-  border: 1px solid black;
   background-color: red;
+  border: 1px solid black;
   color: white;
-  padding: 10px;
-  font-size: 1.1rem;
-  margin-left: 20px;
-  width: 220px;
+  display: flex;
+  font-family: score;
+  font-size: 0.9rem;
   height: 40px;
+  justify-content: center;
+  margin-left: 20px;
+  padding: 10px;
+  width: 240px;
 }
 
 .Pendente {
   background-color: aqua;
   color: black;
-  width: 215px;
+  font-size: 1.2rem;
   height: 30px;
+  width: 215px;
 }
 
 .Entregue {
   background-color: green;
-  width: 215px;
+  font-size: 1.2rem;
   height: 30px;
+  width: 215px;
 }
 
 .icon_moto {
-  width: 50px;
   animation: animate 2s linear infinite;
+  width: 50px;
 }
 
 @keyframes animate {
