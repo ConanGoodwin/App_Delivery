@@ -198,13 +198,17 @@ function Products() {
         data-testid="customer_products__button-cart"
         disabled={ isDisabledButton }
       >
-        Ver carrinho: R$
+        R$
         {' '}
-        <span data-testid="customer_products__checkout-bottom-value">
+        <span
+          style={ { fontSize: 'xx-large' } }
+          data-testid="customer_products__checkout-bottom-value"
+        >
           { Number(cart.reduce((acc, curr) => acc + curr.subTotal, 0))
             .toFixed(2)
             .replace('.', ',') }
         </span>
+        <img src="http://localhost:3001/images/shopping_cart_market_ecommerce_icon_144576.png" alt="" />
       </button>
       {
         !reqError ? allProducts.map(({ id, name, price, urlImage }, index) => (

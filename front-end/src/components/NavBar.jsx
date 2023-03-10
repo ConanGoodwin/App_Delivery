@@ -5,7 +5,7 @@ import LoginContext from '../context/LoginContext';
 // const BORDER = '1px solid black';
 
 function NavBar() {
-  const { userLogin, setUserLogin, setCart } = useContext(LoginContext);
+  const { userLogin, setUserLogin, cart, setCart } = useContext(LoginContext);
 
   const handleClickLogout = () => {
     setUserLogin({ token: '', role: '', name: '' });
@@ -54,10 +54,16 @@ function NavBar() {
               to="/customer/orders"
               style={ { marginLeft: '20px', textDecoration: 'none', color: 'white' } }
               data-testid="customer_products__element-navbar-link-orders"
-              color="white"
             >
               MEUS PEDIDOS
 
+            </Link>
+          )
+          : null }
+        { (userLogin.role === 'customer' && cart.length > 0)
+          ? (
+            <Link to="/customer/checkout">
+              <img src="http://localhost:3001/images/shopping_cart_market_ecommerce_icon_144576(2).png" alt="" />
             </Link>
           )
           : null }

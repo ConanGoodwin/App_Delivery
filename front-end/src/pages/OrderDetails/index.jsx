@@ -135,6 +135,8 @@ function OrderDetails() {
       setStatus(products.status);
       setOrderId(products);
 
+      // navigate('/customer/orders');
+
       return products;
     };
     fecthProducts();
@@ -155,7 +157,60 @@ function OrderDetails() {
         {seller}
       </p>
       <p data-testid={ LABEL_ORDER_DATE }>{formatDate()}</p>
-      <p data-testid={ LABEL_DEL_STATUS }>{orderId.status}</p>
+      <div style={ { display: 'flex', alignItems: 'center' } }>
+        <p data-testid={ LABEL_DEL_STATUS }>
+          {orderId.status}
+        </p>
+        <p>
+          {
+            (orderId.status === 'Em Trânsito')
+              ? (
+                <img
+                  className="icon_moto"
+                  src="http://localhost:3001/images/moto.png"
+                  alt="sem"
+                />
+              ) : null
+          }
+        </p>
+        <p>
+          {
+            (orderId.status === 'Entregue')
+              ? (
+                <img
+                  className="icon_moto"
+                  src="http://localhost:3001/images/ok_accept_15562.png"
+                  alt="sem"
+                  style={ { width: '20px', marginLeft: '5px' } }
+                />
+              ) : null
+          }
+        </p>
+        <p>
+          {
+            (orderId.status === 'Preparando')
+              ? (
+                <img
+                  src="http://localhost:3001/images/package.png"
+                  alt="sem"
+                  style={ { width: '30px', marginLeft: '5px' } }
+                />
+              ) : null
+          }
+        </p>
+        <p>
+          {
+            (orderId.status === 'Pendente')
+              ? (
+                <img
+                  src="http://localhost:3001/images/loading.png"
+                  alt="sem"
+                  style={ { width: '20px', marginLeft: '5px' } }
+                />
+              ) : null
+          }
+        </p>
+      </div>
       <button
         type="button"
         data-testid={ BTN_CHECK }

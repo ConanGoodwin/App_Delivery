@@ -12,9 +12,9 @@ function TableCart({ acomuladora, handleChange, dataTestId, data }) {
     <table width="100%">
       <thead>
         <tr>
-          <th>Item</th>
+          <th>It</th>
           <th>Descrição</th>
-          <th>Quantidade</th>
+          <th>QT</th>
           <th>Valor Unitário</th>
           <th>Sub-total</th>
           {
