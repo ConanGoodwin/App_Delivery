@@ -157,19 +157,23 @@ function OrderDetails() {
         {seller}
       </p>
       <p data-testid={ LABEL_ORDER_DATE }>{formatDate()}</p>
-      <p data-testid={ LABEL_DEL_STATUS }>
-        {orderId.status}
-        {
-          (orderId.status === 'Em Trânsito')
-            ? (
-              <img
-                className="icon_moto"
-                src="http://localhost:3001/images/moto.png"
-                alt="sem"
-              />
-            ) : null
-        }
-      </p>
+      <div>
+        <p data-testid={ LABEL_DEL_STATUS }>
+          {orderId.status}
+        </p>
+        <p>
+          {
+            (orderId.status === 'Em Trânsito')
+              ? (
+                <img
+                  className="icon_moto"
+                  src="http://localhost:3001/images/moto.png"
+                  alt="sem"
+                />
+              ) : null
+          }
+        </p>
+      </div>
       <button
         type="button"
         data-testid={ BTN_CHECK }
