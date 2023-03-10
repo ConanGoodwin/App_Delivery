@@ -54,7 +54,6 @@ function NavBar() {
               to="/customer/orders"
               style={ { marginLeft: '20px', textDecoration: 'none', color: 'white' } }
               data-testid="customer_products__element-navbar-link-orders"
-              color="white"
             >
               MEUS PEDIDOS
 
