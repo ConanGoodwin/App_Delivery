@@ -85,19 +85,30 @@ function MyOrders() {
       <h1 className="sales__title">Meus pedidos</h1>
       {allSales.map((data) => (
         <div className="sale" key={ data.id }>
-          <Link class="sale__link" to={ `/customer/orders/${data.id}` }>
+          <Link className="sale__link" to={ `/customer/orders/${data.id}` }>
             <span className="sale__id" data-testid={ `${CUSTOMER_ORDERS_ID}-${data.id}` }>
               <strong>Pedido:</strong>
               {' '}
               {addZeros(data.id)}
             </span>
             <span
-              className="sale__status"
+              className={ `sale__status ${data.status}` }
               data-testid={ `${CUSTOMER_DELIVERY_STATUS_ID}-${data.id}` }
             >
-              <strong>Status:</strong>
+              <strong>Status: </strong>
               {' '}
               {data.status}
+              {' '}
+              {
+                (data.status === 'Em Trânsito')
+                  ? (
+                    <img
+                      className="icon_moto"
+                      src="http://localhost:3001/images/moto.png"
+                      alt="sem"
+                    />
+                  ) : null
+              }
             </span>
             <span
               className="sale__date"

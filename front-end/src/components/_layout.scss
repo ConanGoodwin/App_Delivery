@@ -25,14 +25,12 @@ nav {
   }
 
   .navBarLabelTela {
-    display: 'flex';
+    display: flex;
     width: 60%;
-    // justify-content: left;
     align-self: center;
+    justify-content: space-between;
     font-family: pimball;
     font-size: xxx-large;
-    // font-family: college;
-    // font-size: xx-large;
     background-color: rgb(238, 75, 75);
   }
 
