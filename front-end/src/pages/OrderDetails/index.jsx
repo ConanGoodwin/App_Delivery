@@ -157,7 +157,7 @@ function OrderDetails() {
         {seller}
       </p>
       <p data-testid={ LABEL_ORDER_DATE }>{formatDate()}</p>
-      <div>
+      <div style={ { display: 'flex', alignItems: 'center' } }>
         <p data-testid={ LABEL_DEL_STATUS }>
           {orderId.status}
         </p>
