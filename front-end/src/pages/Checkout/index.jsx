@@ -146,7 +146,7 @@ function Checkout() {
                 className="label"
 
               >
-                P. Vendedora Responsável
+                Vendedora
                 <select
                   id="cmbSellers"
                   data-testid="customer_checkout__select-seller"
