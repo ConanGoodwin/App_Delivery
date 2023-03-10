@@ -95,7 +95,7 @@ function MyOrders() {
               className={ `sale__status ${data.status}` }
               data-testid={ `${CUSTOMER_DELIVERY_STATUS_ID}-${data.id}` }
             >
-              <strong>Status: </strong>
+              {/* <strong>Status: </strong> */}
               {' '}
               {data.status}
               {' '}
