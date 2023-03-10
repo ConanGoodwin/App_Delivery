@@ -91,25 +91,28 @@ function MyOrders() {
               {' '}
               {addZeros(data.id)}
             </span>
-            <span
-              className={ `sale__status ${data.status}` }
-              data-testid={ `${CUSTOMER_DELIVERY_STATUS_ID}-${data.id}` }
-            >
-              {/* <strong>Status: </strong> */}
-              {' '}
-              {data.status}
-              {' '}
-              {
-                (data.status === 'Em Trânsito')
-                  ? (
-                    <img
-                      className="icon_moto"
-                      src="http://localhost:3001/images/moto.png"
-                      alt="sem"
-                    />
-                  ) : null
-              }
-            </span>
+            <div className={ `sale__status ${data.status}` }>
+              <span
+                data-testid={ `${CUSTOMER_DELIVERY_STATUS_ID}-${data.id}` }
+              >
+                {/* <strong>Status: </strong> */}
+                {' '}
+                {data.status}
+                {' '}
+              </span>
+              <p>
+                {
+                  (data.status === 'Em Trânsito')
+                    ? (
+                      <img
+                        className="icon_moto"
+                        src="http://localhost:3001/images/moto.png"
+                        alt="sem"
+                      />
+                    ) : null
+                }
+              </p>
+            </div>
             <span
               className="sale__date"
               data-testid={ `${COSTUMER_ORDERS_DATE_ID}-${data.id}` }
