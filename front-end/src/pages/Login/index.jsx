@@ -153,12 +153,14 @@ function Login() {
           {
             (failedTryLogin)
               ? (
-                <p data-testid={ COMMON_LOGIN_INVALID }>
-                  {
-                    `O endereço de e-mail ou a senha não estão corretos.
-                    Por favor, tente novamente.`
-                  }
-                </p>
+                <div>
+                  <p data-testid={ COMMON_LOGIN_INVALID }>
+                    O endereço de e-mail ou a senha não estão corretos.
+                  </p>
+                  <p style={ { textAlign: 'center' } }>
+                    Tente novamente ou crie um novo usuário.
+                  </p>
+                </div>
               )
               : null
           }
