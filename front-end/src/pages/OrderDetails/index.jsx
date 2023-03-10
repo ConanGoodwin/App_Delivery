@@ -173,6 +173,43 @@ function OrderDetails() {
               ) : null
           }
         </p>
+        <p>
+          {
+            (orderId.status === 'Entregue')
+              ? (
+                <img
+                  className="icon_moto"
+                  src="http://localhost:3001/images/ok_accept_15562.png"
+                  alt="sem"
+                  style={ { width: '20px', marginLeft: '5px' } }
+                />
+              ) : null
+          }
+        </p>
+        <p>
+          {
+            (orderId.status === 'Preparando')
+              ? (
+                <img
+                  src="http://localhost:3001/images/package.png"
+                  alt="sem"
+                  style={ { width: '30px', marginLeft: '5px' } }
+                />
+              ) : null
+          }
+        </p>
+        <p>
+          {
+            (orderId.status === 'Pendente')
+              ? (
+                <img
+                  src="http://localhost:3001/images/loading.png"
+                  alt="sem"
+                  style={ { width: '20px', marginLeft: '5px' } }
+                />
+              ) : null
+          }
+        </p>
       </div>
       <button
         type="button"
