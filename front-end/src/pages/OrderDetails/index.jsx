@@ -135,6 +135,8 @@ function OrderDetails() {
       setStatus(products.status);
       setOrderId(products);
 
+      navigate('/customer/orders');
+
       return products;
     };
     fecthProducts();
