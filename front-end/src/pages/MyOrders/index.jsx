@@ -54,7 +54,7 @@ function MyOrders() {
     const getCustomerSales = async () => {
       try {
         const getSales = await requestData('/sales');
-        setAllSales(getSales);
+        setAllSales(getSales.reverse());
       } catch (error) { console.log('bad request'); }
     };
     getCustomerSales();

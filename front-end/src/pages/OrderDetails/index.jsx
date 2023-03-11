@@ -143,7 +143,7 @@ function OrderDetails() {
   };
 
   return (
-    <div>
+    <form style={ { alignItems: 'flex-start', padding: '10px' } }>
       <div style={ { display: 'flex', justifyContent: 'left', width: '100%' } }>
         <h4>Detalhes do Pedido</h4>
       </div>
@@ -153,7 +153,8 @@ function OrderDetails() {
         {formatId()}
       </p>
       <p data-testid={ LABEL_SELLER_NAME }>
-        P.Vend:
+        Vendedora:
+        {' '}
         {seller}
       </p>
       <p data-testid={ LABEL_ORDER_DATE }>{formatDate()}</p>
@@ -227,15 +228,15 @@ function OrderDetails() {
           dataTestId={ dataTestId }
           data={ data }
         />
-        <h4>
-          Total: R$
-          {' '}
-          <span data-testid={ TOTAL_PRICE }>
-            { (totalCart).toFixed(2).replace('.', ',') }
-          </span>
-        </h4>
       </div>
-    </div>
+      <h4 style={ { textAlign: 'right', width: '100%' } }>
+        Total: R$
+        {' '}
+        <span data-testid={ TOTAL_PRICE }>
+          { (totalCart).toFixed(2).replace('.', ',') }
+        </span>
+      </h4>
+    </form>
   );
 }
 
