@@ -64,7 +64,10 @@ function NavBar() {
           ? (
             <div style={ { display: 'flex', alignItems: 'baseline' } }>
               <Link to="/customer/checkout" style={ { width: '30px' } }>
-                <img src="http://localhost:3001/images/shopping_cart_market_ecommerce_icon_144576(2).png" alt="" />
+                <img
+                  src="http://localhost:3001/images/shopping_cart_market_ecommerce_icon_144576(2).png"
+                  alt="DATABASE OUT"
+                />
               </Link>
               <div
                 style={ {
