@@ -8,7 +8,7 @@ const {
 const userRouter = Router();
 
 userRouter.get('/', UserController.getAll);
-userRouter.get('/validate', validateJWT, UserController.validadeToken);
+userRouter.get('/validate', validateJWT, UserController.validateToken);
 userRouter
   .post('/register', validateBodyRegister, validateEmail, validateLength, UserController.create);
 userRouter.post('/login', validateBodyLogin, validateEmail, validateLength, UserController.login);

@@ -8,11 +8,12 @@ const {
 const admRouter = Router();
 
 admRouter.get('/', UserController.getAll);
-admRouter.get('/validate', validateJWT, UserController.validadeToken);
+admRouter.get('/validate', validateJWT, UserController.validateToken);
 admRouter
   .post(
-    '/register', 
-    validateBodyRegister, validateBodyAdm, validateEmail, validateLength, UserController.createAdm,
+      '/register', 
+      validateBodyRegister, validateBodyAdm, validateEmail, validateLength, 
+      validateJWT, UserController.createAdm,
     );
 admRouter.post('/login', validateBodyLogin, validateEmail, validateLength, UserController.login);
 

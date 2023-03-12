@@ -18,7 +18,7 @@ const login = async (req, res) => {
   returnControllerToken(res, type, message, 200);
 };
 
-const validadeToken = async (req, res) => {
+const validateToken = async (req, res) => {
   let type = null;
   let message = { role: req.user.role, name: req.user.name };
 
@@ -40,6 +40,9 @@ const create = async (req, res) => {
 };
 
 const createAdm = async (req, res) => {
+  if (!req.role || req.role !== 'administrator') {
+    return res.status(401).json({ message: 'not valid adm Token.' });
+  }
   const { name, email, password, role } = req.body;
 
   const { type, message } = await UserService.create({ name, email, password, role }, 'adm');
@@ -50,7 +53,7 @@ const createAdm = async (req, res) => {
 module.exports = {
   getAll,
   login,
-  validadeToken,
+  validateToken,
   create,
   createAdm,
 };
