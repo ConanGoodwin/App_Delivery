@@ -34,7 +34,15 @@ const validadeToken = async (req, res) => {
 const create = async (req, res) => {
   const { name, email, password, role } = req.body;
 
-  const { type, message } = await UserService.create(name, email, password, role);
+  const { type, message } = await UserService.create(name, email, password, role, 'client');
+
+  returnController(res, type, message, 201);
+};
+
+const createAdm = async (req, res) => {
+  const { name, email, password, role } = req.body;
+
+  const { type, message } = await UserService.create(name, email, password, role, 'adm');
 
   returnController(res, type, message, 201);
 };
