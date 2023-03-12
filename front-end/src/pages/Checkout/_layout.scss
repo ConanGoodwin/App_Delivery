@@ -44,3 +44,11 @@ h4 {
   cursor: pointer;
   border: none;
 }
+
+.button_finish_sale:disabled  {
+  background-color:#556662;
+  border-radius: 10px;
+  color: white;
+  cursor: not-allowed;
+  border: none;
+}
