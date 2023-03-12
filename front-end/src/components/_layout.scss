@@ -61,7 +61,7 @@ section {
   box-shadow: $form-login-box-shadow;
   border-radius: 20px;
   margin: 5px;
-  padding: 5px;
+  padding: 10px;
 
   p {
     margin: 5px;
@@ -89,7 +89,8 @@ section {
   
   .imput_qt_product {
       // height: 25px;
-      width: 120px;
+      text-align: center;
+      width: 40px;
       border-radius: 7px;
       margin: 5px;
       border: 2px solid;
