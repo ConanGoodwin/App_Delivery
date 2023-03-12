@@ -99,6 +99,10 @@ function OrderDetails() {
     getSales();
   }, [id, setSales, userLogin.token]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const acomuladora = (value) => {
     if (totalCart !== value) {
       setTotalCart(value);
