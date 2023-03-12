@@ -52,4 +52,5 @@ module.exports = {
   login,
   validadeToken,
   create,
+  createAdm,
 };
