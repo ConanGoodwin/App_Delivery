@@ -35,12 +35,12 @@ const getById = async (id) => {
 };
 
 const create = async ({ name, email, password: noEcriptPassword, role }, type) => {
-  let password = ''
-  try {
-    password = md5(noEcriptPassword);
-  } catch (error) {
-    return { type: 'INVALID_PASSWORD', message: 'Password not encripted' };
-  }
+  const password = md5(noEcriptPassword);
+  // try {
+  //   password = md5(noEcriptPassword);
+  // } catch (error) {
+  //   return { type: 'INVALID_PASSWORD', message: 'Password not encripted' };
+  // }
   const ifExistEmail = await User.findOne({ where: { email } });
   const ifExistName = await User.findOne({ where: { name } });
   let message = '';
