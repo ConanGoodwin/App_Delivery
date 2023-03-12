@@ -24,6 +24,7 @@ function Checkout() {
       } catch (error) { console.log('bad request'); }
     };
     getSellers();
+    window.scrollTo(0, 0);
   }, []);
 
   const setaContextUser = useCallback(async (name) => {
