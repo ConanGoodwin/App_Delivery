@@ -93,14 +93,7 @@ function NavBar() {
         </p>
       </div>
       <div
-        style={ { display: 'flex',
-          // border: BORDER,
-          borderTopRightRadius: '20px',
-          borderBottomLeftRadius: '20px',
-          width: '10%',
-          justifyContent: 'center',
-          alignItems: 'center',
-          backgroundColor: 'blue' } }
+        className="navBarLogout"
       >
         <Link
           to="/login"
@@ -109,7 +102,6 @@ function NavBar() {
           style={ { color: 'white' } }
         >
           Sair
-
         </Link>
       </div>
     </nav>
