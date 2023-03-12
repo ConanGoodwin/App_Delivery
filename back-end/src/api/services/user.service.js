@@ -2,7 +2,7 @@ const md5 = require('md5');
 const { User } = require('../../database/models');
 
 const getAll = async () => {
-  const message = await User.findAll({attributes: {exclude: ['password']}});
+  const message = await User.findAll({ attributes: { exclude: ['password'] } });
 
   if (message) return { type: null, message };
 
@@ -34,11 +34,16 @@ const getById = async (id) => {
   // }
 };
 
-const create = async (name, email, noEcriptPassword, role, type) => {
-  const password = md5(noEcriptPassword);
+const create = async ({ name, email, password: noEcriptPassword, role }, type) => {
+  let password = ''
+  try {
+    password = md5(noEcriptPassword);
+  } catch (error) {
+    return { type: 'INVALID_PASSWORD', message: 'Password not encripted' };
+  }
   const ifExistEmail = await User.findOne({ where: { email } });
   const ifExistName = await User.findOne({ where: { name } });
-  let message = ''
+  let message = '';
 
   if (ifExistEmail) {
     return { type: 'USER_ALREADY_EXIST', message: 'User already registered' };
