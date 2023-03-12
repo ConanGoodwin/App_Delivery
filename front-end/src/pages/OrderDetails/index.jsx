@@ -217,6 +217,7 @@ function OrderDetails() {
         data-testid={ BTN_CHECK }
         onClick={ handleBtnStatus }
         disabled={ status !== 'Em Trânsito' }
+        className="button_finish_sale"
       >
         MARCAR COMO ENTREGUE
       </button>
