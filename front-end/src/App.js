@@ -12,7 +12,7 @@ function App() {
       { (userLogin.role) ? <NavBar /> : null }
       <div className="main">
         <img
-          src="http://localhost:3001/images/background.png"
+          src="http://localhost:3001/images/background3.png"
           alt="sem"
           className="fundo_main"
         />
