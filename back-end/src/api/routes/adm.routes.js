@@ -10,7 +10,7 @@ const admRouter = Router();
 admRouter.get('/', UserController.getAll);
 admRouter.get('/validate', validateJWT, UserController.validadeToken);
 admRouter
-  .post('/register', validateBodyRegister, validateEmail, validateLength, UserController.create);
+  .post('/register', validateBodyRegister, validateEmail, validateLength, UserController.createAdm);
 admRouter.post('/login', validateBodyLogin, validateEmail, validateLength, UserController.login);
 
 module.exports = admRouter;
