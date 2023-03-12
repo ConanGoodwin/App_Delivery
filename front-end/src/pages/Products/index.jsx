@@ -212,7 +212,7 @@ function Products() {
       </button>
       {
         !reqError ? allProducts.map(({ id, name, price, urlImage }, index) => (
-          <div key={ id }>
+          <div key={ id } style={ { flexBasis: '50px' } }>
             <ProductCard
               id={ id }
               name={ name }

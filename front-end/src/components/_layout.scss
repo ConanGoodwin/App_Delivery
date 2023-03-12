@@ -51,8 +51,11 @@ nav {
 
 section {
   display: flex;
-  min-height: 62vh;
-  min-width: 10vw;
+  // min-height: 62vh;
+  min-height: 70vh;
+  min-width: 15vw;
+  // flex-basis: 50px;
+  // max-width: 16vw;
   align-items: center;
   flex-direction: column;
   flex-wrap: wrap;
@@ -60,17 +63,19 @@ section {
   background-color: $form-login-background-color;
   box-shadow: $form-login-box-shadow;
   border-radius: 20px;
-  margin: 5px;
+  margin: 10px 5px;
   padding: 10px;
 
   p {
-    margin: 5px;
+    margin: 3px;
     font-family: digitalLime;
+    text-align: center;
     font-size: larger;
     word-wrap: break-word;
   }
 
   .fontLarger {
+    height: 40px;
     font-size: 20px;
   }
 
