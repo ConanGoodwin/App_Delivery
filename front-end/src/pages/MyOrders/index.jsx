@@ -83,6 +83,9 @@ function MyOrders() {
   return (
     <div className="sales">
       <h1 className="sales__title">Meus pedidos</h1>
+      { (allSales.length === 0)
+        ? (<div className="sale">Nenhum historico de pedidos deste cliente.</div>)
+        : null}
       {allSales.map((data) => (
         <div className="sale" key={ data.id }>
           <Link className="sale__link" to={ `/customer/orders/${data.id}` }>
