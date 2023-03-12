@@ -1,9 +1,23 @@
-const validateBodyRegister = async (req, res, next) => {
-  const { name, email, password, role } = req.body;
+const ERROR_BODY = 'Some required fields are missing';
 
-    if (!email || !password || !name || !role) {
+const validateBodyRegister = async (req, res, next) => {
+  const { name, email, password } = req.body;
+
+    if (!email || !password || !name) {
       return res.status(400).json({
-        message: 'Some required fields are missing',
+        message: ERROR_BODY,
+      }); 
+    }
+
+  next();
+};
+
+const validateBodyAdm = async (req, res, next) => {
+  const { role } = req.body;
+
+    if (!role) {
+      return res.status(400).json({
+        message: ERROR_BODY,
       }); 
     }
 
@@ -15,7 +29,7 @@ const validateBodyLogin = async (req, res, next) => {
 
     if (!email || !password) {
       return res.status(400).json({
-        message: 'Some required fields are missing',
+        message: ERROR_BODY,
       }); 
     }
 
@@ -50,4 +64,10 @@ const validateLength = async (req, res, next) => {
   next();
 };
 
-module.exports = { validateBodyRegister, validateBodyLogin, validateEmail, validateLength };
+module.exports = { 
+  validateBodyRegister, 
+  validateBodyAdm,
+  validateBodyLogin, 
+  validateEmail, 
+  validateLength,
+};

@@ -32,9 +32,9 @@ const validadeToken = async (req, res) => {
 };
 
 const create = async (req, res) => {
-  const { name, email, password, role } = req.body;
+  const { name, email, password } = req.body;
 
-  const { type, message } = await UserService.create(name, email, password, role, 'client');
+  const { type, message } = await UserService.create({ name, email, password }, 'client');
 
   returnController(res, type, message, 201);
 };
@@ -42,7 +42,7 @@ const create = async (req, res) => {
 const createAdm = async (req, res) => {
   const { name, email, password, role } = req.body;
 
-  const { type, message } = await UserService.create(name, email, password, role, 'adm');
+  const { type, message } = await UserService.create({ name, email, password, role }, 'adm');
 
   returnController(res, type, message, 201);
 };

@@ -56,7 +56,7 @@ function LoginForm() {
     try {
       const { id } = await requestPost(
         '/user/register',
-        { name: userName, email, password, role: 'customer' },
+        { name: userName, email, password },
       );
       if (id) {
         const { token, role, name } = await requestPost(
@@ -118,6 +118,15 @@ function LoginForm() {
           placeholder="***********"
           data-testid={ COMMON_REGISTER_PASSWORD }
         />
+        {
+          (failedTryRegister)
+            ? (
+              <p data-testid={ COMMON_REGISTER_INVALID }>
+                O campo [nome] ou [email] já foi cadastrado!
+              </p>
+            )
+            : ''
+        }
         <button
           className="button_register"
           type="submit"
@@ -128,16 +137,6 @@ function LoginForm() {
 
         </button>
       </form>
-      {
-        (failedTryRegister)
-          ? (
-            <p data-testid={ COMMON_REGISTER_INVALID }>
-              O campo [nome] ou [email] já foi cadastrado!
-            </p>
-          )
-          : ''
-      }
-
     </div>
   );
 }
