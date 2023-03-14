@@ -62,9 +62,27 @@ function NavBar() {
           : null }
         { (userLogin.role === 'customer' && cart.length > 0)
           ? (
-            <Link to="/customer/checkout">
-              <img src="http://localhost:3001/images/shopping_cart_market_ecommerce_icon_144576(2).png" alt="" />
-            </Link>
+            <div style={ { display: 'flex', alignItems: 'baseline' } }>
+              <Link to="/customer/checkout" style={ { width: '30px' } }>
+                <img
+                  src="http://localhost:3001/images/shopping_cart_market_ecommerce_icon_144576(2).png"
+                  alt="DATABASE OUT"
+                />
+              </Link>
+              <div
+                style={ {
+                  border: '1px solid black',
+                  borderRadius: '100%',
+                  fontSize: 'small',
+                  height: '15px',
+                  width: '15px',
+                  textAlign: 'center',
+                  fontFamily: 'college',
+                  backgroundColor: 'whitesmoke' } }
+              >
+                {cart.length }
+              </div>
+            </div>
           )
           : null }
       </div>
@@ -78,14 +96,7 @@ function NavBar() {
         </p>
       </div>
       <div
-        style={ { display: 'flex',
-          // border: BORDER,
-          borderTopRightRadius: '20px',
-          borderBottomLeftRadius: '20px',
-          width: '10%',
-          justifyContent: 'center',
-          alignItems: 'center',
-          backgroundColor: 'blue' } }
+        className="navBarLogout"
       >
         <Link
           to="/login"
@@ -94,7 +105,6 @@ function NavBar() {
           style={ { color: 'white' } }
         >
           Sair
-
         </Link>
       </div>
     </nav>
