@@ -16,4 +16,3 @@ app.use('/adm', admRouter);
 app.use('/images', express.static('public/images'));
 
 module.exports = app;
-// teste
