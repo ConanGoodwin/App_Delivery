@@ -59,7 +59,7 @@ export default ProductCard;
 ProductCard.propTypes = {
   id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
+  price: PropTypes.string.isRequired,
   urlImage: PropTypes.string.isRequired,
   quantidade: PropTypes.number.isRequired,
   txtChange: PropTypes.func.isRequired,

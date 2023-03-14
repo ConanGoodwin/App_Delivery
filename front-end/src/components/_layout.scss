@@ -26,7 +26,7 @@ nav {
 
   .navBarLabelTela {
     display: flex;
-    width: 60%;
+    width: 63%;
     align-self: center;
     justify-content: space-between;
     font-family: pimball;
@@ -47,12 +47,25 @@ nav {
     background-color: rgb(241, 25, 25) ;
     font-family: paly;
   }
+
+  .navBarLogout {
+    display: flex;
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    width: 6%;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(52, 52, 192);
+  }
 }
 
 section {
   display: flex;
-  min-height: 62vh;
-  min-width: 10vw;
+  // min-height: 62vh;
+  min-height: 70vh;
+  min-width: 15vw;
+  // flex-basis: 50px;
+  // max-width: 16vw;
   align-items: center;
   flex-direction: column;
   flex-wrap: wrap;
@@ -60,17 +73,19 @@ section {
   background-color: $form-login-background-color;
   box-shadow: $form-login-box-shadow;
   border-radius: 20px;
-  margin: 5px;
-  padding: 5px;
+  margin: 10px 5px;
+  padding: 10px;
 
   p {
-    margin: 5px;
+    margin: 3px;
     font-family: digitalLime;
+    text-align: center;
     font-size: larger;
     word-wrap: break-word;
   }
 
   .fontLarger {
+    height: 40px;
     font-size: 20px;
   }
 
@@ -89,7 +104,8 @@ section {
   
   .imput_qt_product {
       // height: 25px;
-      width: 120px;
+      text-align: center;
+      width: 40px;
       border-radius: 7px;
       margin: 5px;
       border: 2px solid;

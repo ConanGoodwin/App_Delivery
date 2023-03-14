@@ -129,8 +129,19 @@ function SellerOrderDetail() {
   };
 
   return (
-    <div>
-      <div style={ { display: 'flex', justifyContent: 'space-between' } }>
+    <div
+      style={ {
+        backgroundColor: '#eaf1ef',
+        boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+        borderRadius: '20px',
+        padding: '10px' } }
+    >
+      <div
+        style={ {
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center' } }
+      >
         <span data-testid="seller_order_details__element-order-details-label-order-id">
           PEDIDO:
           { sale && formatId() }
@@ -149,6 +160,7 @@ function SellerOrderDetail() {
           data-testid="seller_order_details__button-preparing-check"
           disabled={ (sale && sale.status !== 'Pendente') }
           onClick={ handleBtnStatus }
+          className="button_finish_sale"
         >
           PREPARAR PEDIDO
         </button>
@@ -158,6 +170,7 @@ function SellerOrderDetail() {
           data-testid="seller_order_details__button-dispatch-check"
           disabled={ (sale && sale.status !== 'Preparando') }
           onClick={ handleBtnStatus }
+          className="button_finish_sale"
         >
           SAIU PARA ENTREGA
         </button>

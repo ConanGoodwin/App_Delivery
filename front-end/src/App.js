@@ -10,7 +10,15 @@ function App() {
   return (
     <BrowserRouter>
       { (userLogin.role) ? <NavBar /> : null }
-      <Router />
+      <div className="main">
+        <img
+          src="http://localhost:3001/images/background3.png"
+          alt="sem"
+          className="fundo_main"
+        />
+        <Router />
+      </div>
+
     </BrowserRouter>
   );
 }
