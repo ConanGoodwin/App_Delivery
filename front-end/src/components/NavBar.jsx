@@ -16,7 +16,14 @@ function NavBar() {
 
   return (
     <nav>
-      <div className="navBarFunction">
+      <div
+        className="navBarFunction"
+        style={
+          (() => {
+            if (userLogin.role === 'administrator') return ({ width: '300px' });
+          })()
+        }
+      >
         <Link
           to={
             (() => {
@@ -38,12 +45,14 @@ function NavBar() {
               }
             })()
           }
-          style={ { color: 'white' } }
+          style={
+            { color: 'white' }
+          }
         >
           {(() => {
             if (userLogin.role === 'customer') return <p>PRODUTOS</p>;
             if (userLogin.role === 'seller') return <p>PEDIDOS</p>;
-            if (userLogin.role === 'administrator') return <p>GERENCIAR USUÁRIOS</p>;
+            if (userLogin.role === 'administrator') return <p>GERENCIAR USUARIOS</p>;
           })()}
         </Link>
       </div>
