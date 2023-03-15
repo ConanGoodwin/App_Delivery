@@ -65,8 +65,8 @@ function Manage() {
 
   return (
     <main style={ { display: 'flex', flexDirection: 'column' } }>
-      <form>
-        <h1>Cadastrar novo usuário</h1>
+      <h1 style={ { width: '85%' } }>Cadastrar novo usuário</h1>
+      <div className="formInputs">
         <label
           htmlFor="nameInput"
           className="label"
@@ -148,7 +148,7 @@ function Manage() {
           Cadastrar
 
         </button>
-      </form>
+      </div>
       <section style={ { height: '10px' } }>
         <h1>Lista de usuários cadastrados</h1>
       </section>
