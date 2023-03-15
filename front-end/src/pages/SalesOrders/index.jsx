@@ -54,7 +54,7 @@ function SalesOrders() {
       try {
         const getSales = await requestData('/sales');
         // const salesFiltred = getSales.filter(({ status }) => status !== 'Entregue');
-        setAllSales(getSales);
+        setAllSales(getSales.reverse());
         // setAllSales(getSales);
       } catch (error) { console.log('bad request'); }
     };
@@ -85,29 +85,44 @@ function SalesOrders() {
   }
 
   return (
-    <div>
-      <h1>Minhas vendas</h1>
+    <div className="sales">
+      <h1 className="sales__title">Minhas vendas</h1>
+      { (allSales.length === 0)
+        ? (<div className="sale">Nenhum historico de pedidos para este vendedor.</div>)
+        : null}
       {allSales.map((data) => (
-        <div key={ data.id }>
-          <Link to={ `/seller/orders/${data.id} ` }>
-            <span data-testid={ `${SELLER_ORDERS_ID}-${data.id}` }>
+        <div className="sale" key={ data.id }>
+          <Link className="sale__link" to={ `/seller/orders/${data.id} ` }>
+            <span className="sale__id" data-testid={ `${SELLER_ORDERS_ID}-${data.id}` }>
               {`Pedido ${addZeros(data.id)} `}
             </span>
-
-            <span data-testid={ `${SELLER_DELIVERY_STATUS_ID}-${data.id}` }>
-              Status:
-              {' '}
-              {data.status}
-            </span>
-
+            <div className={ `sale__status ${data.status}` }>
+              <span data-testid={ `${SELLER_DELIVERY_STATUS_ID}-${data.id}` }>
+                {/* Status: */}
+                {' '}
+                {data.status}
+              </span>
+              <p>
+                {
+                  (data.status === 'Em Trânsito')
+                    ? (
+                      <img
+                        className="icon_moto"
+                        src="http://localhost:3001/images/moto.png"
+                        alt="sem"
+                      />
+                    ) : null
+                }
+              </p>
+            </div>
             <span
+              className="sale__date"
               data-testid={ `${SELLER_ORDERS_DATE_ID}-${data.id}` }
             >
+              <strong>Data:</strong>
               {' '}
               {convertDate(data.saleDate)}
-              {' '}
             </span>
-
             <span data-testid={ `${SELLER_ORDERS_CARD_PRICE_ID}-${data.id}` }>
               Preço total:
               {' '}
@@ -115,7 +130,17 @@ function SalesOrders() {
             </span>
             <br />
             <span data-testid={ `${SELLER_ORDERS_STREET_ID}-${data.id}` }>
-              {`${data.deliveryAddress}, ${data.deliveryNumber}`}
+              <strong style={ { marginLeft: '20px' } }>Endereço:</strong>
+              {
+                ` ${
+                  (data.deliveryAddress)
+                    ? data.deliveryAddress : '<vazio>'
+                }, 
+                  ${
+        (data.deliveryNumber)
+          ? data.deliveryNumber : '<vazio>'
+        }`
+              }
             </span>
           </Link>
         </div>
