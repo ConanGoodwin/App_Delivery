@@ -7,6 +7,7 @@ import SellerOrderDetail from './pages/SellerOrderDetail.js';
 import MyOrders from './pages/MyOrders/index';
 import OrderDetails from './pages/OrderDetails';
 import SalesOrders from './pages/SalesOrders';
+import Manage from './pages/Manage';
 
 export default function Router() {
   return (
@@ -20,6 +21,7 @@ export default function Router() {
       <Route exact path="/customer/orders/:id" element={ <OrderDetails /> } />
       <Route exact path="/seller/orders" element={ <SalesOrders /> } />
       <Route exact path="/seller/orders/:id" element={ <SellerOrderDetail /> } />
+      <Route exact path="/admin/manage" element={ <Manage /> } />
     </Routes>
   );
 }
