@@ -1,7 +1,7 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import LoginContext from '../../context/LoginContext';
-import { requestData } from '../../services/api';
+import { requestData, requestPost, setToken } from '../../services/api';
 import verficaToken from '../../utils/auth/verficaToken';
 import isValidEmail from '../../validations/validationEmail';
 
@@ -10,15 +10,15 @@ const MAX_PASSWORD_LENGTH = 6;
 
 function Manage() {
   const { setUserLogin } = useContext(LoginContext);
+  const [data, setData] = useState([]);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [userName, setUserName] = useState('');
-  const [drbSeller, setDrbSeller] = useState('');
+  const [drbSeller, setDrbSeller] = useState('customer');
   const [isDisabledButton, setIsDisabledButton] = useState(false);
   const [failedTryRegister] = useState(false);
   const navigate = useNavigate();
 
-  // recupera os dados de usuario do local storage e preenche a variavel global user com eles
   const setaContextUser = useCallback(async (name) => {
     const { token, role } = JSON.parse(localStorage.getItem('user'));
     setUserLogin({
@@ -28,8 +28,6 @@ function Manage() {
     });
   }, [setUserLogin]);
 
-  // faz a validação do token e verifica a role do usuario logado para validar se
-  // aquele tipo de usuario tem acesso aquela pagina.
   useEffect(() => {
     const validaToken = async () => {
       const respValida = await verficaToken('administrator');
@@ -51,21 +49,64 @@ function Manage() {
     validaToken();
   }, [navigate, setUserLogin, setaContextUser]);
 
+  const getData = async () => {
+    try {
+      const resp = await requestData('/user');
+      setData(resp.reverse());
+    } catch (error) {
+      console.log('bad request!');
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
   useEffect(() => {
     const validateRegistration = () => {
       const isValidName = userName.length >= MAX_NAME_LENGTH;
       const isValidPassword = password.length >= MAX_PASSWORD_LENGTH;
       const isValidEmAil = isValidEmail(email);
       const result = isValidName && isValidPassword && isValidEmAil;
-
       return result;
     };
     setIsDisabledButton(validateRegistration());
   }, [email, password, userName]);
 
+  async function handleClickInclude() {
+    const { token } = JSON.parse(localStorage.getItem('user'));
+    try {
+      setToken(token);
+      const { id } = await requestPost(
+        '/adm/register',
+        { name: userName, email, password, role: drbSeller },
+      );
+      if (id) {
+        getData();
+        setUserName('');
+        setEmail('');
+        setDrbSeller('customer');
+        setPassword('');
+      }
+    } catch (error) {
+      console.log('bad request');
+    }
+  }
+
+  // async function handleClickExclude({ target: { name } }) {
+  //   try {
+  //     const { id } = await requestPost(
+  //       '/adm/register',
+  //       { name: userName, email, password, role: drbSeller },
+  //     );
+  //   } catch (error) {
+  //     console.log('bad request');
+  //   }
+  // }
+
   return (
     <main style={ { display: 'flex', flexDirection: 'column' } }>
-      <h1 style={ { width: '85%' } }>Cadastrar novo usuário</h1>
+      <h1 style={ { width: '85%', margin: '5px' } }>Cadastrar novo usuário</h1>
       <div className="formInputs">
         <label
           htmlFor="nameInput"
@@ -78,7 +119,6 @@ function Manage() {
             id="nameInput"
             value={ userName }
             onChange={ (event) => setUserName(event.target.value) }
-            placeholder="Seu nome"
             data-testid="admin_manage__input-name"
           />
         </label>
@@ -93,7 +133,6 @@ function Manage() {
             id="emailInput"
             value={ email }
             onChange={ (event) => setEmail(event.target.value) }
-            placeholder="seu-email@site.com.br"
             data-testid="admin_manage__input-email"
           />
         </label>
@@ -108,7 +147,6 @@ function Manage() {
             id="passwordInput"
             value={ password }
             onChange={ (event) => setPassword(event.target.value) }
-            placeholder="***********"
             data-testid="admin_manage__input-password"
           />
         </label>
@@ -128,6 +166,12 @@ function Manage() {
             <option value="customer" name="optCustomer">
               customer
             </option>
+            <option value="seller" name="optSeller">
+              seller
+            </option>
+            <option value="administrator" name="optAdministrator">
+              administrator
+            </option>
           </select>
         </label>
         {
@@ -137,23 +181,64 @@ function Manage() {
                 O campo [nome] ou [email] já foi cadastrado!
               </p>
             )
-            : ''
+            : null
         }
         <button
           className="button_register"
           type="submit"
           disabled={ !isDisabledButton }
           data-testid="admin_manage__button-register"
+          onClick={ handleClickInclude }
         >
           Cadastrar
-
         </button>
       </div>
-      <section style={ { height: '10px' } }>
-        <h1>Lista de usuários cadastrados</h1>
-      </section>
+      <div style={ { height: '350px', overflowY: 'scroll' } }>
+        <h1 style={ { marginBottom: '2px' } }>Lista de usuários cadastrados</h1>
+        <table width="100%">
+          <thead>
+            <th>It</th>
+            <th>Nome</th>
+            <th>E-mail</th>
+            <th>Tipo</th>
+            <th>Excluir</th>
+          </thead>
+          <tbody>
+            { data.map((user, index) => (
+              <tr key={ index } className={ (index % 2 !== 0) && 'fundoEscuro' }>
+                <td
+                  data-testid={
+                    `admin_manage__element-user-table-item-number-${index}`
+                  }
+                >
+                  {index + 1}
+                </td>
+                <td data-testid={ `$admin_manage__input-email-${index}` }>
+                  {user.name}
+                </td>
+                <td data-testid={ `admin_manage__element-user-table-email-${index}` }>
+                  {user.email}
+                </td>
+                <td data-testid={ `admin_manage__element-user-table-role-${index}` }>
+                  {user.role}
+                </td>
+                <td>
+                  <button
+                    name={ user.id }
+                    data-testid={ `admin_manage__element-user-table-remove-${index}` }
+                    type="button"
+                    onClick={ (target) => handleClickExclude(target) }
+                    className="button_remove"
+                  >
+                    Remover
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </main>
   );
 }
-
 export default Manage;
