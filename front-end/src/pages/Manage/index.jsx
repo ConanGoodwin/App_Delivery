@@ -1,7 +1,7 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import LoginContext from '../../context/LoginContext';
-import { requestData, requestPost, setToken } from '../../services/api';
+import { requestData, requestDelete, requestPost, setToken } from '../../services/api';
 import verficaToken from '../../utils/auth/verficaToken';
 import isValidEmail from '../../validations/validationEmail';
 
@@ -93,16 +93,17 @@ function Manage() {
     }
   }
 
-  // async function handleClickExclude({ target: { name } }) {
-  //   try {
-  //     const { id } = await requestPost(
-  //       '/adm/register',
-  //       { name: userName, email, password, role: drbSeller },
-  //     );
-  //   } catch (error) {
-  //     console.log('bad request');
-  //   }
-  // }
+  async function handleClickExclude({ target: { name } }) {
+    try {
+      await requestDelete(
+        `/adm/user/${name}`,
+        { name: userName, email, password, role: drbSeller },
+      );
+      getData();
+    } catch (error) {
+      console.log('bad request');
+    }
+  }
 
   return (
     <main style={ { display: 'flex', flexDirection: 'column' } }>

@@ -51,10 +51,19 @@ const createAdm = async (req, res) => {
   returnController(res, type, message, 201);
 };
 
+const exclude = async (req, res) => {
+  const { id } = req.params;
+
+  const { type, message } = await UserService.exclude(id);
+
+  returnController(res, type, message, 200);
+};
+
 module.exports = {
   getAll,
   login,
   validateToken,
   create,
   createAdm,
+  exclude,
 };

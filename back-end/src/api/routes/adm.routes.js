@@ -2,7 +2,7 @@ const { Router } = require('express');
 const validateJWT = require('../auth/validateJWT');
 const UserController = require('../controllers/user.controller');
 const {
-  validateBodyRegister, validateBodyLogin, validateEmail, validateLength, validateBodyAdm,
+  validateBodyRegister, validateEmail, validateLength, validateBodyAdm,
 } = require('../middlewares');
 
 const admRouter = Router();
@@ -15,6 +15,6 @@ admRouter
       validateBodyRegister, validateBodyAdm, validateEmail, validateLength, 
       validateJWT, UserController.createAdm,
     );
-admRouter.post('/login', validateBodyLogin, validateEmail, validateLength, UserController.login);
+admRouter.delete('/user/:id', UserController.exclude);
 
 module.exports = admRouter;
