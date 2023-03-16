@@ -64,11 +64,20 @@ const create = async ({ name, email, password: noEcriptPassword, role }, type) =
   return { type: 'USER_NOT_CREATE', message: 'Failed create user' };
 };
 
+const exclude = async (id) => {
+  const message = await User.destroy({ where: { id } });
+
+  if (message) return { type: null, message };
+
+  return { type: 'USER_NOT_FOUND', message: 'User not found' };
+};
+
 module.exports = {
   getAll,
   getByEmailPassword,
   getById,
   create,
+  exclude,
 };
 
 // const teste = async () => {
