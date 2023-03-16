@@ -40,7 +40,8 @@ const create = async (req, res) => {
 };
 
 const createAdm = async (req, res) => {
-  if (!req.role || req.role !== 'administrator') {
+  const { role: tokenRole } = req.user;
+  if (!tokenRole || tokenRole !== 'administrator') {
     return res.status(401).json({ message: 'not valid adm Token.' });
   }
   const { name, email, password, role } = req.body;
