@@ -14,6 +14,7 @@ import './style.css';
 
 function MyOrders() {
   const { setUserLogin } = useContext(LoginContext);
+  const [idCustomer, setIdCustomer] = useState(0);
   const [allSales, setAllSales] = useState([]);
   const navigate = useNavigate();
 
@@ -38,6 +39,7 @@ function MyOrders() {
       }
       if (localStorage.getItem('logado') === 'true') {
         setaContextUser(respValida);
+        setIdCustomer(Number(respValida.id));
       } else {
         try {
           await requestData('/user/validate');
@@ -54,11 +56,13 @@ function MyOrders() {
     const getCustomerSales = async () => {
       try {
         const getSales = await requestData('/sales');
-        setAllSales(getSales.reverse());
+        const customerSales = getSales.filter(({ userId }) => userId === idCustomer);
+
+        setAllSales(customerSales.reverse());
       } catch (error) { console.log('bad request'); }
     };
     getCustomerSales();
-  }, []);
+  }, [idCustomer]);
 
   const addZeros = (dataId) => {
     const padding = 4;
