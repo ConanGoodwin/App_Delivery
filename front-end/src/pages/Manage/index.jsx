@@ -19,7 +19,7 @@ function Manage() {
   const [failedTryRegister, setFailedTryRegister] = useState(false);
   const navigate = useNavigate();
 
-  const setaContextUser = useCallback(async (name) => {
+  const setaContextUser = useCallback(async ({ name }) => {
     const { token, role } = JSON.parse(localStorage.getItem('user'));
     setUserLogin({
       token,
@@ -200,11 +200,13 @@ function Manage() {
         <h1 style={ { marginBottom: '2px' } }>Lista de usuários cadastrados</h1>
         <table width="100%">
           <thead>
-            <th>It</th>
-            <th>Nome</th>
-            <th>E-mail</th>
-            <th>Tipo</th>
-            <th>Excluir</th>
+            <tr>
+              <th>It</th>
+              <th>Nome</th>
+              <th>E-mail</th>
+              <th>Tipo</th>
+              <th>Excluir</th>
+            </tr>
           </thead>
           <tbody>
             { data.map((user, index) => (
