@@ -14,6 +14,7 @@ import verficaToken from '../../utils/auth/verficaToken';
 
 function SalesOrders() {
   const { setUserLogin } = useContext(LoginContext);
+  const [idCustomer, setIdCustomer] = useState(0);
   const [allSales, setAllSales] = useState([]);
   const navigate = useNavigate();
 
@@ -37,6 +38,7 @@ function SalesOrders() {
       }
       if (localStorage.getItem('logado') === 'true') {
         setaContextUser(respValida);
+        setIdCustomer(Number(respValida.id));
       } else {
         try {
           await requestData('/user/validate');
@@ -54,12 +56,14 @@ function SalesOrders() {
       try {
         const getSales = await requestData('/sales');
         // const salesFiltred = getSales.filter(({ status }) => status !== 'Entregue');
-        setAllSales(getSales.reverse());
+        const sellerSales = getSales.filter(({ sellerId }) => sellerId === idCustomer);
+
+        setAllSales(sellerSales.reverse());
         // setAllSales(getSales);
       } catch (error) { console.log('bad request'); }
     };
     getCustomerSales();
-  }, []);
+  }, [idCustomer]);
 
   // console.log(allSales);
 
