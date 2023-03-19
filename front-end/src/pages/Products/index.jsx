@@ -16,7 +16,7 @@ function Products() {
   const navigate = useNavigate();
 
   // recupera os dados de usuario do local storage e preenche a variavel global user com eles
-  const setaContextUser = useCallback(async (name) => {
+  const setaContextUser = useCallback(async ({ name }) => {
     const { token, role } = JSON.parse(localStorage.getItem('user'));
     // if (JSON.parse(localStorage.getItem('cart'))) {
     //   setCart(JSON.parse(localStorage.getItem('cart')));
@@ -41,6 +41,7 @@ function Products() {
       }
       if (localStorage.getItem('logado') === 'true') {
         setaContextUser(respValida);
+        console.log(respValida);
       } else {
         try {
           await requestData('/user/validate');
