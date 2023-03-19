@@ -41,7 +41,6 @@ function Products() {
       }
       if (localStorage.getItem('logado') === 'true') {
         setaContextUser(respValida);
-        console.log(respValida);
       } else {
         try {
           await requestData('/user/validate');
