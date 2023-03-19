@@ -200,13 +200,11 @@ function Manage() {
         <h1 style={ { marginBottom: '2px' } }>Lista de usuários cadastrados</h1>
         <table width="100%">
           <thead>
-            <tr>
-              <th>It</th>
-              <th>Nome</th>
-              <th>E-mail</th>
-              <th>Tipo</th>
-              <th>Excluir</th>
-            </tr>
+            <th>It</th>
+            <th>Nome</th>
+            <th>E-mail</th>
+            <th>Tipo</th>
+            <th>Excluir</th>
           </thead>
           <tbody>
             { data.map((user, index) => (
