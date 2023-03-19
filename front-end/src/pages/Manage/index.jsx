@@ -16,7 +16,7 @@ function Manage() {
   const [userName, setUserName] = useState('');
   const [drbSeller, setDrbSeller] = useState('customer');
   const [isDisabledButton, setIsDisabledButton] = useState(false);
-  const [failedTryRegister] = useState(false);
+  const [failedTryRegister, setFailedTryRegister] = useState(false);
   const navigate = useNavigate();
 
   const setaContextUser = useCallback(async (name) => {
@@ -88,7 +88,9 @@ function Manage() {
         setDrbSeller('customer');
         setPassword('');
       }
+      setFailedTryRegister(false);
     } catch (error) {
+      setFailedTryRegister(true);
       console.log('bad request');
     }
   }

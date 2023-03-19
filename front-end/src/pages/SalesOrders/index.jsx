@@ -17,7 +17,7 @@ function SalesOrders() {
   const [allSales, setAllSales] = useState([]);
   const navigate = useNavigate();
 
-  const setaContextUser = useCallback(async (name) => {
+  const setaContextUser = useCallback(async ({ name }) => {
     const { token, role } = JSON.parse(localStorage.getItem('user'));
     setUserLogin({
       token,

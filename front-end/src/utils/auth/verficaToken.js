@@ -14,12 +14,12 @@ export default async function verficaToken(typeUser) {
       const { token } = JSON.parse(localStorage.getItem('user'));
       setToken(token);
     }
-    const { role, name } = await requestData('/user/validate');
+    const { id, role, name } = await requestData('/user/validate');
     if (!role) {
       console.log('token invalido');
       return 'error';
     }
-    if (verificaAuthTypeUser(role, typeUser)) return name;
+    if (verificaAuthTypeUser(role, typeUser)) return { id, name };
     return 'error';
   } catch (error) {
     console.log('deslogado');

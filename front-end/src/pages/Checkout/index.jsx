@@ -27,7 +27,7 @@ function Checkout() {
     window.scrollTo(0, 0);
   }, []);
 
-  const setaContextUser = useCallback(async (name) => {
+  const setaContextUser = useCallback(async ({ name }) => {
     const { token, role } = JSON.parse(localStorage.getItem('user'));
     setUserLogin({ token, role, name });
   }, [setUserLogin]);
