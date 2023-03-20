@@ -1,0 +1,104 @@
+.container_login {
+  background-color: $container-login-background-color;
+  display: flex;
+  min-height: 100vh;
+  justify-content: center;
+  background-repeat: no-repeat;
+
+  align-items: center;
+}
+
+.bg_login {
+  max-width: 25vw;
+  position: absolute;
+  right: 150px;
+  z-index: 0;
+}
+
+.logo_login {
+ max-height: 28vh;
+ margin-bottom: 3px;
+}
+
+.container_login_bg {
+  display: flex;
+  flex-wrap: wrap;
+  min-height: 65vh;
+  min-width: 100vw;
+  justify-content: center;
+  align-items: center;
+  background-image: url('../../images/deliver.svg');
+  background-repeat: no-repeat;
+  background-position: 1px;
+}
+
+form {
+  display: flex;
+  min-height: 62vh;
+  min-width: 24vw;
+  align-items: center;
+  flex-direction: column;
+  justify-content: flex-start;
+  background-color: $form-login-background-color;
+  box-shadow: $form-login-box-shadow;
+  border-radius: 20px;
+  z-index: 1;
+
+  .login__login_input {
+    height: 25px;
+    width: 248px;
+    border-radius: 7px;
+    margin: 5px;
+    border: 2px solid;
+    border-color: $form-login-inputs-color;
+  }
+
+  .password_input {
+    height: 25px;
+    width: 248px;
+    border-radius: 7px;
+    margin: 5px;
+    border: 1.5px;
+    border: 2px solid;
+    border-color: $form-login-inputs-color;
+  }
+}
+
+
+.button_login:disabled  {
+  background-color:#556662;
+  height: 28px;
+  width: 240px;
+  border-radius: 10px;
+  margin: 5px;
+  color: white;
+  cursor: not-allowed;
+  border: none;
+}
+
+.button_login {
+  background-color:#0a5543;
+  height: 28px;
+  width: 240px;
+  border-radius: 10px;
+  margin: 5px;
+  color: white;
+  cursor: pointer;
+  border: none;
+}
+
+.button_create_account {
+  background-color: transparent;
+  height: 28px;
+  width: 240px;
+  border-radius: 8px;
+  margin: 5px;
+  color: #0a5543;
+  cursor: pointer;
+  border: #0a5543 solid 2px;
+}
+
+.checkbox {
+  outline: none; 
+  cursor: pointer; 
+}

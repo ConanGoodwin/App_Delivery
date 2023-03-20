@@ -68,3 +68,7 @@ INSERT INTO products (id, name, price, url_image) VALUES
 	(9, 'Becks 600ml',8.89, 'http://localhost:3001/images/becks_600ml.jpg'),
 	(10, 'Skol Beats Senses 269ml',3.57, 'http://localhost:3001/images/skol_beats_senses_269ml.jpg'),
 	(11, 'Stella Artois 275ml',3.49, 'http://localhost:3001/images/stella_artois_275ml.jpg');
+<<<<<<< HEAD
+=======
+-- Fim
+>>>>>>> 094a25c0d17cec579da446e538ba5201f57081c4

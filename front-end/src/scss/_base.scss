@@ -1,0 +1,75 @@
+@font-face {
+  font-family: turpa;
+  src: url('../fonts/TurpisItalic-JR0j7.ttf');
+}
+
+@font-face {
+  font-family: digitalLime;
+  src: url('../fonts/DigitaltsLime-lgxmd.ttf');
+}
+
+@font-face {
+  font-family: play;
+  src: url('../fonts/Playball-q6o1.ttf');
+}
+
+@font-face {
+  font-family: college;
+  src: url('../fonts/CollegiateheavyoutlineMedium-B0yx.ttf');
+}
+
+@font-face {
+  font-family: pimball;
+  src: url('../fonts/PinballWhizNf-BqMl.ttf');
+}
+
+@font-face {
+  font-family: typew;
+  src: url('../fonts/XTypewriter-z8oP4.ttf');
+}
+
+@font-face {
+  font-family: score;
+  src: url('../fonts/3DIsometricBlack-BWPPG.ttf');
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: $bg-white;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+// .telas {
+//   padding: 100px;
+//   position: relative;
+//   z-index: 3;
+// }
+
+.main {
+  position: relative;
+  overflow: hidden;
+  padding: 16px;
+  // border: 1px dashed green;
+  min-height: 100vh;
+}
+
+.fundo_main {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.3;
+  z-index: -1;
+}

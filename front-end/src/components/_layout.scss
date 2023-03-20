@@ -1,0 +1,161 @@
+nav {
+  display: flex; 
+  width: 99%; 
+  box-shadow: $form-login-box-shadow;
+  border-radius: 20px;
+  margin: 1px 5px;
+  // position: fixed;
+  background-color: rgb(238, 75, 75);
+  // z-index: -30;
+
+  .navBarFunction {
+    display: 'flex';
+    justify-content: center;
+    align-self: center;
+    text-align: center;
+    align-items: center;
+    margin-left: 5px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    background-color: #556662;
+    width: 13%;
+    font-family: college;
+    font-size: large;
+  }
+
+  .navBarLabelTela {
+    display: flex;
+    width: 63%;
+    align-self: center;
+    justify-content: space-between;
+    font-family: pimball;
+    font-size: 45px;
+    background-color: rgb(238, 75, 75);
+  }
+
+  .navBarName {
+    display: 'flex';
+    text-align: center;
+    align-items: center;
+    box-shadow: $form-login-box-shadow;
+    border-right: 3px solid rgb(59,59,59);
+    border-bottom: 3px solid rgb(29,29,29, 0.1);
+    border-radius: 20px;
+    margin: 5px;
+    width: 18%;
+    background-color: rgb(241, 25, 25) ;
+    font-family: paly;
+  }
+
+  .navBarLogout {
+    display: flex;
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    width: 6%;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(52, 52, 192);
+  }
+}
+
+section {
+  display: flex;
+  // min-height: 62vh;
+  min-height: 70vh;
+  min-width: 15vw;
+  // flex-basis: 50px;
+  // max-width: 16vw;
+  align-items: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  background-color: $form-login-background-color;
+  box-shadow: $form-login-box-shadow;
+  border-radius: 20px;
+  margin: 10px 5px;
+  padding: 10px;
+
+  p {
+    margin: 3px;
+    font-family: digitalLime;
+    text-align: center;
+    font-size: larger;
+    word-wrap: break-word;
+  }
+
+  .fontLarger {
+    height: 40px;
+    font-size: 20px;
+  }
+
+  .img_product {
+    background-color: $form-login-background-color;
+    box-shadow: $form-login-box-shadow;
+    border-radius: 10px;
+    margin: 5px;
+    height: 40vh;
+    width: 180px;
+  }
+  
+  .divBtn {
+    margin: 10px;
+  }
+  
+  .imput_qt_product {
+      // height: 25px;
+      text-align: center;
+      width: 40px;
+      border-radius: 7px;
+      margin: 5px;
+      border: 2px solid;
+      border-color: $form-login-inputs-color;
+    }
+  
+  .button {
+    background-color:#0a5543;
+    height: 22px;
+    width: 22px;
+    border-radius: 5px;
+    // margin: 5px;
+    color: white;
+    cursor: pointer;
+    border: none;
+  }
+  
+  
+}
+
+table {
+  box-shadow: $form-login-box-shadow;
+  background-color: rgb(227, 255, 255);
+  text-align: center;
+
+  th {
+    background-color: rgb(238, 75, 75);
+    color: white;
+  }
+
+  td {
+    font-family: typew;
+    border: 1px solid black;
+  }
+
+  .fundoEscuro {
+    background-color: #39a68c;
+    color: white;
+  }
+
+  .button_remove {
+    right: 1%;
+    background-color:#0a5543;
+    font-size: medium;
+    height: 40px;
+    width: 100px;
+    border-radius: 10px;
+    margin: 5px;
+    color: white;
+    cursor: pointer;
+    border: none;
+  }
+}
