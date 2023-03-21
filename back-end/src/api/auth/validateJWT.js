@@ -1,7 +1,6 @@
 const jwt = require('jsonwebtoken');
 const fs = require('fs');
 const path = require('path');
-const userService = require('../services/user.service');
 
 const FILE_PATH = '../../../';
 
@@ -13,12 +12,8 @@ module.exports = async (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, secret);
-    const { type, message } = await userService.getById(decoded.data.id);
 
-    if (type) {
-      return res.status(401).json({ message: 'Erro ao procurar usuário do token.' });
-    }
-    req.user = message;
+    req.id = decoded.data.id;
 
     next();
   } catch (error) {

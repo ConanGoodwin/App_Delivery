@@ -19,14 +19,10 @@ const login = async (req, res) => {
 };
 
 const validateToken = async (req, res) => {
-  let type = null;
-  let message = { id: req.user.id, role: req.user.role, name: req.user.name };
-
-  if (!req.user) {
-    type = 'EXPIRED_OR_INVALID_TOKEN';
-    message = 'Expired or Ivalid Token';
-  }
-  // message.role = req.user.role;
+  const { type, message } = (!req.id) ? ({
+    type: 'EXPIRED_OR_INVALID_TOKEN',
+    message: 'Expired or Ivalid Token',
+  }) : await UserService.getById(req.id);
 
   returnController(res, type, message, 200);
 };
