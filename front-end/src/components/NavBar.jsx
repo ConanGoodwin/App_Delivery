@@ -6,6 +6,9 @@ import LoginContext from '../context/LoginContext';
 
 function NavBar() {
   const { userLogin, setUserLogin, cart, setCart } = useContext(LoginContext);
+  const src = `${
+    process.env.API_URL || 'http://localhost:3001'
+  }/images/shopping_cart_market_ecommerce_icon_144576(2).png`;
 
   const handleClickLogout = () => {
     setUserLogin({ token: '', role: '', name: '' });
@@ -74,7 +77,7 @@ function NavBar() {
             <div style={ { display: 'flex', alignItems: 'baseline' } }>
               <Link to="/customer/checkout" style={ { width: '30px' } }>
                 <img
-                  src="http://localhost:3001/images/shopping_cart_market_ecommerce_icon_144576(2).png"
+                  src={ src }
                   alt="DATABASE OUT"
                 />
               </Link>
