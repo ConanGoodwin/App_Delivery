@@ -41,7 +41,7 @@ const createAdm = async (req, res) => {
   }) : await UserService.getById(req.id);
 
   if (!tokenRole || tokenRole !== 'administrator') {
-    return res.status(401).json({ message: 'not valid adm Token.' });
+    return res.status(404).json({ message: 'not valid adm Token.' });
   }
   const { name, email, password, role } = req.body;
 
