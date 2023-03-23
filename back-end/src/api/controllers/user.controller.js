@@ -36,8 +36,7 @@ const create = async (req, res) => {
 };
 
 const createAdm = async (req, res) => {
-  console.log(req.id);
-  const { role: tokenRole } = (!req.id) ? ({
+  const { message: { role: tokenRole } } = (!req.id) ? ({
     role: 'Expired or Ivalid Token',
   }) : await UserService.getById(req.id);
 
