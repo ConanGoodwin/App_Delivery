@@ -23,7 +23,7 @@ function ProductCard({
       <img
         className="img_product"
         data-testid={ `customer_products__img-card-bg-image-${id}` }
-        src={ src + urlImage }
+        src={ `${src}${urlImage}` }
         alt={ name }
       />
       <div className="divBtn">

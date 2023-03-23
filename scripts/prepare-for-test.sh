@@ -18,10 +18,10 @@ function initialize_back_end () {
     # rm -rf $cacheFolderBack
     # npm_config_loglevel=silent npm install --cache $cacheFolderBack
     npm install
-    npx sequelize-cli db:drop
-    npx sequelize-cli db:create
-    npx sequelize-cli db:migrate
-    npx sequelize-cli db:seed:all
+    # npx sequelize-cli db:drop
+    # npx sequelize-cli db:create
+    # npx sequelize-cli db:migrate
+    # npx sequelize-cli db:seed:all
     npm start
   )
 }
