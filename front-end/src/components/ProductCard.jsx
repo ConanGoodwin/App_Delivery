@@ -7,7 +7,7 @@ function ProductCard({
     process.env.API_URL || 'http://localhost:3001'
   }/images/`;
 
-  console.log(`${src}/${urlImage}`);
+  console.log(src + urlImage);
 
   return (
     <section>
@@ -25,7 +25,7 @@ function ProductCard({
       <img
         className="img_product"
         data-testid={ `customer_products__img-card-bg-image-${id}` }
-        src={ `${src}${urlImage}` }
+        src={ src + urlImage }
         alt={ name }
       />
       <div className="divBtn">
