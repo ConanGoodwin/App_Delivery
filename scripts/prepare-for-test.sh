@@ -44,7 +44,7 @@ pm2 start pm2.test.config.yml | grep 'PM2'
 
 sleep 10
 
-npx wait-on  -t 60000 http://localhost:process.env.PORT||3000
+npx wait-on  -t 60000 http://localhost:3000
 
 sleep 10
 
