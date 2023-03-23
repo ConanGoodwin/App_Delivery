@@ -7,6 +7,8 @@ function ProductCard({
     process.env.API_URL || 'http://localhost:3001'
   }/images/`;
 
+  console.log(`${src}${urlImage}`);
+
   return (
     <section>
       <p
