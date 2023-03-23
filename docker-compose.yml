@@ -60,6 +60,6 @@ services:
       - MYSQL_DB_NAME=delivery-app
 
     ports:
-      - 33006:3306
+      - 3306:3306
 
     
