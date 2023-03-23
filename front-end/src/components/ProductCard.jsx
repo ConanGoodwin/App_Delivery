@@ -3,6 +3,10 @@ import PropTypes from 'prop-types';
 
 function ProductCard({
   id, name, price, urlImage, quantidade, txtChange, handleClickMore, handleClickMinus }) {
+  const src = `${
+    process.env.API_URL || 'http://localhost:3001'
+  }/images/`;
+
   return (
     <section>
       <p
@@ -19,7 +23,7 @@ function ProductCard({
       <img
         className="img_product"
         data-testid={ `customer_products__img-card-bg-image-${id}` }
-        src={ urlImage }
+        src={ src + urlImage }
         alt={ name }
       />
       <div className="divBtn">
