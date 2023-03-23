@@ -21,6 +21,7 @@ function initialize_back_end () {
     npx sequelize-cli db:create
     npx sequelize-cli db:migrate
     npx sequelize-cli db:seed:all
+    npm start
   )
 }
 
@@ -31,6 +32,7 @@ function initialize_front_end() {
     cacheFolderFront="/tmp/delivery-app-front-end-cache"
     rm -rf $cacheFolderFront
     npm_config_loglevel=silent npm install --cache $cacheFolderFront
+    npm start
   )
 }
 
