@@ -40,7 +40,7 @@ sleep 10
 
 
 printf "\n> Iniciando ambas aplicações\n\n"
-pm2 start pm2.test.config.yml | grep 'PM2'
+# pm2 start pm2.test.config.yml | grep 'PM2'
 
 sleep 10
 
