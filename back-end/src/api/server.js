@@ -13,5 +13,5 @@ app
   .set('views', path.join(__dirname, 'views'))
   .set('view engine', 'ejs')
   .get('/', (req, res) => res.render('pages/index'))
-  .listen(PORT, () => console.log(`Listening on ${ PORT }`))
+  .listen(PORT,'0.0.0.0', () => console.log(`Listening on ${ PORT }`))
   // teste
