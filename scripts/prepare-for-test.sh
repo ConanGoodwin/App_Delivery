@@ -6,6 +6,7 @@ export NODE_ENV=test
 export CI=false
 pm2 stop all | grep 'PM2'
 pm2 delete all | grep 'PM2'
+npm run stop
 kill -9 $(lsof -t -i:3000) &> /dev/null & kill -9 $(lsof -t -i:3001) &> /dev/null
 printf "\n"
 
