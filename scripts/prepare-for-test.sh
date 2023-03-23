@@ -14,9 +14,10 @@ function initialize_back_end () {
   printf "\n> ASYNC: Instalando o back-end e inicializando o banco de dados com o ORM\n"
   (
     cd ./back-end
-    cacheFolderBack="/tmp/delivery-app-back-end-cache"
-    rm -rf $cacheFolderBack
-    npm_config_loglevel=silent npm install --cache $cacheFolderBack
+    # cacheFolderBack="/tmp/delivery-app-back-end-cache"
+    # rm -rf $cacheFolderBack
+    # npm_config_loglevel=silent npm install --cache $cacheFolderBack
+    npm install
     npx sequelize-cli db:drop
     npx sequelize-cli db:create
     npx sequelize-cli db:migrate
@@ -29,9 +30,10 @@ function initialize_front_end() {
   printf "\n> ASYNC: Instalando o front-end e gerando uma build do projeto\n"
   (
     cd ./front-end
-    cacheFolderFront="/tmp/delivery-app-front-end-cache"
-    rm -rf $cacheFolderFront
-    npm_config_loglevel=silent npm install --cache $cacheFolderFront
+    # cacheFolderFront="/tmp/delivery-app-front-end-cache"
+    # rm -rf $cacheFolderFront
+    # npm_config_loglevel=silent npm install --cache $cacheFolderFront
+    npm install
     npm start
   )
 }
