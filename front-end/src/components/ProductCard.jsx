@@ -15,7 +15,6 @@ function ProductCard({
       >
         {name}
       </p>
-      <p>{ `${src + urlImage}teste` }</p>
       <p data-testid={ `customer_products__element-card-price-${id}` }>
         R$
         {' '}
