@@ -4,9 +4,9 @@ nav {
   box-shadow: $form-login-box-shadow;
   border-radius: 20px;
   margin: 1px 5px;
-  // position: fixed;
+  position: fixed;
   background-color: rgb(238, 75, 75);
-  // z-index: -30;
+  z-index: 4;
 
   .navBarFunction {
     display: 'flex';
