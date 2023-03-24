@@ -34,6 +34,11 @@ nav {
     background-color: rgb(238, 75, 75);
   }
 
+  .cartLogo {
+    align-items: baseline;
+    display: flex;
+  }
+
   .navBarName {
     display: 'flex';
     text-align: center;
@@ -157,5 +162,49 @@ table {
     color: white;
     cursor: pointer;
     border: none;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  nav {
+    .navBarFunction {
+      width: 13%;
+    }
+
+    .cartLogo {
+      display: none;
+    }
+
+    .navBarName {
+      width: 20%;
+      font-size: small;
+    }
+
+    .navBarLogout {
+      width: 10%;
+    }
+  }
+
+  section {
+    width: 92%;
+    overflow-x: scroll;
+  }
+
+  table {
+    font-size: x-small;
+
+    th {
+      padding: 1px;
+      width: 5px;
+    }
+
+    td {
+      padding: 1px;
+    }
+
+    .button_remove {
+      width: 50px;
+      overflow: hidden;
+    }
   }
 }

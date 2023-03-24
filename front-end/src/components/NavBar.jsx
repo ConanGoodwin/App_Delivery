@@ -74,7 +74,7 @@ function NavBar() {
           : null }
         { (userLogin.role === 'customer' && cart.length > 0)
           ? (
-            <div style={ { display: 'flex', alignItems: 'baseline' } }>
+            <div className="cartLogo">
               <Link to="/customer/checkout" style={ { width: '30px' } }>
                 <img
                   src={ src }
