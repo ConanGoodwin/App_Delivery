@@ -2,6 +2,8 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import LoginContext from '../context/LoginContext';
 import imgFunction from '../images/shopping.png';
+import imgSale from '../images/icon_sale.png';
+import imgAdm from '../images/adm.png';
 import exitIcon from '../images/exit_icon.png';
 
 function NavBar() {
@@ -23,11 +25,13 @@ function NavBar() {
         className="navBarFunction"
         style={
           (() => {
-            if (userLogin.role === 'administrator') return ({ width: '300px' });
+            if (
+              userLogin.role === 'administrator'
+              && window.screen.width > '600'
+            ) return ({ width: '300px' });
           })()
         }
       >
-        <img className="imgFunction" src={ imgFunction } alt="sem" />
         <Link
           className="linkProduct"
           to={
@@ -51,10 +55,23 @@ function NavBar() {
             })()
           }
         >
+          <img
+            className="imgFunction"
+            src={
+              (() => {
+                if (userLogin.role === 'customer') return imgFunction;
+                if (userLogin.role === 'seller') return imgSale;
+                if (userLogin.role === 'administrator') return imgAdm;
+              })()
+            }
+            alt="sem"
+          />
           {(() => {
-            if (userLogin.role === 'customer') return <p>PRODUTOS</p>;
-            if (userLogin.role === 'seller') return <p>PEDIDOS</p>;
-            if (userLogin.role === 'administrator') return <p>GERENCIAR USUARIOS</p>;
+            if (userLogin.role === 'customer') return <p className="txtFunc">PRODUTOS</p>;
+            if (userLogin.role === 'seller') return <p className="txtFunc">PEDIDOS</p>;
+            if (userLogin.role === 'administrator') {
+              return <p className="txtFunc">GERENCIAR USUARIOS</p>;
+            }
           })()}
         </Link>
       </div>

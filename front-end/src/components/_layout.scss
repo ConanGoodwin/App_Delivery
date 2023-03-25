@@ -27,7 +27,7 @@ nav {
   .imgFunction {
     display: none;
     width: 30px;
-    padding: 5px;
+    padding: 10px 5px;
   }
 
   .linkProduct {
@@ -75,6 +75,7 @@ nav {
 
   .exitIcon {
     display: none;
+    width: 25px;
   }
   
   .linkExit {
@@ -193,7 +194,7 @@ table {
       display: flex;
     }
 
-    .linkProduct {
+    .txtFunc {
       display: none;
     }
 
