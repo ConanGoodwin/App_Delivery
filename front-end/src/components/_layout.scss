@@ -24,6 +24,16 @@ nav {
     font-size: large;
   }
 
+  .imgFunction {
+    display: none;
+    width: 30px;
+    padding: 5px;
+  }
+
+  .linkProduct {
+    color: white;
+  }
+
   .navBarLabelTela {
     display: flex;
     width: 63%;
@@ -61,6 +71,14 @@ nav {
     justify-content: center;
     align-items: center;
     background-color: rgb(52, 52, 192);
+  }
+
+  .exitIcon {
+    display: none;
+  }
+  
+  .linkExit {
+    color: white;
   }
 }
 
@@ -171,6 +189,14 @@ table {
       width: 13%;
     }
 
+    .imgFunction {
+      display: flex;
+    }
+
+    .linkProduct {
+      display: none;
+    }
+
     .cartLogo {
       display: none;
     }
@@ -181,7 +207,16 @@ table {
     }
 
     .navBarLogout {
-      width: 10%;
+      width: 12%;
+    }
+
+    .exitIcon {
+      display: flex;
+      margin-left: 2px;
+    }
+    
+    .spanExit {
+      display: none;
     }
   }
 

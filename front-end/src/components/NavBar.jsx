@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import LoginContext from '../context/LoginContext';
-
-// const BORDER = '1px solid black';
+import imgFunction from '../images/shopping.png';
+import exitIcon from '../images/exit_icon.png';
 
 function NavBar() {
   const { userLogin, setUserLogin, cart, setCart } = useContext(LoginContext);
@@ -27,7 +27,9 @@ function NavBar() {
           })()
         }
       >
+        <img className="imgFunction" src={ imgFunction } alt="sem" />
         <Link
+          className="linkProduct"
           to={
             (() => {
               if (userLogin.role === 'customer') return '/customer/products';
@@ -47,9 +49,6 @@ function NavBar() {
                 return 'customer_products__element-navbar-link-orders';
               }
             })()
-          }
-          style={
-            { color: 'white' }
           }
         >
           {(() => {
@@ -111,12 +110,14 @@ function NavBar() {
         className="navBarLogout"
       >
         <Link
+          className="linkExit"
           to="/login"
           data-testid="customer_products__element-navbar-link-logout"
           onClick={ handleClickLogout }
           style={ { color: 'white' } }
         >
-          Sair
+          <img className="exitIcon" src={ exitIcon } alt="sem" />
+          <span className="spanExit">Sair</span>
         </Link>
       </div>
     </nav>
