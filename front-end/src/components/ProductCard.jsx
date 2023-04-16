@@ -3,8 +3,11 @@ import PropTypes from 'prop-types';
 
 function ProductCard({
   id, name, price, urlImage, quantidade, txtChange, handleClickMore, handleClickMinus }) {
+  // const src = `${
+  //   process.env.API_URL || 'http://localhost:3001'
+  // }/images/`;
   const src = `${
-    process.env.API_URL || 'http://localhost:3001'
+    process.env.API_URL
   }/images/`;
 
   return (
