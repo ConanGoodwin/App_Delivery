@@ -7,7 +7,7 @@ function ProductCard({
   //   process.env.API_URL || 'http://localhost:3001'
   // }/images/`;
   const src = `${
-    process.env.API_URL
+    process.env.REACT_APP_API_URL
   }/images/`;
 
   return (
