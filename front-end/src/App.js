@@ -7,7 +7,7 @@ import LoginContext from './context/LoginContext';
 function App() {
   const { userLogin } = useContext(LoginContext);
   const src = `${
-    process.env.API_URL || 'http://localhost:3001'
+    process.env.REACT_APP_API_URL || 'http://localhost:3001'
   }/images/background3.png`;
 
   return (

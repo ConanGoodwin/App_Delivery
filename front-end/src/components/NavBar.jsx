@@ -9,7 +9,7 @@ import exitIcon from '../images/exit_icon.png';
 function NavBar() {
   const { userLogin, setUserLogin, cart, setCart } = useContext(LoginContext);
   const src = `${
-    process.env.API_URL || 'http://localhost:3001'
+    process.env.REACT_APP_API_URL || 'http://localhost:3001'
   }/images/shopping_cart_market_ecommerce_icon_144576(2).png`;
 
   const handleClickLogout = () => {

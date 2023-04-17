@@ -35,7 +35,7 @@ function OrderDetails() {
     subTotal: 'customer_order_details__element-order-table-sub-total',
     btnRemove: '',
   };
-  const src = `${process.env.API_URL || 'http://localhost:3001'}`;
+  const src = `${process.env.REACT_APP_API_URL || 'http://localhost:3001'}`;
 
   // recupera os dados de usuario do local storage e preenche a variavel global user com eles
   const setaContextUser = useCallback(async ({ name }) => {

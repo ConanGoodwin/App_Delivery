@@ -208,7 +208,12 @@ function Products() {
             .toFixed(2)
             .replace('.', ',') }
         </span>
-        <img src="http://localhost:3001/images/shopping_cart_market_ecommerce_icon_144576.png" alt="" />
+        <img
+          src={
+            `${process.env.REACT_APP_API_URL}/images/shopping_cart_market_ecommerce_icon_144576.png`
+          }
+          alt=""
+        />
       </button>
       {
         !reqError ? allProducts.map(({ id, name, price, urlImage }, index) => (

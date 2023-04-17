@@ -18,7 +18,7 @@ function MyOrders() {
   const [allSales, setAllSales] = useState([]);
   const navigate = useNavigate();
   const src = `${
-    process.env.API_URL || 'http://localhost:3001'
+    process.env.REACT_APP_API_URL || 'http://localhost:3001'
   }/images/moto.png`;
 
   // recupera os dados de usuario do local storage e preenche a variavel global user com eles
