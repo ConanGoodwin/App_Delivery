@@ -35,6 +35,7 @@ function OrderDetails() {
     subTotal: 'customer_order_details__element-order-table-sub-total',
     btnRemove: '',
   };
+  const src = `${process.env.REACT_APP_API_URL || 'http://localhost:3001'}`;
 
   // recupera os dados de usuario do local storage e preenche a variavel global user com eles
   const setaContextUser = useCallback(async ({ name }) => {
@@ -172,7 +173,7 @@ function OrderDetails() {
               ? (
                 <img
                   className="icon_moto"
-                  src="http://localhost:3001/images/moto.png"
+                  src={ `${src}/images/moto.png` }
                   alt="sem"
                 />
               ) : null
@@ -184,7 +185,7 @@ function OrderDetails() {
               ? (
                 <img
                   className="icon_moto"
-                  src="http://localhost:3001/images/ok_accept_15562.png"
+                  src={ `${src}/images/ok_accept_15562.png` }
                   alt="sem"
                   style={ { width: '20px', marginLeft: '5px' } }
                 />
@@ -196,7 +197,7 @@ function OrderDetails() {
             (orderId.status === 'Preparando')
               ? (
                 <img
-                  src="http://localhost:3001/images/package.png"
+                  src={ `${src}/images/package.png` }
                   alt="sem"
                   style={ { width: '30px', marginLeft: '5px' } }
                 />
@@ -208,7 +209,7 @@ function OrderDetails() {
             (orderId.status === 'Pendente')
               ? (
                 <img
-                  src="http://localhost:3001/images/loading.png"
+                  src={ `${src}/images/loading.png` }
                   alt="sem"
                   style={ { width: '20px', marginLeft: '5px' } }
                 />
