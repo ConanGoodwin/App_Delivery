@@ -17,6 +17,7 @@ function MyOrders() {
   const [idCustomer, setIdCustomer] = useState(0);
   const [allSales, setAllSales] = useState([]);
   const navigate = useNavigate();
+  // add railway envs
   const src = `${
     process.env.REACT_APP_API_URL || 'http://localhost:3001'
   }/images/moto.png`;
