@@ -4,9 +4,9 @@ nav {
   box-shadow: $form-login-box-shadow;
   border-radius: 20px;
   margin: 1px 5px;
-  // position: fixed;
+  position: fixed;
   background-color: rgb(238, 75, 75);
-  // z-index: -30;
+  z-index: 4;
 
   .navBarFunction {
     display: 'flex';
@@ -24,6 +24,16 @@ nav {
     font-size: large;
   }
 
+  .imgFunction {
+    display: none;
+    width: 30px;
+    padding: 10px 5px;
+  }
+
+  .linkProduct {
+    color: white;
+  }
+
   .navBarLabelTela {
     display: flex;
     width: 63%;
@@ -32,6 +42,11 @@ nav {
     font-family: pimball;
     font-size: 45px;
     background-color: rgb(238, 75, 75);
+  }
+
+  .cartLogo {
+    align-items: baseline;
+    display: flex;
   }
 
   .navBarName {
@@ -56,6 +71,15 @@ nav {
     justify-content: center;
     align-items: center;
     background-color: rgb(52, 52, 192);
+  }
+
+  .exitIcon {
+    display: none;
+    width: 25px;
+  }
+  
+  .linkExit {
+    color: white;
   }
 }
 
@@ -157,5 +181,66 @@ table {
     color: white;
     cursor: pointer;
     border: none;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  nav {
+    .navBarFunction {
+      width: 13%;
+    }
+
+    .imgFunction {
+      display: flex;
+    }
+
+    .txtFunc {
+      display: none;
+    }
+
+    .cartLogo {
+      display: none;
+    }
+
+    .navBarName {
+      width: 20%;
+      font-size: small;
+    }
+
+    .navBarLogout {
+      width: 12%;
+    }
+
+    .exitIcon {
+      display: flex;
+      margin-left: 2px;
+    }
+    
+    .spanExit {
+      display: none;
+    }
+  }
+
+  section {
+    width: 92%;
+    overflow-x: scroll;
+  }
+
+  table {
+    font-size: x-small;
+
+    th {
+      padding: 1px;
+      width: 5px;
+    }
+
+    td {
+      padding: 1px;
+    }
+
+    .button_remove {
+      width: 50px;
+      overflow: hidden;
+    }
   }
 }

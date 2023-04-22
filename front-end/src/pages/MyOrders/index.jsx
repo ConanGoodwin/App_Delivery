@@ -17,6 +17,10 @@ function MyOrders() {
   const [idCustomer, setIdCustomer] = useState(0);
   const [allSales, setAllSales] = useState([]);
   const navigate = useNavigate();
+  // add railway envs
+  const src = `${
+    process.env.REACT_APP_API_URL || 'http://localhost:3001'
+  }/images/moto.png`;
 
   // recupera os dados de usuario do local storage e preenche a variavel global user com eles
   const setaContextUser = useCallback(async ({ name }) => {
@@ -113,7 +117,7 @@ function MyOrders() {
                     ? (
                       <img
                         className="icon_moto"
-                        src="http://localhost:3001/images/moto.png"
+                        src={ src }
                         alt="sem"
                       />
                     ) : null

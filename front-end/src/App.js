@@ -6,21 +6,20 @@ import LoginContext from './context/LoginContext';
 
 function App() {
   const { userLogin } = useContext(LoginContext);
+  const src = `${
+    process.env.REACT_APP_API_URL || 'http://localhost:3001'
+  }/images/background3.png`;
 
   return (
     <BrowserRouter>
-      { (userLogin.role) ? <NavBar /> : null }
+      {userLogin.role ? <NavBar /> : null}
       <div className="main">
-        <img
-          src="http://localhost:3001/images/background3.png"
-          alt="sem"
-          className="fundo_main"
-        />
+        <img src={ src } alt="sem" className="fundo_main" />
         <Router />
       </div>
-
     </BrowserRouter>
   );
 }
 
 export default App;
+// teste

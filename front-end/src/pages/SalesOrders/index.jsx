@@ -17,6 +17,7 @@ function SalesOrders() {
   const [idCustomer, setIdCustomer] = useState(0);
   const [allSales, setAllSales] = useState([]);
   const navigate = useNavigate();
+  const src = `${process.env.REACT_APP_API_URL || 'http://localhost:3001'}`;
 
   const setaContextUser = useCallback(async ({ name }) => {
     const { token, role } = JSON.parse(localStorage.getItem('user'));
@@ -112,7 +113,7 @@ function SalesOrders() {
                     ? (
                       <img
                         className="icon_moto"
-                        src="http://localhost:3001/images/moto.png"
+                        src={ `${src}/images/moto.png` }
                         alt="sem"
                       />
                     ) : null

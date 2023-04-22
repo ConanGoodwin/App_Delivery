@@ -116,7 +116,7 @@ function Checkout() {
   };
 
   return (
-    <section style={ { padding: '10px' } }>
+    <section style={ { padding: '10px', marginTop: '1px' } }>
       <h4>Finalizar Pedido</h4>
       <TableCart
         acomuladora={ acomuladora }
