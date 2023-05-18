@@ -19,6 +19,7 @@ const login = async (req, res) => {
 };
 
 const validateToken = async (req, res) => {
+<<<<<<< HEAD
   let type = null;
   let message = { id: req.user.id, role: req.user.role, name: req.user.name };
 
@@ -27,6 +28,12 @@ const validateToken = async (req, res) => {
     message = 'Expired or Ivalid Token';
   }
   // message.role = req.user.role;
+=======
+  const { type, message } = (!req.id) ? ({
+    type: 'EXPIRED_OR_INVALID_TOKEN',
+    message: 'Expired or Ivalid Token',
+  }) : await UserService.getById(req.id);
+>>>>>>> refactor-railway
 
   returnController(res, type, message, 200);
 };
@@ -40,7 +47,14 @@ const create = async (req, res) => {
 };
 
 const createAdm = async (req, res) => {
+<<<<<<< HEAD
   const { role: tokenRole } = req.user;
+=======
+  const { message: { role: tokenRole } } = (!req.id) ? ({
+    role: 'Expired or Ivalid Token',
+  }) : await UserService.getById(req.id);
+
+>>>>>>> refactor-railway
   if (!tokenRole || tokenRole !== 'administrator') {
     return res.status(401).json({ message: 'not valid adm Token.' });
   }

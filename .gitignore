@@ -1,3 +1,9 @@
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+node_modules
+=======
+>>>>>>> refactor-railway
 
 # Created by https://www.gitignore.io/api/node,macos,windows,linux,visualstudiocode,intellij
 # Edit at https://www.gitignore.io/?templates=node,macos,windows,linux,visualstudiocode,intellij
@@ -297,3 +303,7 @@ back-end/.env
 **/reports/**/*
 **/coverage
 **/.nyc_output
+<<<<<<< HEAD
+=======
+>>>>>>> 094a25c0d17cec579da446e538ba5201f57081c4
+>>>>>>> refactor-railway

@@ -210,7 +210,10 @@ function Products() {
         </span>
         <img
           src={
+<<<<<<< HEAD
             // add railway envs
+=======
+>>>>>>> refactor-railway
             // eslint-disable-next-line max-len
             `${process.env.REACT_APP_API_URL}/images/shopping_cart_market_ecommerce_icon_144576.png`
           }

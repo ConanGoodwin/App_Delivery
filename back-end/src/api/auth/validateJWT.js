@@ -1,7 +1,10 @@
 const jwt = require('jsonwebtoken');
 const fs = require('fs');
 const path = require('path');
+<<<<<<< HEAD
 const userService = require('../services/user.service');
+=======
+>>>>>>> refactor-railway
 
 const FILE_PATH = '../../../';
 
@@ -13,12 +16,17 @@ module.exports = async (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, secret);
+<<<<<<< HEAD
     const { type, message } = await userService.getById(decoded.data.id);
 
     if (type) {
       return res.status(401).json({ message: 'Erro ao procurar usuário do token.' });
     }
     req.user = message;
+=======
+
+    req.id = decoded.data.id;
+>>>>>>> refactor-railway
 
     next();
   } catch (error) {

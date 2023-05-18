@@ -24,6 +24,10 @@
     "@testing-library/react": "12.1.4",
     "@testing-library/user-event": "13.5.0",
     "axios": "^1.3.4",
+<<<<<<< HEAD
+=======
+    "dotenv": "^16.0.3",
+>>>>>>> refactor-railway
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-hook-form": "^7.43.3",
