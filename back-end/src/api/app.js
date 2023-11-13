@@ -4,11 +4,14 @@ const { userRouter, productRouter, salesRouter } = require('./routes');
 const { salesProductsRouter, admRouter } = require('./routes');
 
 const app = express();
+
+console.log("teste");
+
 app.use(express.json());
 app.use(cors());
 
 app.get('/',(_req, res) => {
-  console.log("teste");
+  
 
   return res.json("ola mundo");
 });
