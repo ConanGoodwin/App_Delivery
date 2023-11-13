@@ -9,6 +9,7 @@
   "private": true,
   "scripts": {
     "start": "react-scripts start",
+    "dev": "nodemon .",
     "start:build": "PORT=3000 ./node_modules/.bin/serve -s build",
     "build": "CI=false react-scripts build",
     "test": "react-scripts test --runInBand --detectOpenHandles --verbose",
@@ -37,6 +38,7 @@
   },
   "devDependencies": {
     "eslint-config-trybe-frontend": "1.3.1",
+    "nodemon": "^2.0.15",
     "stylelint": "14.6.0",
     "stylelint-config-standard": "25.0.0",
     "stylelint-order": "5.0.0"

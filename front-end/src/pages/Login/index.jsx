@@ -85,6 +85,7 @@ function Login() {
     event.preventDefault();
 
     try {
+      // console.log(password);
       const { token, role, name } = await requestPost('/user/login', { email, password });
       setToken(token);
       localStorage.setItem('token', token);
