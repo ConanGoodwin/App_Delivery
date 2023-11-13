@@ -7,7 +7,11 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-app.get('/',(_req, res) => res.json("ola mundo"));
+app.get('/',(_req, res) => {
+  console.log("teste");
+
+  return res.json("ola mundo");
+});
 app.get('/coffee', (_req, res) => res.status(418).end());
 app.use('/user', userRouter);
 app.use('/product', productRouter);
