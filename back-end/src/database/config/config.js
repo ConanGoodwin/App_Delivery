@@ -27,9 +27,9 @@ const suffix = {
 
 const options = {
   database: "delivery-app",
-  username: "izjqkeo06fgybl66fyom",
+  username: "xuk63gp3ixa3qaiectp1",
   host: "aws.connect.psdb.cloud",
-  password: "pscale_pw_5AQSvcd54DuSUNFHxdkfDrauotfbV8bDTE4jKlWOKt1",
+  password: "pscale_pw_k2TKWKaUReunwISxRlzQACpbxQGef6QwFcsN7SOPD1Q",
   dialect: "mysql",
   // sslaccept: "strict",
   dialectOptions: {
