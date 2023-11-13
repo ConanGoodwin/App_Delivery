@@ -29,7 +29,7 @@ const options = {
   database: "delivery-app",
   username: "xuk63gp3ixa3qaiectp1",
   host: "aws.connect.psdb.cloud",
-  password: "pscale_pw_k2TKWKaUReunwISxRlzQACpbxQGef6QwFcsN7SOPD1Q",
+  password: process.env.PLANET_PASS,
   dialect: "mysql",
   // sslaccept: "strict",
   dialectOptions: {
