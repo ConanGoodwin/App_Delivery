@@ -3,6 +3,7 @@ const UserService = require('../services/user.service');
 const { returnController, returnControllerToken } = require('../utils/returnServicesControllers');
 
 const getAll = async (_req, res) => {
+  console.log("teste");
   const { type, message } = await UserService.getAll();
 
   if (type) return res.status(404).json({ message });
