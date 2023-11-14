@@ -27,11 +27,11 @@ const suffix = {
 
 const options = {
   database: "delivery-app",
-  username: "ah3scl1jz70n2fbmnwbm",
+  username: "21usbfqahny4y3r3cq03",
   host: "aws.connect.psdb.cloud",
   password: process.env.PLANET_PASS,
   dialect: "mysql",
-  dialectModule: "mysql2",
+  dialectModule: require('mysql2'),
   // sslaccept: "strict",
   dialectOptions: {
     timezone: "Z",

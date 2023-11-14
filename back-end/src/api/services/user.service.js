@@ -3,6 +3,7 @@ const { User } = require('../../database/models');
 
 const getAll = async () => {
   const message = await User.findAll({ attributes: { exclude: ['password'] } });
+  // .catch((error) => console.log('ERROR', error));
 
   if (message) return { type: null, message };
 
