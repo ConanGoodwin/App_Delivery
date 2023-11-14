@@ -8,7 +8,7 @@
   ],
   "rewrites": [
       { "source": "/(.*)", "destination": "src/api/server.js" },
-      { "source": "/public/images/(.*)", "destination": "/public/images/(.*)" }
+      { "source": "images/(.*)", "destination": "/public/images/background3.png" }
   ],
   "headers": [
       {
