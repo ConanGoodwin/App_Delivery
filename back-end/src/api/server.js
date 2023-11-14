@@ -9,9 +9,11 @@ const app = require('./app');
 const PORT = process.env.PORT || 3001
 // const HOST = process.env.HOSTNAME || '0.0.0.0';
 
-app
-  // .use(express.static(path.join(__dirname, 'public')))
-  // .set('views', path.join(__dirname, 'views'))
-  // .set('view engine', 'ejs')
-  // .get('/', (req, res) => res.render('pages/index'))
-  .listen(PORT, '0.0.0.0',0, () => console.log(`Listening on ${ PORT }`))
+// app
+//   // .use(express.static(path.join(__dirname, 'public')))
+//   // .set('views', path.join(__dirname, 'views'))
+//   // .set('view engine', 'ejs')
+//   // .get('/', (req, res) => res.render('pages/index'))
+//   .listen(PORT, '0.0.0.0',0, () => console.log(`Listening on ${ PORT }`))
+
+  app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
