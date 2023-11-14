@@ -31,6 +31,7 @@ const options = {
   host: "aws.connect.psdb.cloud",
   password: process.env.PLANET_PASS,
   dialect: "mysql",
+  dialectModule: "mysql2",
   // sslaccept: "strict",
   dialectOptions: {
     timezone: "Z",
