@@ -7,12 +7,9 @@ import LoginProvider from './context/LoginProvider';
 
 ReactDOM.render(
   // <React.StrictMode>
-  <div>
-    TESTE
-    <LoginProvider>
-      <App />
-    </LoginProvider>
-  </div>,
+  <LoginProvider>
+    <App />
+  </LoginProvider>,
   // </React.StrictMode>
   document.getElementById('root'),
 );
