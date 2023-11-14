@@ -27,7 +27,7 @@ const suffix = {
 
 const options = {
   database: "delivery-app",
-  username: "21usbfqahny4y3r3cq03",
+  username: process.env.PLANET_USER,
   host: "aws.connect.psdb.cloud",
   password: process.env.PLANET_PASS,
   dialect: "mysql",
