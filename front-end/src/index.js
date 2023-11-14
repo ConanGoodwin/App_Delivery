@@ -8,6 +8,7 @@ import LoginProvider from './context/LoginProvider';
 ReactDOM.render(
   // <React.StrictMode>
   <LoginProvider>
+    <div>TESE</div>
     <App />
   </LoginProvider>,
   // </React.StrictMode>
