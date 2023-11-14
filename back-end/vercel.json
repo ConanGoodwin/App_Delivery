@@ -7,20 +7,21 @@
     }
   ],
   "rewrites": [
-        { "source": "/(.*)", "destination": "src/api/server.js" }
-    ],
-    "headers": [
-        {
-          "source": "/(.*)",
-          "headers": [
-            { "key": "Access-Control-Allow-Origin", "value": "*" }
-          ]
-        },
-        {
-          "source": "/app-delivery-opal.vercel.app/(.*)",
-          "headers": [
-            { "key": "Access-Control-Allow-Origin", "value": "*" }
-          ]
-        }  
-    ]
+      { "source": "/(.*)", "destination": "src/api/server.js" },
+      { "source": "/public/images/(.*)", "destination": "/public/images/(.*)" }
+  ],
+  "headers": [
+      {
+        "source": "/(.*)",
+        "headers": [
+          { "key": "Access-Control-Allow-Origin", "value": "*" }
+        ]
+      },
+      {
+        "source": "/app-delivery-opal.vercel.app/(.*)",
+        "headers": [
+          { "key": "Access-Control-Allow-Origin", "value": "*" }
+        ]
+      }  
+  ]
 }
